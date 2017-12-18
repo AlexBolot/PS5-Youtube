@@ -8,23 +8,34 @@ public class DataCenter {
 
     private ArrayList8<Video> videos = new ArrayList8<>();
 
-    public DataCenter () {}
-
+    /**
+     * Getter for the videos
+     *
+     * @return The video store in the DataCenter
+     */
     public ArrayList<Video> getVideos() {
         return videos;
     }
 
-    public void setVideos (ArrayList8<Video> videos)
-    {
+    /**
+     * Setter for the video in the DataCenter
+     *
+     * @param videos The video Of the Datacenter
+     */
+    public void setVideos(ArrayList8<Video> videos) {
         this.videos = videos;
     }
 
+    /**
+     * ToString method
+     *
+     * @return A String representation of the current Object and it's attributes
+     */
     @Override
     public String toString() {
         String txt = "Videos dans le DataCenter : \n";
-        for (Video i : videos)
-        {
-            txt = txt +"- " + i.getId() + "\n";
+        for (Video i : videos) {
+            txt = txt + "- " + i.getId() + "\n";
         }
         return txt;
     }

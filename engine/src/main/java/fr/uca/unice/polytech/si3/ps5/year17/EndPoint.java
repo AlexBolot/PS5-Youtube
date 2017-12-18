@@ -2,74 +2,76 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
-public class EndPoint
-{
+public class EndPoint {
 
-    private int               id                 = 0;
-    private ArrayList8<Query> queries            = new ArrayList8<>();
-    private int               dataCenterLatency  = 0;
-    private int               numberOfConnection = 0;
+    private int id;
+    private ArrayList8<Query> queries;
+    private int dataCenterLatency;
+    private int numberOfConnection;
 
-    public EndPoint (int id, ArrayList8<Query> queries, int dataCenterLatency, int numberOfConnection)
-    {
+    /**
+     * EndPoint Constructor
+     *
+     * @param id                    The EndPoint ID
+     * @param queries               The Queries of that this EndPoint requested
+     * @param dataCenterLatency     The
+     * @param numberOfConnection
+     */
+    public EndPoint(int id, ArrayList8<Query> queries, int dataCenterLatency, int numberOfConnection) {
         this.id = id;
         this.queries = queries;
         this.dataCenterLatency = dataCenterLatency;
         this.numberOfConnection = numberOfConnection;
     }
 
-    public int getId ()
-    {
+    public int getId() {
         return id;
     }
 
-    public void setId (int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public ArrayList8<Query> getWantedVideos ()
-    {
+    public ArrayList8<Query> getQueries() {
         return queries;
     }
 
-    public void setWantedVideos (ArrayList8<Query> wantedVideos)
-    {
-        this.queries = wantedVideos;
+    public void setQueries(ArrayList8<Query> queries) {
+        this.queries = queries;
     }
 
-    public int getDataCenterLatency ()
-    {
+    public int getDataCenterLatency() {
         return dataCenterLatency;
     }
 
-    public void setDataCenterLatency (int dataCenterLatency)
-    {
+    public void setDataCenterLatency(int dataCenterLatency) {
         this.dataCenterLatency = dataCenterLatency;
     }
 
-    public int getNumberOfConnection ()
-    {
+    public int getNumberOfConnection() {
         return numberOfConnection;
     }
 
-    public void setNumberOfConnection (int numberOfConnection)
-    {
+    public void setNumberOfConnection(int numberOfConnection) {
         this.numberOfConnection = numberOfConnection;
     }
 
+    /**
+     * ToString method
+     *
+     * @return A String representation of the current Object and it's attributes
+     */
     @Override
-    public String toString ()
-    {
+    public String toString() {
         StringBuilder str = new StringBuilder();
 
         str.append("EndPoint ").append("id = ").append(id).append(", videos voulues :\n");
 
         queries.forEach(query -> str.append("- ")
-                                    .append(query.getVideo().getId())
-                                    .append(" voulue ")
-                                    .append(query.getNumberOfRequests())
-                                    .append(" fois\n"));
+                .append(query.getVideo().getId())
+                .append(" voulue ")
+                .append(query.getNumberOfRequests())
+                .append(" fois\n"));
 
         return str.toString();
     }

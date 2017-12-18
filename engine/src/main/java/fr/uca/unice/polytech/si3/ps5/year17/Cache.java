@@ -6,46 +6,85 @@ import java.util.ArrayList;
 
 public class Cache {
 
-    private int id = 0;
+    private int id;
     private ArrayList8<Video> videos = new ArrayList8<>();
-    private int size = 0;
+    private int size;
 
+    /**
+     * Cache Constructor
+     *
+     * @param id   The ID of the Cache
+     * @param size The size of the Cache
+     */
     public Cache(int id, int size) {
         this.id = id;
         this.size = size;
     }
 
+    /**
+     * Getter for the Cache ID
+     *
+     * @return The Cache ID
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Setter for the Cache ID
+     *
+     * @param id The Cache ID
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Getter for the video store on that Cache
+     *
+     * @return The video store on that Cache
+     */
     public ArrayList<Video> getVideos() {
         return videos;
     }
 
-    public void setVideos (ArrayList8<Video> videos)
-    {
+    /**
+     * Setter for the video store in that Cache
+     *
+     * @param videos The videos
+     */
+    public void setVideos(ArrayList8<Video> videos) {
         this.videos = videos;
     }
 
+    /**
+     * Getter for the size of the Cache
+     *
+     * @return The size of the Cache
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Setter for the size of the Cache
+     *
+     * @param size The size of the Cache
+     */
     public void setSize(int size) {
         this.size = size;
     }
 
+    /**
+     * ToString method
+     *
+     * @return A String representation of the current Object and it's attributes
+     */
     @Override
     public String toString() {
         String txt = "Cache " + "id = " + id + ", taille = " + size + ", videos :\n";
-        for (Video i : videos)
-        {
-            txt = txt +"- " + i.getId() + "\n";
+        for (Video i : videos) {
+            txt = txt + "- " + i.getId() + "\n";
         }
         return txt;
     }
