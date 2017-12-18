@@ -2,6 +2,7 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -26,10 +27,11 @@ public class Main {
         dc.getVideos().add(vid3);
         dc.getVideos().add(vid4);
 
-        EndPoint endPoint0 = new EndPoint(0,1000,3);
-        endPoint0.getWantedVideos().put(vid3,1500);
-        endPoint0.getWantedVideos().put(vid4,500);
-        endPoint0.getWantedVideos().put(vid1,1000);
+        ArrayList8<Query> qr = new ArrayList8<>();
+        EndPoint endPoint0 = new EndPoint(0,qr,1000,3);
+        endPoint0.getQueries().add(new Query(1500,vid3));
+        endPoint0.getQueries().add(new Query(500,vid4));
+        endPoint0.getQueries().add(new Query(1000,vid1));
 
         Cache ca0 = new Cache(0,10000);
         Cache ca1 = new Cache(1,10000);

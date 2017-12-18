@@ -41,29 +41,40 @@ public class Controller {
         this.endPoints = endPoints;
     }
 
-    public int scoring() {
+    public double scoring() {
         int temp = 0;
         int temp2 = 0;
-        int score;
+        double score;
+        HashMap<Integer, Integer> bestTimes = new HashMap<>();
 
         for (EndPoint e : endPoints) {
             for (Connexion c : connexions) {
-                for (Video v : e.getWantedVideos().keySet()) {
+                for (Query q : e.getQueries()) {
                     if (e.getId() == c.getIdEndPoint()) {
-                        if (caches.get(c.getIdCache()).getVideos().contains(v)) {
-                            System.out.println(v.getId());
-                            System.out.println(e.getWantedVideos().get(v) + " * (" + e.getDataCenterLatency() + " - " + c.getLatency() + ")");
-                            temp += e.getWantedVideos().get(v) * (e.getDataCenterLatency() - c.getLatency());
+                        if (caches.get(c.getIdCache()).getVideos().contains(q.getVideo())) {
+                            int tot = q.getNumberOfRequests() * (e.getDataCenterLatency() - c.getLatency());
+                            System.out.println(q.getVideo().getId());
+                            System.out.println(q.getNumberOfRequests() + " * (" + e.getDataCenterLatency() + " - " + c.getLatency() + ")");
+                            if (!bestTimes.containsKey(q.getVideo().getId()))
+                                bestTimes.put(q.getVideo().getId(), tot);
+                            if (bestTimes.containsKey(q.getVideo().getId()) && bestTimes.get(q.getVideo().getId()) < tot)
+                                bestTimes.put(q.getVideo().getId(), tot);
+                            //temp += q.getNumberOfRequests() * (e.getDataCenterLatency() - c.getLatency());
                         }
                     }
                 }
             }
-            for (int i : e.getWantedVideos().values()) {
-                temp2 += i;
+            for (Query q : e.getQueries()) {
+                temp2 += q.getNumberOfRequests();
             }
         }
+
+        for (Integer key : bestTimes.keySet()){
+            temp += bestTimes.get(key);
+        }
         System.out.println(temp2);
-        score = temp / temp2;
+        System.out.println(temp);
+        score = (double)temp / temp2;
 
         return score * 1000;
     }
@@ -71,4 +82,5 @@ public class Controller {
     public void printResult() {
 
     }
+
 }
