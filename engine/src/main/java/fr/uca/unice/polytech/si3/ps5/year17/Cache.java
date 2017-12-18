@@ -76,6 +76,18 @@ public class Cache {
     }
 
     /**
+     * Add a Video to the Cache server
+     *
+     * @param video The Video to add to the Cache server
+     * @return If the Video has been correctly added
+     */
+    public boolean addVideo(Video video) {
+        if (video.getSize() > this.size) return false;
+        this.size -= video.getSize();
+        return this.videos.add(video);
+    }
+
+    /**
      * ToString method
      *
      * @return A String representation of the current Object and it's attributes
@@ -88,4 +100,5 @@ public class Cache {
         }
         return txt;
     }
+
 }

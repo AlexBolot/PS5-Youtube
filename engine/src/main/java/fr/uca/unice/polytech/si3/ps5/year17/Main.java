@@ -1,5 +1,8 @@
 package fr.uca.unice.polytech.si3.ps5.year17;
 
+import fr.uca.unice.polytech.si3.ps5.year17.strategies.AllInDataCenterStrategy;
+import fr.uca.unice.polytech.si3.ps5.year17.strategies.FirstInStrategy;
+import fr.uca.unice.polytech.si3.ps5.year17.strategies.Strategy;
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
 import java.io.IOException;
@@ -68,12 +71,27 @@ public class Main {
 
         Parser parser = new Parser();
         try {
-            String path = Main.class.getResource("/kittens.in.txt").getPath();
+            String path = Main.class.getResource("/me_at_the_zoo.in").getPath();
             parser.parse(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        Controller c = new Controller(parser.getConnexions(), parser.getCaches(), parser.getEndpoints());
+
+        Strategy strategy = new AllInDataCenterStrategy(c.getConnexions(), c.getCaches(), c.getEndPoints());
+
+        strategy.apply();
+
+        c.generateOutput(args[0]);
+
+        c = new Controller(parser.getConnexions(), parser.getCaches(), parser.getEndpoints());
+
+        strategy = new FirstInStrategy(c.getConnexions(), c.getCaches(), c.getEndPoints());
+
+        strategy.apply();
+
+        c.generateOutput(args[0]);
     }
 
 }

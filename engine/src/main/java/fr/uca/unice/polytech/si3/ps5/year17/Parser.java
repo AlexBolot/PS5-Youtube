@@ -8,26 +8,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class Parser {
     private HashMap<String, Object> datas;
 
-    private ArrayList<Video> videos = new ArrayList<>();
+    private List<Video> videos = new ArrayList<>();
 
-    private ArrayList<EndPoint> endpoints = new ArrayList<>();
+    private List<EndPoint> endpoints = new ArrayList<>();
 
-    private ArrayList<Connexion> connexions = new ArrayList<>();
+    private List<Connexion> connexions = new ArrayList<>();
+
+    private List<Cache> caches = new ArrayList<>();
 
     private int numberOfCacheServers;
     private int cacheServersCapacity;
-
-    public ArrayList<Video> getVideos(){
-        return videos;
-    }
-
-    public Video getVideoById(int id){
-        return videos.get(id);
-    }
 
     /**
      * Read a .in file and parse the information
@@ -55,13 +50,14 @@ public class Parser {
             String[] endpointsInformation = in.readLine().split(" ");
             int dataCenterLatency = Integer.parseInt(endpointsInformation[0]);
             int endpointNumberOfConnections = Integer.parseInt(endpointsInformation[1]);
-            endpoints.add(new EndPoint(endpointId, new ArrayList<Query>(), dataCenterLatency, endpointNumberOfConnections));
+            endpoints.add(new EndPoint(endpointId, new ArrayList<>(), dataCenterLatency, endpointNumberOfConnections));
             // Runs through cache server information
             for (int j = 0; j < endpointNumberOfConnections; j++) {
                 String[] cacheInformation = in.readLine().split(" ");
                 int cacheServerId = Integer.parseInt(cacheInformation[0]);
                 int latencyCacheEndpoint = Integer.parseInt(cacheInformation[1]);
                 connexions.add(new Connexion(cacheServerId, endpointId, latencyCacheEndpoint));
+                caches.add(new Cache(cacheServerId, cacheServersCapacity));
             }
         }
         // Runs through the requests information
@@ -74,9 +70,33 @@ public class Parser {
             endPoint.addQuery(new Query(numberOfRequests, videos.stream().filter(video -> video.getId() == idVideo).findFirst().get()));
         }
 
-        System.out.println(endpoints.size());
+        System.out.println("Number of EndPoints : " + endpoints.size());
         for (EndPoint ep : endpoints) {
             System.out.println("EndPoint " + ep.getId() + " have " + ep.getQueries().size() + " queries");
         }
+        System.out.println("Number of Video : " + numberOfVideos);
+        for (Video video : videos) {
+            System.out.println("Video " + video.getId() + " of " + video.getSize() + " size");
+        }
+        System.out.println("Number of Cache : " + numberOfCacheServers);
+        for (Cache cache : caches) {
+            System.out.println("Cache " + cache.getId() + " of " + cache.getSize() + " capacity");
+        }
+    }
+
+    public List<Cache> getCaches() {
+        return caches;
+    }
+
+    public List<Connexion> getConnexions() {
+        return connexions;
+    }
+
+    public List<EndPoint> getEndpoints() {
+        return endpoints;
+    }
+
+    public List<Video> getVideos() {
+        return videos;
     }
 }
