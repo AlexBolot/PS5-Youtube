@@ -6,7 +6,7 @@ import java.util.Map;
 public class EndPoint {
 
     private int id = 0;
-    private HashMap<Integer, Integer> wantedVideos;
+    private HashMap<Integer, Integer> wantedVideos = new HashMap<Integer, Integer>();
 
     public EndPoint(int id) {
         this.id = id;
@@ -30,7 +30,7 @@ public class EndPoint {
 
     @Override
     public String toString() {
-        String txt = "EndPoint " + "id = " + id + ", videos voulues =\n";
+        String txt = "EndPoint " + "id = " + id + ", videos voulues :\n";
         for(Map.Entry<Integer, Integer> entry : wantedVideos.entrySet()) {
             int key = entry.getKey();
             int value = entry.getValue();

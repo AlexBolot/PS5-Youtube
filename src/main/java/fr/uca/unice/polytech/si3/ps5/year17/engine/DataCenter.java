@@ -6,12 +6,9 @@ import java.util.ArrayList;
 
 public class DataCenter {
 
-    private ArrayList8<Integer> videos;
+    private ArrayList8<Integer> videos = new ArrayList8<>();
 
-    public DataCenter (ArrayList8<Integer> videos)
-    {
-        this.videos = videos;
-    }
+    public DataCenter () {}
 
     public ArrayList<Integer> getVideos() {
         return videos;
@@ -24,7 +21,7 @@ public class DataCenter {
 
     @Override
     public String toString() {
-        String txt = "Videos dans le DataCenter = \n";
+        String txt = "Videos dans le DataCenter : \n";
         for (Integer i : videos)
         {
             txt = txt +"- " + i + "\n";

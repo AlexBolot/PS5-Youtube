@@ -28,6 +28,6 @@ public class Video {
 
     @Override
     public String toString() {
-        return "Video " + "id = " + id + ", size=" + size;
+        return "Video " + "id = " + id + ", size = " + size;
     }
 }
