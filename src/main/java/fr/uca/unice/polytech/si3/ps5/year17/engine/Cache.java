@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Cache {
 
     private int id = 0;
-    private ArrayList8<Integer> videos = new ArrayList8<>();
+    private ArrayList8<Video> videos = new ArrayList8<>();
     private int size = 0;
 
     public Cache(int id, int size) {
@@ -23,11 +23,11 @@ public class Cache {
         this.id = id;
     }
 
-    public ArrayList<Integer> getVideos() {
+    public ArrayList<Video> getVideos() {
         return videos;
     }
 
-    public void setVideos (ArrayList8<Integer> videos)
+    public void setVideos (ArrayList8<Video> videos)
     {
         this.videos = videos;
     }
@@ -43,9 +43,9 @@ public class Cache {
     @Override
     public String toString() {
         String txt = "Cache " + "id = " + id + ", taille = " + size + ", videos :\n";
-        for (Integer i : videos)
+        for (Video i : videos)
         {
-            txt = txt +"- " + i + "\n";
+            txt = txt +"- " + i.getId() + "\n";
         }
         return txt;
     }

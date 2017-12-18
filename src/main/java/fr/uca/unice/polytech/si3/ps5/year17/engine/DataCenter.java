@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 public class DataCenter {
 
-    private ArrayList8<Integer> videos = new ArrayList8<>();
+    private ArrayList8<Video> videos = new ArrayList8<>();
 
     public DataCenter () {}
 
-    public ArrayList<Integer> getVideos() {
+    public ArrayList<Video> getVideos() {
         return videos;
     }
 
-    public void setVideos (ArrayList8<Integer> videos)
+    public void setVideos (ArrayList8<Video> videos)
     {
         this.videos = videos;
     }
@@ -22,9 +22,9 @@ public class DataCenter {
     @Override
     public String toString() {
         String txt = "Videos dans le DataCenter : \n";
-        for (Integer i : videos)
+        for (Video i : videos)
         {
-            txt = txt +"- " + i + "\n";
+            txt = txt +"- " + i.getId() + "\n";
         }
         return txt;
     }

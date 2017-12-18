@@ -8,7 +8,7 @@ package fr.uca.unice.polytech.si3.ps5.year17.engine;
 public class Main {
 
     public static void main(String args[]) {
-        System.out.println("Hello World");
+        
     }
 
 }

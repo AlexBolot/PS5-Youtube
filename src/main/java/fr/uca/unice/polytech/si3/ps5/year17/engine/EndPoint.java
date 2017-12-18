@@ -6,10 +6,14 @@ import java.util.Map;
 public class EndPoint {
 
     private int id = 0;
-    private HashMap<Integer, Integer> wantedVideos = new HashMap<Integer, Integer>();
+    private HashMap<Video, Integer> wantedVideos = new HashMap<>();
+    private int dataCenterLatency = 0;
+    private int numberOfConnection = 0;
 
-    public EndPoint(int id) {
+    public EndPoint(int id, int dataCenterLatency, int numberOfConnection) {
         this.id = id;
+        this.dataCenterLatency = dataCenterLatency;
+        this.numberOfConnection = numberOfConnection;
     }
 
     public int getId() {
@@ -20,22 +24,38 @@ public class EndPoint {
         this.id = id;
     }
 
-    public HashMap<Integer, Integer> getWantedVideos() {
+    public HashMap<Video, Integer> getWantedVideos() {
         return wantedVideos;
     }
 
-    public void setWantedVideos(HashMap<Integer, Integer> wantedVideos) {
+    public void setWantedVideos(HashMap<Video, Integer> wantedVideos) {
         this.wantedVideos = wantedVideos;
+    }
+
+    public int getDataCenterLatency() {
+        return dataCenterLatency;
+    }
+
+    public void setDataCenterLatency(int dataCenterLatency) {
+        this.dataCenterLatency = dataCenterLatency;
+    }
+
+    public int getNumberOfConnection() {
+        return numberOfConnection;
+    }
+
+    public void setNumberOfConnection(int numberOfConnection) {
+        this.numberOfConnection = numberOfConnection;
     }
 
     @Override
     public String toString() {
         String txt = "EndPoint " + "id = " + id + ", videos voulues :\n";
-        for(Map.Entry<Integer, Integer> entry : wantedVideos.entrySet()) {
-            int key = entry.getKey();
+        for(Map.Entry<Video, Integer> entry : wantedVideos.entrySet()) {
+            Video key = entry.getKey();
             int value = entry.getValue();
 
-            txt = txt +"- " + key + " voulue " + value + " fois\n";
+            txt = txt +"- " + key.getId() + " voulue " + value + " fois\n";
         }
         return txt;
     }

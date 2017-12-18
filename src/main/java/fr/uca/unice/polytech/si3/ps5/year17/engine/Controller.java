@@ -44,4 +44,28 @@ public class Controller
     {
         this.endPoints = endPoints;
     }
+
+    public int Scoring(){
+        int temp = 0;
+        int temp2 = 0;
+        int score;
+
+        for(EndPoint e : endPoints){
+            for (Video v : e.getWantedVideos().keySet()){
+                for(Cache c : caches){
+                    if(c.getVideos().contains(v)) {
+                        for (Connexion co : connexions) {
+                            if (co.getIdCache() == c.getId() && co.getIdEndPoint() == e.getId()) {
+                                temp += Integer.parseInt(e.getWantedVideos().entrySet().toString()) * (e.getDataCenterLatency() - co.getLatency());
+                                temp2 += Integer.parseInt(e.getWantedVideos().entrySet().toString());
+                            }else{continue;}
+                        }
+                    }else {continue;}
+                }
+            }
+        }
+        score = temp / temp2;
+
+        return score;
+    }
 }

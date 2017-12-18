@@ -6,8 +6,8 @@ public class Connexion {
     private int idEndPoint = 0;
     private int latency = 0;
 
-    public Connexion(int idCache, int idEndPoint, int latency) {
-        this.idCache = idCache;
+    public Connexion(int idStockage, int idEndPoint, int latency) {
+        this.idCache = idStockage;
         this.idEndPoint = idEndPoint;
         this.latency = latency;
     }
