@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String args[]) {
+        System.out.println("Hello world");
 
         Video vid0 = new Video(0,50);
         Video vid1 = new Video(1,50);

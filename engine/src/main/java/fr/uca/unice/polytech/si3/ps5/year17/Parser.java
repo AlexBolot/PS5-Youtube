@@ -1,43 +1,82 @@
 package fr.uca.unice.polytech.si3.ps5.year17;
 
+import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Parser {
     private HashMap<String, Object> datas;
 
-    // Contains the size of each video
-    private ArrayList<Integer> videosSizes;
+    private ArrayList<Video> videos = new ArrayList<>();
 
-    // Contains the latency (value) of serving a video request from the data center to the endpoint (index)
-    private ArrayList<Integer> endPointsDatacenterLatencies;
+    private ArrayList<EndPoint> endpoints = new ArrayList<>();
 
-    // Contains the number of cache servers (value) that the endpoint (index) is connected to
-    private ArrayList<Integer> endPointsNumberOfConnections;
+    private ArrayList<Connexion> connexions = new ArrayList<>();
 
-    // ID (value) of the cache server (index)
-    private ArrayList<Integer> cacheServerIDs;
+    private int numberOfCacheServers;
+    private int cacheServersCapacity;
 
-    // Contains the latency (value) of serving a video request from this cache server to this endpoint
-    private ArrayList<Integer> endPointsLatency;
+    public ArrayList<Video> getVideos(){
+        return videos;
+    }
 
+    public Video getVideoById(int id){
+        return videos.get(id);
+    }
+
+    /**
+     * Read a .in file and parse the information
+     *
+     * @param path to the file
+     * @throws IOException
+     */
     void parse(String path) throws IOException {
         BufferedReader in = new BufferedReader(new FileReader(path));
         String[] firstLine = in.readLine().split(" ");
         int numberOfVideos = Integer.parseInt(firstLine[0]);
-        int numberOfEndPoints = Integer.parseInt(firstLine[1]);
+        int numberOfEndpoints = Integer.parseInt(firstLine[1]);
         int numberOfRequestDescriptions = Integer.parseInt(firstLine[2]);
-        int numberOfCacheServers = Integer.parseInt(firstLine[3]);
-        int cacheServersCapacity = Integer.parseInt(firstLine[4]);
+        numberOfCacheServers = Integer.parseInt(firstLine[3]);
+        cacheServersCapacity = Integer.parseInt(firstLine[4]);
         String[] secondLine = in.readLine().split(" ");
-        //Runs through the second line to get all video sizes
-        for(String strSize: secondLine){
-            int size = Integer.parseInt(strSize);
+
+        // Runs through the second line to get all video sizes
+        for(int i = 0; i < numberOfVideos; i++){
+            String strSize = secondLine[i];
+            videos.add(new Video(i, Integer.parseInt(strSize)));
+        }
+        // Runs through the endpoints information
+        for(int endpointId = 0; endpointId < numberOfEndpoints; endpointId++){
+            String[] endpointsInformation = in.readLine().split(" ");
+            int dataCenterLatency = Integer.parseInt(endpointsInformation[0]);
+            int endpointNumberOfConnections = Integer.parseInt(endpointsInformation[1]);
+            endpoints.add(new EndPoint(endpointId, null, dataCenterLatency, endpointNumberOfConnections));
+            // Runs through cache server information
+            for (int j = 0; j < endpointNumberOfConnections; j++) {
+                String[] cacheInformation = in.readLine().split(" ");
+                int cacheServerId = Integer.parseInt(cacheInformation[0]);
+                int latencyCacheEndpoint = Integer.parseInt(cacheInformation[1]);
+                connexions.add(new Connexion(cacheServerId, endpointId, latencyCacheEndpoint));
+            }
+        }
+        // Runs through the requests information
+        for (int i = 0; i < numberOfRequestDescriptions; i++) {
+            String[] requestInformation = in.readLine().split(" ");
+            int idVideo = Integer.parseInt(requestInformation[0]);
+            int endpointId = Integer.parseInt(requestInformation[1]);
+            int numberOfRequests = Integer.parseInt(requestInformation[2]);
+            EndPoint endPoint = endpoints.stream().filter(ep -> ep.getId() == endpointId).findFirst().get();
+            endPoint.addQuery(new Query(numberOfRequests, videos.stream().filter(video -> video.getId() == idVideo).findFirst().get()));
         }
 
-
+        System.out.println(endpoints.size());
+        for (EndPoint ep : endpoints) {
+            System.out.println("EndPoint " + ep.getId() + " have " + ep.getQueries().size() + " queries");
+        }
     }
 }

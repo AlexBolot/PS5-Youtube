@@ -18,6 +18,7 @@ public class ArrayList8<E> extends ArrayList<E>
 {
     private Random random = new Random();
 
+
     public E getRandom ()
     {
         if (this.isEmpty()) throw new IndexOutOfBoundsException("List is empty");

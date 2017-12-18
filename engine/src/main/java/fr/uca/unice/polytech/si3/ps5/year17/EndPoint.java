@@ -2,10 +2,12 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
+import java.util.ArrayList;
+
 public class EndPoint {
 
     private int id;
-    private ArrayList8<Query> queries;
+    private ArrayList<Query> queries;
     private int dataCenterLatency;
     private int numberOfConnection;
 
@@ -32,11 +34,11 @@ public class EndPoint {
         this.id = id;
     }
 
-    public ArrayList8<Query> getQueries() {
+    public ArrayList<Query> getQueries() {
         return queries;
     }
 
-    public void setQueries(ArrayList8<Query> queries) {
+    public void setQueries(ArrayList<Query> queries) {
         this.queries = queries;
     }
 
@@ -54,6 +56,10 @@ public class EndPoint {
 
     public void setNumberOfConnection(int numberOfConnection) {
         this.numberOfConnection = numberOfConnection;
+    }
+
+    public boolean addQuery(Query query) {
+        return this.queries.add(query);
     }
 
     /**
