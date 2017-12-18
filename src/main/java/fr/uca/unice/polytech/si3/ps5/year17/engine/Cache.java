@@ -37,8 +37,9 @@ public class Cache {
         this.size = size;
     }
 
+    @Override
     public String toString() {
-        String txt = "Cache " + "id = " + id + ", size=" + size + ", video =\n";
+        String txt = "Cache " + "id = " + id + ", taille =" + size + ", videos =\n";
         for (Integer i : videos)
         {
             txt = txt +"- " + i + "\n";

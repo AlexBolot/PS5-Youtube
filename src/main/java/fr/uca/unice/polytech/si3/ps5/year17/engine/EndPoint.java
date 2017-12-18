@@ -1,6 +1,7 @@
 package fr.uca.unice.polytech.si3.ps5.year17.engine;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class EndPoint {
 
@@ -25,5 +26,17 @@ public class EndPoint {
 
     public void setWantedVideos(HashMap<Integer, Integer> wantedVideos) {
         this.wantedVideos = wantedVideos;
+    }
+
+    @Override
+    public String toString() {
+        String txt = "EndPoint " + "id = " + id + ", videos voulues =\n";
+        for(Map.Entry<Integer, Integer> entry : wantedVideos.entrySet()) {
+            int key = entry.getKey();
+            int value = entry.getValue();
+
+            txt = txt +"- " + key + " voulue " + value + " fois\n";
+        }
+        return txt;
     }
 }
