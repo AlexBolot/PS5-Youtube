@@ -1,12 +1,15 @@
 package fr.uca.unice.polytech.si3.ps5.year17.engine;
 
+import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
+
 import java.util.ArrayList;
 
 public class DataCenter {
 
-    private ArrayList<Integer> videos;
+    private ArrayList8<Integer> videos;
 
-    public DataCenter(ArrayList<Integer> videos) {
+    public DataCenter (ArrayList8<Integer> videos)
+    {
         this.videos = videos;
     }
 
@@ -14,7 +17,8 @@ public class DataCenter {
         return videos;
     }
 
-    public void setVideos(ArrayList<Integer> videos) {
+    public void setVideos (ArrayList8<Integer> videos)
+    {
         this.videos = videos;
     }
 
