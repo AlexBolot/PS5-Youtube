@@ -2,6 +2,9 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,8 +82,26 @@ public class Controller {
         return score * 1000;
     }
 
-    public void printResult() {
-
+    public void generateOutput(String path) {
+        StringBuilder sb = new StringBuilder();
+        int cacheUsed = 0;
+        for (Cache c : this.caches) {
+            if (c.getVideos().isEmpty()) cacheUsed++;
+        }
+        sb.append(cacheUsed).append('\n');
+        for (int i = 0; i < cacheUsed; i++) {
+            if (!this.caches.get(i).getVideos().isEmpty()) sb.append(i);
+            for (Video v : this.caches.get(i).getVideos()) {
+                sb.append(' ').append(v.getId());
+            }
+            if (!this.caches.get(i).getVideos().isEmpty()) sb.append('\n');
+        }
+        try (PrintWriter writer = new PrintWriter(path + "/score.out", "UTF-8")) {
+            writer.write(sb.toString());
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(sb.toString());
     }
 
 }

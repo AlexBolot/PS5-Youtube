@@ -55,7 +55,7 @@ public class Parser {
             String[] endpointsInformation = in.readLine().split(" ");
             int dataCenterLatency = Integer.parseInt(endpointsInformation[0]);
             int endpointNumberOfConnections = Integer.parseInt(endpointsInformation[1]);
-            endpoints.add(new EndPoint(endpointId, null, dataCenterLatency, endpointNumberOfConnections));
+            endpoints.add(new EndPoint(endpointId, new ArrayList<Query>(), dataCenterLatency, endpointNumberOfConnections));
             // Runs through cache server information
             for (int j = 0; j < endpointNumberOfConnections; j++) {
                 String[] cacheInformation = in.readLine().split(" ");

@@ -19,7 +19,7 @@ public class EndPoint {
      * @param dataCenterLatency     The
      * @param numberOfConnection
      */
-    public EndPoint(int id, ArrayList8<Query> queries, int dataCenterLatency, int numberOfConnection) {
+    public EndPoint(int id, ArrayList<Query> queries, int dataCenterLatency, int numberOfConnection) {
         this.id = id;
         this.queries = queries;
         this.dataCenterLatency = dataCenterLatency;
@@ -71,13 +71,13 @@ public class EndPoint {
     public String toString() {
         StringBuilder str = new StringBuilder();
 
-        str.append("EndPoint ").append("id = ").append(id).append(", videos voulues :\n");
+        str.append("EndPoint ").append("id = ").append(id).append(", videos values :\n");
 
         queries.forEach(query -> str.append("- ")
                 .append(query.getVideo().getId())
-                .append(" voulue ")
+                .append(" value ")
                 .append(query.getNumberOfRequests())
-                .append(" fois\n"));
+                .append(" times\n"));
 
         return str.toString();
     }

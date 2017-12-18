@@ -2,6 +2,7 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -64,6 +65,14 @@ public class Main {
         Controller controller = new Controller(connexions,caches,endPoints);
 
         System.out.println(controller.scoring());
+
+        Parser parser = new Parser();
+        try {
+            String path = Main.class.getResource("/kittens.in.txt").getPath();
+            parser.parse(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

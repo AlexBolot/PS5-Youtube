@@ -2,36 +2,36 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 
 public class Connexion {
 
-    private int idCache = 0;
-    private int idEndPoint = 0;
-    private int latency = 0;
+    private int idCache;
+    private int idEndPoint;
+    private int latency;
 
     /**
      * Connexion Constructor
      *
-     * @param idStorage     The ID where the video are stocked
+     * @param idCache       The ID where the video are stocked
      * @param idEndPoint    The ID where the video will be sent
      * @param latency       The speed to get the video to the EndPoint
      */
-    public Connexion(int idStorage, int idEndPoint, int latency) {
-        this.idCache = idStorage;
+    public Connexion(int idCache, int idEndPoint, int latency) {
+        this.idCache = idCache;
         this.idEndPoint = idEndPoint;
         this.latency = latency;
     }
 
     /**
-     * Getter for the video storage ID
+     * Getter for the Cache ID
      *
-     * @return The video storage ID
+     * @return The Cache ID
      */
     public int getIdCache() {
         return idCache;
     }
 
     /**
-     * Setter for the video storage ID
+     * Setter for the Cache ID
      *
-     * @param idCache The video storage ID
+     * @param idCache The Cache ID
      */
     public void setIdCache(int idCache) {
         this.idCache = idCache;
