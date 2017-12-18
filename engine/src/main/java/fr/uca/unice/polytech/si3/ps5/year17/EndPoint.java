@@ -1,62 +1,76 @@
 package fr.uca.unice.polytech.si3.ps5.year17;
 
-import java.util.HashMap;
-import java.util.Map;
+import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
-public class EndPoint {
+public class EndPoint
+{
 
-    private int id = 0;
-    private HashMap<Video, Integer> wantedVideos = new HashMap<>();
-    private int dataCenterLatency = 0;
-    private int numberOfConnection = 0;
+    private int               id                 = 0;
+    private ArrayList8<Query> queries            = new ArrayList8<>();
+    private int               dataCenterLatency  = 0;
+    private int               numberOfConnection = 0;
 
-    public EndPoint(int id, int dataCenterLatency, int numberOfConnection) {
+    public EndPoint (int id, ArrayList8<Query> queries, int dataCenterLatency, int numberOfConnection)
+    {
         this.id = id;
+        this.queries = queries;
         this.dataCenterLatency = dataCenterLatency;
         this.numberOfConnection = numberOfConnection;
     }
 
-    public int getId() {
+    public int getId ()
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId (int id)
+    {
         this.id = id;
     }
 
-    public HashMap<Video, Integer> getWantedVideos() {
-        return wantedVideos;
+    public ArrayList8<Query> getWantedVideos ()
+    {
+        return queries;
     }
 
-    public void setWantedVideos(HashMap<Video, Integer> wantedVideos) {
-        this.wantedVideos = wantedVideos;
+    public void setWantedVideos (ArrayList8<Query> wantedVideos)
+    {
+        this.queries = wantedVideos;
     }
 
-    public int getDataCenterLatency() {
+    public int getDataCenterLatency ()
+    {
         return dataCenterLatency;
     }
 
-    public void setDataCenterLatency(int dataCenterLatency) {
+    public void setDataCenterLatency (int dataCenterLatency)
+    {
         this.dataCenterLatency = dataCenterLatency;
     }
 
-    public int getNumberOfConnection() {
+    public int getNumberOfConnection ()
+    {
         return numberOfConnection;
     }
 
-    public void setNumberOfConnection(int numberOfConnection) {
+    public void setNumberOfConnection (int numberOfConnection)
+    {
         this.numberOfConnection = numberOfConnection;
     }
 
     @Override
-    public String toString() {
-        String txt = "EndPoint " + "id = " + id + ", videos voulues :\n";
-        for(Map.Entry<Video, Integer> entry : wantedVideos.entrySet()) {
-            Video key = entry.getKey();
-            int value = entry.getValue();
+    public String toString ()
+    {
+        StringBuilder str = new StringBuilder();
 
-            txt = txt +"- " + key.getId() + " voulue " + value + " fois\n";
-        }
-        return txt;
+        str.append("EndPoint ").append("id = ").append(id).append(", videos voulues :\n");
+
+        queries.forEach(query -> str.append("- ")
+                                    .append(query.getVideo().getId())
+                                    .append(" voulue ")
+                                    .append(query.getNumberOfRequests())
+                                    .append(" fois\n"));
+
+        return str.toString();
     }
 }

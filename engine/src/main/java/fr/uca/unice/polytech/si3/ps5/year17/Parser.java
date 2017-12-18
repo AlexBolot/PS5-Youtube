@@ -1,7 +1,6 @@
 package fr.uca.unice.polytech.si3.ps5.year17;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ public class Parser {
 
     // Contains the latency (value) of serving a video request from this cache server to this endpoint
     private ArrayList<Integer> endPointsLatency;
-
 
     void parse(String path) throws IOException {
         BufferedReader in = new BufferedReader(new FileReader(path));
