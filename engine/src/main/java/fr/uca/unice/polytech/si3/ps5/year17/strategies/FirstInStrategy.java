@@ -1,22 +1,23 @@
 package fr.uca.unice.polytech.si3.ps5.year17.strategies;
 
-import fr.uca.unice.polytech.si3.ps5.year17.*;
+import fr.uca.unice.polytech.si3.ps5.year17.Cache;
+import fr.uca.unice.polytech.si3.ps5.year17.Connexion;
+import fr.uca.unice.polytech.si3.ps5.year17.EndPoint;
+import fr.uca.unice.polytech.si3.ps5.year17.Video;
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Runs through all the caches and fills them with videos
  */
 public class FirstInStrategy extends Strategy {
 
-    private List<Video> videos;
+    private ArrayList8<Video> videos;
 
-    private List<Video> videoToRemove = new ArrayList<>();
+    private ArrayList8<Video> videoToRemove = new ArrayList8<>();
 
-    public FirstInStrategy(List<Connexion> connexions, List<Cache> caches, List<EndPoint> endPoints, List<Video> videos) {
+    public FirstInStrategy (ArrayList8<Connexion> connexions, ArrayList8<Cache> caches, ArrayList8<EndPoint> endPoints,
+                            ArrayList8<Video> videos)
+    {
         super(connexions, caches, endPoints);
         this.videos = videos;
     }

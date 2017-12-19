@@ -5,21 +5,18 @@ import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class Parser {
     private HashMap<String, Object> datas;
 
-    private List<Video> videos = new ArrayList<>();
+    private ArrayList8<Video> videos = new ArrayList8<>();
 
-    private List<EndPoint> endpoints = new ArrayList<>();
+    private ArrayList8<EndPoint> endpoints = new ArrayList8<>();
 
-    private List<Connexion> connexions = new ArrayList<>();
+    private ArrayList8<Connexion> connexions = new ArrayList8<>();
 
-    private List<Cache> caches = new ArrayList<>();
+    private ArrayList8<Cache> caches = new ArrayList8<>();
 
     private DataCenter dataCenter = new DataCenter();
 
@@ -52,7 +49,7 @@ public class Parser {
             String[] endpointsInformation = in.readLine().split(" ");
             int dataCenterLatency = Integer.parseInt(endpointsInformation[0]);
             int endpointNumberOfConnections = Integer.parseInt(endpointsInformation[1]);
-            endpoints.add(new EndPoint(endpointId, new ArrayList<>(), dataCenterLatency, endpointNumberOfConnections));
+            endpoints.add(new EndPoint(endpointId, new ArrayList8<>(), dataCenterLatency, endpointNumberOfConnections));
             // Runs through cache server information
             for (int j = 0; j < endpointNumberOfConnections; j++) {
                 String[] cacheInformation = in.readLine().split(" ");
@@ -76,19 +73,23 @@ public class Parser {
         dataCenter.setVideos(videos);
     }
 
-    public List<Cache> getCaches() {
+    public ArrayList8<Cache> getCaches ()
+    {
         return caches;
     }
 
-    public List<Connexion> getConnexions() {
+    public ArrayList8<Connexion> getConnexions ()
+    {
         return connexions;
     }
 
-    public List<EndPoint> getEndpoints() {
+    public ArrayList8<EndPoint> getEndpoints ()
+    {
         return endpoints;
     }
 
-    public List<Video> getVideos() {
+    public ArrayList8<Video> getVideos ()
+    {
         return videos;
     }
 
