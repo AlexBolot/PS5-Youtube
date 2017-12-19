@@ -92,45 +92,6 @@ public class Controller {
             e.printStackTrace();
         }
 
-//        System.out.println("Number of EndPoints : " + endPoints.size());
-//
-//        endPoints.forEach(ep -> System.out.printf("EndPoint %d have %d queries%n", ep.getId(), ep.getQueries().size()));
-//
-//        System.out.println("Number of Video : " + videos.size());
-//
-//        videos.forEach(video -> System.out.printf("Video %d of %d size%n", video.getId(), video.getSize()));
-//
-//        System.out.println("Number of Cache : " + caches.size());
-//
-//        caches.forEach(cache -> System.out.printf("Cache %d of %d capacity and %d video%n",
-//                cache.getId(),
-//                cache.getSize(),
-//                cache.getVideos().size()));
-//
-//        System.out.printf("DataCenter with %d video%n", dataCenter.getVideos().size());
-//
-//        StringBuilder sb = new StringBuilder();
-//        int cacheUsed = (int) caches.stream().filter(c -> !c.getVideos().isEmpty()).count();
-//
-//        sb.append(cacheUsed).append('\n');
-//
-//        for (int i = 0; i < cacheUsed; i++) {
-//            ArrayList8<Video> videos = caches.get(i).getVideos();
-//
-//            if (!videos.isEmpty()) sb.append(i);
-//
-//            videos.forEach(v -> sb.append(' ').append(v.getId()));
-//
-//            if (!videos.isEmpty()) sb.append('\n');
-//        }
-//
-//        try (PrintWriter writer = new PrintWriter(path + "/data.out", "UTF-8")) {
-//            writer.write(sb.toString());
-//        } catch (FileNotFoundException | UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.printf("Output of the score.out file : \n%s\nAnd the score for this strategy : %s\n\n%n", sb.toString(), this.scoring());
     }
 
 }
