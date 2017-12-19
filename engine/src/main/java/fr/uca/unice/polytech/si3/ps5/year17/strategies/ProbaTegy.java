@@ -60,14 +60,16 @@ public class ProbaTegy extends Strategy{
 
     @Override
     public void apply() {
+        ArrayList8<Video> cpy = new ArrayList8<>();
+        cpy.addAll(videos);
         for (Integer cacheId : sortedCachesSizes.keySet()) {
-            for (Video video : this.videos) {
+            for (Video video : cpy) {
                 if (caches.get(cacheId).getSize() >= video.getSize() && !caches.get(cacheId).getVideos().contains(video)) {
                     caches.get(cacheId).addVideo(video);
                     videoToRemove.add(video);
                 }
             }
-            videos.removeAll(videoToRemove);
+            cpy.removeAll(videoToRemove);
         }
     }
 
