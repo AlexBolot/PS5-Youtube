@@ -10,60 +10,54 @@ import java.io.UnsupportedEncodingException;
 
 
 /**
- <pre>
- ______
- / ____|      _ _      _                                                    _     _                    _
- | |     ___ | | | ___| |_    __      ____ _     _ __ ___   ___  _   _     | \  / | ___  ___ ___  ___ (_) _ __ _   _
- | |    / _ \| | |/ _ \ __|   \ \ /\ / / _` |   | '_ ` _ \ / _ \| | | |    | |\/| |/ _ \/ __/ __|/ _ \| || '__| | | |
- | |___| (_) | | |  __/ |_     \ V  V / (_| |   | | | | | | (_) | |_| |    | |  | | (_) \__ \__ \  __/| || |  | |_| |
- \_____\____/|_|_|\___|\__|     \_/\_/ \__,_|   |_| |_| |_|\___/ \__,_|    |_|  |_|\___/|___/___/\___||_||_|   \__,_|
-
- __   _          _   _ _____   ___ ___
- | \ | |   /\   | \ | |_   _| |__ \__ \
- |  \| |  /  \  |  \| | | |      ) | ) |
- | . ` | / /\ \ | . ` | | |     / / / /
- | |\  |/ ____ \| |\  |_| |_   |_| |_|
- |_| \_/_/    \_\_| \_|_____|  (_) (_)
-
- </pre>
-
- @author Collet wa Mou Mosseiru
- @version 1.0 */
-public class Main
-{
-    public static void main (String args[])
-    {
+ * <pre>
+ * ______
+ * / ____|      _ _      _                                                    _     _                    _
+ * | |     ___ | | | ___| |_    __      ____ _     _ __ ___   ___  _   _     | \  / | ___  ___ ___  ___ (_) _ __ _   _
+ * | |    / _ \| | |/ _ \ __|   \ \ /\ / / _` |   | '_ ` _ \ / _ \| | | |    | |\/| |/ _ \/ __/ __|/ _ \| || '__| | | |
+ * | |___| (_) | | |  __/ |_     \ V  V / (_| |   | | | | | | (_) | |_| |    | |  | | (_) \__ \__ \  __/| || |  | |_| |
+ * \_____\____/|_|_|\___|\__|     \_/\_/ \__,_|   |_| |_| |_|\___/ \__,_|    |_|  |_|\___/|___/___/\___||_||_|   \__,_|
+ *
+ * __   _          _   _ _____   ___ ___
+ * | \ | |   /\   | \ | |_   _| |__ \__ \
+ * |  \| |  /  \  |  \| | | |      ) | ) |
+ * | . ` | / /\ \ | . ` | | |     / / / /
+ * | |\  |/ ____ \| |\  |_| |_   |_| |_|
+ * |_| \_/_/    \_\_| \_|_____|  (_) (_)
+ *
+ * </pre>
+ *
+ * @author Collet wa Mou Mosseiru
+ * @version 1.0
+ */
+public class Main {
+    public static void main(String args[]) {
         Parser parser = new Parser();
 
-        try
-        {
+        try {
             String path = Main.class.getResource("/me_at_the_zoo.in").getPath();
             parser.parse(path);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
+        /*
         final Controller controller = new Controller(parser.getConnexions(),
-                                                     parser.getCaches(),
-                                                     parser.getEndpoints(),
-                                                     parser.getVideos(),
-                                                     parser.getDataCenter());
+                parser.getCaches(),
+                parser.getEndpoints(),
+                parser.getVideos(),
+                parser.getDataCenter());
 
         StringBuilder scores = new StringBuilder();
         StringBuilder output = new StringBuilder();
 
-        ArrayList8<Strategy> strategies = new ArrayList8<Strategy>()
-        {{
+        ArrayList8<Strategy> strategies = new ArrayList8<Strategy>() {{
             add(new ProbaTegy(new Controller(controller)));
             add(new FirstInStrategy(new Controller(controller)));
             add(new CacheIfQueryStrategy(new Controller(controller)));
             add(new AllInDataCenterStrategy(new Controller(controller)));
         }};
 
-        for (Strategy strategy : strategies)
-        {
+        for (Strategy strategy : strategies) {
             String stratName = strategy.getClass().getSimpleName();
 
             System.out.println("Stratégie : " + stratName);
@@ -78,8 +72,7 @@ public class Main
             StringBuilder str = new StringBuilder();
             str.append(cacheUsed).append('\n');
 
-            for (int i = 0; i < cacheUsed; i++)
-            {
+            for (int i = 0; i < cacheUsed; i++) {
                 ArrayList8<Video> videos = controller.getCaches().get(i).getVideos();
 
                 if (!videos.isEmpty()) str.append(i);
@@ -92,21 +85,15 @@ public class Main
             output.append(str.toString()).append("\n\n");
         }
 
-        try (PrintWriter writer = new PrintWriter(args[0] + "/data.out", "UTF-8"))
-        {
+        try (PrintWriter writer = new PrintWriter(args[0] + "/data.out", "UTF-8")) {
             writer.write(output.toString());
-        }
-        catch (FileNotFoundException | UnsupportedEncodingException e)
-        {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        try (PrintWriter writer = new PrintWriter(args[0] + "/score.out", "UTF-8"))
-        {
+        try (PrintWriter writer = new PrintWriter(args[0] + "/score.out", "UTF-8")) {
             writer.write(scores.toString());
-        }
-        catch (FileNotFoundException | UnsupportedEncodingException e)
-        {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
@@ -125,6 +112,10 @@ public class Main
         System.out.println(c2.scoring());
 
         c2.generateOutput(args[0], "");*/
+
+
+        Controller controller = new Controller(parser.getData());
+        controller.generateOutput(args[0]);
     }
 
 }

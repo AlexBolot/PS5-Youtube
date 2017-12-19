@@ -7,17 +7,15 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
-public class Controller
-{
+public class Controller {
     private ArrayList8<Connexion> connexions;
-    private ArrayList8<Cache>     caches;
-    private ArrayList8<EndPoint>  endPoints;
-    private ArrayList8<Video>     videos;
-    private DataCenter            dataCenter;
+    private ArrayList8<Cache> caches;
+    private ArrayList8<EndPoint> endPoints;
+    private ArrayList8<Video> videos;
+    private DataCenter dataCenter;
 
-    public Controller (ArrayList8<Connexion> connexions, ArrayList8<Cache> caches, ArrayList8<EndPoint> endPoints, ArrayList8<Video> videos,
-                       DataCenter dataCenter)
-    {
+    public Controller(ArrayList8<Connexion> connexions, ArrayList8<Cache> caches, ArrayList8<EndPoint> endPoints, ArrayList8<Video> videos,
+                      DataCenter dataCenter) {
         this.connexions = connexions;
         this.caches = caches;
         this.endPoints = endPoints;
@@ -25,8 +23,7 @@ public class Controller
         this.dataCenter = dataCenter;
     }
 
-    public Controller (Controller controller)
-    {
+    public Controller(Controller controller) {
         this.connexions = controller.getConnexions().subList(cache -> true);
         this.caches = controller.getCaches().subList(cache -> true);
         this.endPoints = controller.getEndPoints().subList(cache -> true);
@@ -34,73 +31,57 @@ public class Controller
         this.dataCenter = new DataCenter(controller.getDataCenter());
     }
 
-    public ArrayList8<Connexion> getConnexions ()
-    {
+    public ArrayList8<Connexion> getConnexions() {
         return connexions;
     }
 
-    public void setConnexions (ArrayList8<Connexion> connexions)
-    {
+    public void setConnexions(ArrayList8<Connexion> connexions) {
         this.connexions = connexions;
     }
 
-    public ArrayList8<Cache> getCaches ()
-    {
+    public ArrayList8<Cache> getCaches() {
         return caches;
     }
 
-    public void setCaches (ArrayList8<Cache> caches)
-    {
+    public void setCaches(ArrayList8<Cache> caches) {
         this.caches = caches;
     }
 
-    public ArrayList8<EndPoint> getEndPoints ()
-    {
+    public ArrayList8<EndPoint> getEndPoints() {
         return endPoints;
     }
 
-    public void setEndPoints (ArrayList8<EndPoint> endPoints)
-    {
+    public void setEndPoints(ArrayList8<EndPoint> endPoints) {
         this.endPoints = endPoints;
     }
 
-    public ArrayList8<Video> getVideos ()
-    {
+    public ArrayList8<Video> getVideos() {
         return videos;
     }
 
-    public void setVideos (ArrayList8<Video> videos)
-    {
+    public void setVideos(ArrayList8<Video> videos) {
         this.videos = videos;
     }
 
-    public DataCenter getDataCenter ()
-    {
+    public DataCenter getDataCenter() {
         return dataCenter;
     }
 
-    public void setDataCenter (DataCenter dataCenter)
-    {
+    public void setDataCenter(DataCenter dataCenter) {
         this.dataCenter = dataCenter;
     }
 
-    public double scoring ()
-    {
+    public double scoring() {
         int temp = 0;
         int temp2 = 0;
         double score;
         HashMap<Integer, Integer> bestTimes = new HashMap<>();
 
-        for (EndPoint endPoint : endPoints)
-        {
-            for (Connexion connexion : connexions)
-            {
-                for (Query query : endPoint.getQueries())
-                {
-                    if (endPoint.getId() == connexion.getIdEndPoint())
-                    {
-                        if (caches.get(connexion.getIdCache()).getVideos().contains(query.getVideo()))
-                        {
+        for (EndPoint endPoint : endPoints) {
+            for (Connexion connexion : connexions) {
+                for (Query query : endPoint.getQueries()) {
+                    if (endPoint.getId() == connexion.getIdEndPoint()) {
+                        if (caches.get(connexion.getIdCache()).getVideos().contains(query.getVideo())) {
                             int videoID = query.getVideo().getId();
                             int nbRequest = query.getNumberOfRequests();
                             int dataCenterLatency = endPoint.getDataCenterLatency();
@@ -125,51 +106,46 @@ public class Controller
         return Math.floor(score * 1000);
     }
 
-    public void generateOutput (String path, String strategyName)
-    {
-        System.out.println("Number of EndPoints : " + endPoints.size());
-
-        endPoints.forEach(ep -> System.out.printf("EndPoint %d have %d queries%n", ep.getId(), ep.getQueries().size()));
-
-        System.out.println("Number of Video : " + videos.size());
-
-        videos.forEach(video -> System.out.printf("Video %d of %d size%n", video.getId(), video.getSize()));
-
-        System.out.println("Number of Cache : " + caches.size());
-
-        caches.forEach(cache -> System.out.printf("Cache %d of %d capacity and %d video%n",
-                                                  cache.getId(),
-                                                  cache.getSize(),
-                                                  cache.getVideos().size()));
-
-        System.out.printf("DataCenter with %d video%n", dataCenter.getVideos().size());
-
-        StringBuilder sb = new StringBuilder();
-        int cacheUsed = (int) caches.stream().filter(c -> !c.getVideos().isEmpty()).count();
-
-        sb.append(cacheUsed).append('\n');
-
-        for (int i = 0; i < cacheUsed; i++)
-        {
-            ArrayList8<Video> videos = caches.get(i).getVideos();
-
-            if (!videos.isEmpty()) sb.append(i);
-
-            videos.forEach(v -> sb.append(' ').append(v.getId()));
-
-            if (!videos.isEmpty()) sb.append('\n');
-        }
-
-        try (PrintWriter writer = new PrintWriter(path + "/data.out", "UTF-8"))
-        {
-            writer.write(sb.toString());
-        }
-        catch (FileNotFoundException | UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
-
-        System.out.printf("Output of the score.out file : \n%s\nAnd the score for this strategy : %s\n\n%n", sb.toString(), this.scoring());
+    public void generateOutput(String path) {
+//        System.out.println("Number of EndPoints : " + endPoints.size());
+//
+//        endPoints.forEach(ep -> System.out.printf("EndPoint %d have %d queries%n", ep.getId(), ep.getQueries().size()));
+//
+//        System.out.println("Number of Video : " + videos.size());
+//
+//        videos.forEach(video -> System.out.printf("Video %d of %d size%n", video.getId(), video.getSize()));
+//
+//        System.out.println("Number of Cache : " + caches.size());
+//
+//        caches.forEach(cache -> System.out.printf("Cache %d of %d capacity and %d video%n",
+//                cache.getId(),
+//                cache.getSize(),
+//                cache.getVideos().size()));
+//
+//        System.out.printf("DataCenter with %d video%n", dataCenter.getVideos().size());
+//
+//        StringBuilder sb = new StringBuilder();
+//        int cacheUsed = (int) caches.stream().filter(c -> !c.getVideos().isEmpty()).count();
+//
+//        sb.append(cacheUsed).append('\n');
+//
+//        for (int i = 0; i < cacheUsed; i++) {
+//            ArrayList8<Video> videos = caches.get(i).getVideos();
+//
+//            if (!videos.isEmpty()) sb.append(i);
+//
+//            videos.forEach(v -> sb.append(' ').append(v.getId()));
+//
+//            if (!videos.isEmpty()) sb.append('\n');
+//        }
+//
+//        try (PrintWriter writer = new PrintWriter(path + "/data.out", "UTF-8")) {
+//            writer.write(sb.toString());
+//        } catch (FileNotFoundException | UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.printf("Output of the score.out file : \n%s\nAnd the score for this strategy : %s\n\n%n", sb.toString(), this.scoring());
     }
 
 }

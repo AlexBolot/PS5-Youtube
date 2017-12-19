@@ -26,12 +26,30 @@
 package fr.uca.unice.polytech.si3.ps5.year17;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 public class MyBenchmark {
 
     @Benchmark
     public void testMethod() {
         // place your benchmarked code here
+    }
+
+    public static void main(String[] args) throws RunnerException {
+
+        Options opt = new OptionsBuilder()
+
+                .include(MyBenchmark.class.getSimpleName())
+
+                .build();
+
+
+
+        new Runner(opt).run();
+
     }
 
 }

@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>visualisation</artifactId>
+    <artifactId>visualizer</artifactId>
     <packaging>jar</packaging>
 
-    <name>visualisation</name>
+    <name>visualizer</name>
     <url>http://maven.apache.org</url>
 
     <build>

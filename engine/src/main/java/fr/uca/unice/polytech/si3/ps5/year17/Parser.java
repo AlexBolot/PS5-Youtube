@@ -20,6 +20,8 @@ public class Parser {
 
     private DataCenter dataCenter = new DataCenter();
 
+    private DataBundle data;
+
     private int numberOfCacheServers;
     private int cacheServersCapacity;
 
@@ -95,5 +97,9 @@ public class Parser {
 
     public DataCenter getDataCenter() {
         return dataCenter;
+    }
+
+    public Controller getData() {
+        return data;
     }
 }
