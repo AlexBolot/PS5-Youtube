@@ -15,23 +15,24 @@ public class FirstInStrategy extends Strategy {
 
     private ArrayList8<Video> videoToRemove = new ArrayList8<>();
 
-    public FirstInStrategy (ArrayList8<Connexion> connexions, ArrayList8<Cache> caches, ArrayList8<EndPoint> endPoints,
-                            ArrayList8<Video> videos)
-    {
+    public FirstInStrategy(ArrayList8<Connexion> connexions, ArrayList8<Cache> caches, ArrayList8<EndPoint> endPoints,
+                           ArrayList8<Video> videos) {
         super(connexions, caches, endPoints);
         this.videos = videos;
     }
 
     @Override
     public void apply() {
+        ArrayList8<Video> cpy = new ArrayList8<>();
+        cpy.addAll(videos);
         for (Cache cache : this.caches) {
-            for (Video video : this.videos) {
-                if (cache.getSize() > video.getSize() && !cache.getVideos().contains(video)) {
+            for (Video video : cpy) {
+                if (cache.getSize() >= video.getSize() && !cache.getVideos().contains(video)) {
                     cache.addVideo(video);
                     videoToRemove.add(video);
                 }
             }
-            videos.removeAll(videoToRemove);
+            cpy.removeAll(videoToRemove);
         }
     }
 }

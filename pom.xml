@@ -1,6 +1,28 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<!--
+		  _   _   _____    _____   ______   _____     ____    _    _   _ _
+		 | \ | | |_   _|  / ____| |  ____| |  __ \   / __ \  | |  | | | | |
+		 |  \| |   | |   | |  __  | |__    | |__) | | |  | | | |  | | | | |
+		 | . ` |   | |   | | |_ | |  __|   |  _  /  | |  | | | |  | | | | |
+		 | |\  |  _| |_  | |__| | | |____  | | \ \  | |__| | | |__| | |_|_|
+		 |_| \_| |_____|  \_____| |______| |_|  \_\  \____/   \____/  (_|_)
+		  _     _              _    _              _______   ______      _  _   _    _   _____                _____              _____
+		 \ \   / /     /\     |  \/  |     /\     |__   __| |  ____|    | |/ / | |  | | |  __ \      /\      / ____|     /\     |_   _|
+		  \ \_/ /     /  \    | \  / |    /  \       | |    | |__       | ' /  | |  | | | |  | |    /  \    | (___      /  \      | |
+		   \   /     / /\ \   | |\/| |   / /\ \      | |    |  __|      |  <   | |  | | | |  | |   / /\ \    \___ \    / /\ \     | |
+			| |     / ____ \  | |  | |  / ____ \     | |    | |____     | . \  | |__| | | |__| |  / ____ \   ____) |  / ____ \   _| |_
+		    |_|    /_/    \_\ |_|  |_| /_/    \_\    |_|    |______|    |_|\_\  \____/  |_____/  /_/    \_\ |_____/  /_/    \_\ |_____|
+		  _     _              _    _   ______   _____     ____    _
+		 \ \   / /     /\     |  \/  | |  ____| |  __ \   / __ \  | |
+		  \ \_/ /     /  \    | \  / | | |__    | |__) | | |  | | | |
+		   \   /     / /\ \   | |\/| | |  __|   |  _  /  | |  | | | |
+			| |     / ____ \  | |  | | | |____  | | \ \  | |__| | |_|
+			|_|    /_/    \_\ |_|  |_| |______| |_|  \_\  \____/  (_)
+
+	-->
 	
 	<groupId>fr.uca.unice.polytech.si3.ps5.year17</groupId>
 	<artifactId>teamB</artifactId>
@@ -9,6 +31,7 @@
 		<module>engine</module>
 		<module>benchmark</module>
 		<module>visualisation</module>
+		<module>benchmark</module>
 	</modules>
 	<packaging>pom</packaging>
 	
@@ -107,6 +130,21 @@
 			<artifactId>junit-vintage-engine</artifactId>
 			<version>${junit.vintage.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-core</artifactId>
+			<version>1.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-generator-annprocess</artifactId>
+			<version>1.19</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.uca.unice.polytech.si3.ps5.year17</groupId>
+			<artifactId>engine</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 </project>
