@@ -2,11 +2,9 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
-import java.util.List;
-
 public class DataCenter
 {
-    private List<Video> videos;
+    private ArrayList8<Video> videos;
 
     /**
      DataCenter Constructor
@@ -21,9 +19,14 @@ public class DataCenter
 
      @param videos The videos stored in the DataCenter
      */
-    public DataCenter (List<Video> videos)
+    public DataCenter (ArrayList8<Video> videos)
     {
         this.videos = videos;
+    }
+
+    public DataCenter (DataCenter dataCenter)
+    {
+        this.videos = dataCenter.getVideos().subList(video -> true);
     }
 
     /**
@@ -31,7 +34,7 @@ public class DataCenter
 
      @return The video store in the DataCenter
      */
-    public List<Video> getVideos ()
+    public ArrayList8<Video> getVideos ()
     {
         return videos;
     }
@@ -41,7 +44,7 @@ public class DataCenter
 
      @param videos The video Of the Datacenter
      */
-    public void setVideos (List<Video> videos)
+    public void setVideos (ArrayList8<Video> videos)
     {
         this.videos = videos;
     }

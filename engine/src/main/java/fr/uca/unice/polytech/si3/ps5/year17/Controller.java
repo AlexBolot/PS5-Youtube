@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 public class Controller
 {
-
     private ArrayList8<Connexion> connexions;
     private ArrayList8<Cache>     caches;
     private ArrayList8<EndPoint>  endPoints;
@@ -24,6 +23,15 @@ public class Controller
         this.endPoints = endPoints;
         this.videos = videos;
         this.dataCenter = dataCenter;
+    }
+
+    public Controller (Controller controller)
+    {
+        this.connexions = controller.getConnexions().subList(cache -> true);
+        this.caches = controller.getCaches().subList(cache -> true);
+        this.endPoints = controller.getEndPoints().subList(cache -> true);
+        this.videos = controller.getVideos().subList(cache -> true);
+        this.dataCenter = new DataCenter(controller.getDataCenter());
     }
 
     public ArrayList8<Connexion> getConnexions ()
@@ -64,6 +72,16 @@ public class Controller
     public void setVideos (ArrayList8<Video> videos)
     {
         this.videos = videos;
+    }
+
+    public DataCenter getDataCenter ()
+    {
+        return dataCenter;
+    }
+
+    public void setDataCenter (DataCenter dataCenter)
+    {
+        this.dataCenter = dataCenter;
     }
 
     public double scoring ()

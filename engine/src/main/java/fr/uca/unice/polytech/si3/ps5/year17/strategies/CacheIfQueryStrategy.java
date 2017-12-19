@@ -15,6 +15,11 @@ public class CacheIfQueryStrategy extends Strategy
         super(connexions, caches, endPoints);
     }
 
+    public CacheIfQueryStrategy (Controller controller)
+    {
+        super(controller);
+    }
+
     public void apply ()
     {
         for (EndPoint endPoint : endPoints)

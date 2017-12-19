@@ -1,7 +1,5 @@
 package fr.uca.unice.polytech.si3.ps5.year17;
 
-import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
-
 import java.util.ArrayList;
 
 public class EndPoint {
