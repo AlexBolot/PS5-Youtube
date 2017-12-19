@@ -18,6 +18,24 @@ public class ArrayList8<E> extends ArrayList<E>
 {
     private Random random = new Random();
 
+    /**
+     * Constructs an empty list with an initial capacity of ten.
+     */
+    public ArrayList8() {
+        super();
+    }
+
+    /**
+     * Constructs a list containing the elements of the specified
+     * collection, in the order they are returned by the collection's
+     * iterator.
+     *
+     * @param c the collection whose elements are to be placed into this list
+     * @throws NullPointerException if the specified collection is null
+     */
+    public ArrayList8(Collection<? extends E> c) {
+       super(c);
+    }
 
     public E getRandom ()
     {
