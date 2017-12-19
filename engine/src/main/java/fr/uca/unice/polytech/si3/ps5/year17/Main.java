@@ -35,8 +35,10 @@ public class Main {
     public static void main(String args[]) {
         Parser parser = new Parser();
 
+        String inputFileName = "/trending_today.in";
+
         try {
-            String path = Main.class.getResource("/me_at_the_zoo.in").getPath();
+            String path = Main.class.getResource(inputFileName).getPath();
             parser.parse(path);
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,8 +50,9 @@ public class Main {
         controller.addStrategy(new CacheIfQueryStrategy(parser.getData()));
         controller.addStrategy(new FirstInStrategy(parser.getData()));
         controller.addStrategy(new ProbaTegy(parser.getData()));
+        controller.addStrategy(new RandomStrategy(parser.getData()));
 
-        controller.generateOutput(args[0]);
+        controller.generateOutput(args[0], inputFileName);
     }
 
 }

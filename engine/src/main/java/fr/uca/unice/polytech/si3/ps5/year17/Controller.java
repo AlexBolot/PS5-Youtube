@@ -4,6 +4,7 @@ import fr.uca.unice.polytech.si3.ps5.year17.strategies.Strategy;
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
 import javax.xml.bind.DataBindingException;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -64,7 +65,7 @@ public class Controller {
         return Math.floor(score * 1000);
     }
 
-    public void generateOutput(String path) {
+    public void generateOutput(String path, String inputFileName) {
 
         StringBuilder dataString = new StringBuilder();
         StringBuilder scoreString = new StringBuilder();
@@ -84,8 +85,12 @@ public class Controller {
             scoreString.append(score).append(' ');
         }
 
-        try (PrintWriter dataOut = new PrintWriter(path + "/data.out", "UTF-8");
-             PrintWriter scoreOut = new PrintWriter(path + "/score.out", "UTF-8")) {
+        String outputDir = path + inputFileName;
+
+        new File(outputDir).mkdirs();
+
+        try (PrintWriter dataOut    = new PrintWriter(outputDir + "/data.out", "UTF-8");
+             PrintWriter scoreOut   = new PrintWriter(outputDir + "/score.out", "UTF-8")) {
             dataOut.write(dataString.toString());
             scoreOut.write(scoreString.toString());
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
