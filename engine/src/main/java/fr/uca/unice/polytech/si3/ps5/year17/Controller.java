@@ -23,6 +23,10 @@ public class Controller {
         this.dataCenter = dataCenter;
     }
 
+    public Controller(DataBundle dataBundle) {
+
+    }
+
     public Controller(Controller controller) {
         this.connexions = controller.getConnexions().subList(cache -> true);
         this.caches = controller.getCaches().subList(cache -> true);

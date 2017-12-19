@@ -99,7 +99,7 @@ public class Parser {
         return dataCenter;
     }
 
-    public Controller getData() {
+    public DataBundle getData() {
         return data;
     }
 }
