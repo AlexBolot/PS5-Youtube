@@ -3,6 +3,7 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Cache {
 
@@ -85,6 +86,28 @@ public class Cache {
         if (video.getSize() > this.size) return false;
         this.size -= video.getSize();
         return this.videos.add(video);
+    }
+
+    /**
+     * Equals method
+     *
+     * @param o The object to compare the attributes from
+     * @return If the attribute of the parameter object are equals to the current object
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cache)) return false;
+        Cache cache = (Cache) o;
+        return id == cache.id &&
+                size == cache.size &&
+                Objects.equals(videos, cache.videos);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, videos, size);
     }
 
     /**

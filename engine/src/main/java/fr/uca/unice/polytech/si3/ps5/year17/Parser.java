@@ -59,7 +59,8 @@ public class Parser {
                 int cacheServerId = Integer.parseInt(cacheInformation[0]);
                 int latencyCacheEndpoint = Integer.parseInt(cacheInformation[1]);
                 connexions.add(new Connexion(cacheServerId, endpointId, latencyCacheEndpoint));
-                caches.add(new Cache(cacheServerId, cacheServersCapacity));
+                Cache newCache = new Cache(cacheServerId, cacheServersCapacity);
+                if (!caches.contains(newCache)) caches.add(newCache);
             }
         }
         // Runs through the requests information
