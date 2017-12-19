@@ -14,6 +14,12 @@ public abstract class Strategy
     protected List<Cache>     caches;
     protected List<EndPoint> endPoints;
 
+    /**
+     * Constructor for a strategy
+     * @param connexions
+     * @param caches
+     * @param endPoints
+     */
     public Strategy (List<Connexion> connexions, List<Cache> caches, List<EndPoint> endPoints)
     {
         this.connexions = connexions;
@@ -21,6 +27,9 @@ public abstract class Strategy
         this.endPoints = endPoints;
     }
 
+    /**
+     * Applies the strategy
+     */
     public abstract void apply ();
 
 }

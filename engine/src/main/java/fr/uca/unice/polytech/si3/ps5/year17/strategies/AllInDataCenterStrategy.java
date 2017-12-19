@@ -7,6 +7,9 @@ import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
 import java.util.List;
 
+/**
+ * All videos are sent to endpoints directly from the datacenter
+ */
 public class AllInDataCenterStrategy extends Strategy
 {
 

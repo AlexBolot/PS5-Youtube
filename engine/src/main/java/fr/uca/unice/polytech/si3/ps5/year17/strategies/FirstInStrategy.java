@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Runs through all the caches and fills them with videos
+ */
 public class FirstInStrategy extends Strategy {
 
     private List<Video> videos;
