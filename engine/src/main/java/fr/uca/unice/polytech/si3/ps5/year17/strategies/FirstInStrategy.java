@@ -23,8 +23,7 @@ public class FirstInStrategy extends Strategy {
 
         for (Cache cache : this.data.getCaches()) {
             for (Video video : cpy) {
-                if (cache.getSize() >= video.getSize() && !cache.getVideos().contains(video)) {
-                    cache.addVideo(video);
+                if (!cache.getVideos().contains(video) && cache.addVideo(video)) {
                     videoToRemove.add(video);
                 }
             }

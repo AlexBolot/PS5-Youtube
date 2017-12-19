@@ -23,6 +23,7 @@ public abstract class Strategy {
         return data;
     }
 
+
     @Override
     public String toString() {
         long usedCache = data.getCaches().stream().filter(cache -> !cache.getVideos().isEmpty()).count();

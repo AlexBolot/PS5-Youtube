@@ -35,7 +35,7 @@ public class Main {
     public static void main(String args[]) {
         Parser parser = new Parser();
 
-        String inputFileName = "/trending_today.in";
+        String inputFileName = "/me_at_the_zoo.in";
 
         try {
             String path = Main.class.getResource(inputFileName).getPath();

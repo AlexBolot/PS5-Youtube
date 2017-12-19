@@ -91,7 +91,7 @@ public class Cache {
      * Add a Video to the Cache server
      *
      * @param video The Video to add to the Cache server
-     * @return If the Video has been correctly added
+     * @return If the Video has been correctly added (false if the size of the video is higher than the cache's)
      */
     public boolean addVideo(Video video) {
         if (video.getSize() > this.size) return false;

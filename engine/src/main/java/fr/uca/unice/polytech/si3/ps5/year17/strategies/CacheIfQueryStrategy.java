@@ -1,7 +1,6 @@
 package fr.uca.unice.polytech.si3.ps5.year17.strategies;
 
 import fr.uca.unice.polytech.si3.ps5.year17.*;
-import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
 /**
  * If there is more than 500 queries for a video, they are assigned to the cache that is
@@ -21,8 +20,8 @@ public class CacheIfQueryStrategy extends Strategy {
 
                 Video video = query.getVideo();
 
-                for (Connexion connexion : data.getConnexions().subList(connexion -> connexion.getIdEndPoint() == endPoint.getId())) {
-                    Cache cache = data.getCaches().get(connexion.getIdCache());
+                for (Connection connection : data.getConnections().subList(connexion -> connexion.getIdEndPoint() == endPoint.getId())) {
+                    Cache cache = data.getCaches().get(connection.getIdCache());
 
                     if (cache.addVideo(video)) break;
                 }

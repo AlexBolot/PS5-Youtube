@@ -44,7 +44,7 @@ public class ProbaTegy extends Strategy {
         HashMap<Integer, Integer> cachesConnexions = new HashMap<>();
 
         for (Cache c : data.getCaches()) {
-            nbConnexions += data.getConnexions().stream().filter(co -> co.getIdCache() == c.getId()).count();
+            nbConnexions += data.getConnections().stream().filter(co -> co.getIdCache() == c.getId()).count();
 
             cachesConnexions.put(c.getId(), nbConnexions);
         }

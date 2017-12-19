@@ -1,19 +1,19 @@
 package fr.uca.unice.polytech.si3.ps5.year17;
 
-public class Connexion {
+public class Connection {
 
     private int idCache;
     private int idEndPoint;
     private int latency;
 
     /**
-     * Connexion Constructor
+     * Connection Constructor
      *
      * @param idCache       The ID where the video are stocked
      * @param idEndPoint    The ID where the video will be sent
      * @param latency       The speed to get the video to the EndPoint
      */
-    public Connexion(int idCache, int idEndPoint, int latency) {
+    public Connection(int idCache, int idEndPoint, int latency) {
         this.idCache = idCache;
         this.idEndPoint = idEndPoint;
         this.latency = latency;
@@ -56,18 +56,18 @@ public class Connexion {
     }
 
     /**
-     * Getter for the latency of the connexion
+     * Getter for the latency of the connection
      *
-     * @return The Connexion latency
+     * @return The Connection latency
      */
     public int getLatency() {
         return latency;
     }
 
     /**
-     * Setter for the connexion latency
+     * Setter for the connection latency
      *
-     * @param latency The connexion latency
+     * @param latency The connection latency
      */
     public void setLatency(int latency) {
         this.latency = latency;
@@ -80,6 +80,6 @@ public class Connexion {
      */
     @Override
     public String toString() {
-        return "Connexion " + "id du cache = " + idCache + ", id de l'endPoint = " + idEndPoint + ", latence = " + latency;
+        return "Connection " + "id du cache = " + idCache + ", id de l'endPoint = " + idEndPoint + ", latence = " + latency;
     }
 }

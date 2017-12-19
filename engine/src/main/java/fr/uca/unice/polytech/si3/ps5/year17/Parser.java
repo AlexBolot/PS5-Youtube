@@ -14,7 +14,7 @@ public class Parser {
 
     private ArrayList8<EndPoint> endpoints = new ArrayList8<>();
 
-    private ArrayList8<Connexion> connexions = new ArrayList8<>();
+    private ArrayList8<Connection> connections = new ArrayList8<>();
 
     private ArrayList8<Cache> caches = new ArrayList8<>();
 
@@ -54,7 +54,7 @@ public class Parser {
                 String[] cacheInformation = in.readLine().split(" ");
                 int cacheServerId = Integer.parseInt(cacheInformation[0]);
                 int latencyCacheEndpoint = Integer.parseInt(cacheInformation[1]);
-                connexions.add(new Connexion(cacheServerId, endpointId, latencyCacheEndpoint));
+                connections.add(new Connection(cacheServerId, endpointId, latencyCacheEndpoint));
                 Cache newCache = new Cache(cacheServerId, cacheServersCapacity);
                 if (!caches.contains(newCache)) caches.add(newCache);
             }
@@ -77,9 +77,9 @@ public class Parser {
         return caches;
     }
 
-    public ArrayList8<Connexion> getConnexions ()
+    public ArrayList8<Connection> getConnections()
     {
-        return connexions;
+        return connections;
     }
 
     public ArrayList8<EndPoint> getEndpoints ()
@@ -97,7 +97,7 @@ public class Parser {
     }
 
     public DataBundle getData() {
-        return new DataBundle(new ArrayList8<>(this.connexions), new ArrayList8<>(this.caches),
+        return new DataBundle(new ArrayList8<>(this.connections), new ArrayList8<>(this.caches),
                 new ArrayList8<>(this.videos),  new ArrayList8<>(this.endpoints), new DataCenter(this.dataCenter));
     }
 }

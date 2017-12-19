@@ -3,7 +3,6 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 import fr.uca.unice.polytech.si3.ps5.year17.strategies.Strategy;
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
-import javax.xml.bind.DataBindingException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -37,14 +36,14 @@ public class Controller {
         HashMap<Integer, Integer> bestTimes = new HashMap<>();
 
         for (EndPoint endPoint : strategy.getData().getEndPoints()) {
-            for (Connexion connexion : strategy.getData().getConnexions()) {
+            for (Connection connection : strategy.getData().getConnections()) {
                 for (Query query : endPoint.getQueries()) {
-                    if (endPoint.getId() == connexion.getIdEndPoint()) {
-                        if (strategy.getData().getCaches().get(connexion.getIdCache()).getVideos().contains(query.getVideo())) {
+                    if (endPoint.getId() == connection.getIdEndPoint()) {
+                        if (strategy.getData().getCaches().get(connection.getIdCache()).getVideos().contains(query.getVideo())) {
                             int videoID = query.getVideo().getId();
                             int nbRequest = query.getNumberOfRequests();
                             int dataCenterLatency = endPoint.getDataCenterLatency();
-                            int connexionLatency = connexion.getLatency();
+                            int connexionLatency = connection.getLatency();
 
                             int totalGain = nbRequest * (dataCenterLatency - connexionLatency);
 
