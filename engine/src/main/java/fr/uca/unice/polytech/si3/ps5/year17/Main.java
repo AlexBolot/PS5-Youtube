@@ -2,6 +2,7 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 
 import fr.uca.unice.polytech.si3.ps5.year17.strategies.AllInDataCenterStrategy;
 import fr.uca.unice.polytech.si3.ps5.year17.strategies.FirstInStrategy;
+import fr.uca.unice.polytech.si3.ps5.year17.strategies.ProbaTegy;
 import fr.uca.unice.polytech.si3.ps5.year17.strategies.Strategy;
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String args[]) {
-        System.out.println("Hello world");
+        /*System.out.println("Hello world");
 
         Video vid0 = new Video(0,50);
         Video vid1 = new Video(1,50);
@@ -67,7 +68,7 @@ public class Main {
 
         Controller controller = new Controller(connexions,caches,endPoints, null, null);
 
-        System.out.println(controller.scoring());
+        System.out.println(controller.scoring());*/
 
         Parser parser = new Parser();
         try {
@@ -77,6 +78,7 @@ public class Main {
             e.printStackTrace();
         }
 
+/*
         Controller c = new Controller(parser.getConnexions(), parser.getCaches(), parser.getEndpoints(), parser.getVideos(), parser.getDataCenter());
 
         Strategy strategy = new AllInDataCenterStrategy(c.getConnexions(), c.getCaches(), c.getEndPoints());
@@ -84,7 +86,9 @@ public class Main {
         System.out.println("Strategy One : All in DataCenter");
         strategy.apply();
 
-        c.generateOutput(args[0]);
+        System.out.println(c.scoring());
+
+        //c.generateOutput(args[0]);
 
         c = new Controller(parser.getConnexions(), parser.getCaches(), parser.getEndpoints(), parser.getVideos(), parser.getDataCenter());
 
@@ -93,7 +97,20 @@ public class Main {
         System.out.println("Strategy Two : Greedy algorithm");
         strategy.apply();
 
-        c.generateOutput(args[0]);
+        System.out.println(c.scoring());
+
+        c.generateOutput(args[0]);*/
+
+        Controller c2 = new Controller(parser.getConnexions(), parser.getCaches(), parser.getEndpoints(), parser.getVideos(), parser.getDataCenter());
+
+        Strategy strategy2 = new ProbaTegy(c2.getConnexions(), c2.getCaches(), c2.getEndPoints(), c2.getVideos());
+
+        System.out.println("Strategy Three : Probability algorithm");
+        strategy2.apply();
+
+        System.out.println(c2.scoring());
+
+        c2.generateOutput(args[0]);
     }
 
 }

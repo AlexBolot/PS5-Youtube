@@ -70,7 +70,7 @@ public class Controller
     {
         int temp = 0;
         int temp2 = 0;
-        double score;
+        double score = 0;
         HashMap<Integer, Integer> bestTimes = new HashMap<>();
 
         for (EndPoint e : endPoints)
@@ -84,12 +84,9 @@ public class Controller
                         if (caches.get(c.getIdCache()).getVideos().contains(q.getVideo()))
                         {
                             int tot = q.getNumberOfRequests() * (e.getDataCenterLatency() - c.getLatency());
-                            //                            System.out.println(q.getVideo().getId());
-                            //                            System.out.println(q.getNumberOfRequests() + " * (" + e.getDataCenterLatency() + " - " + c.getLatency() + ")");
                             if (!bestTimes.containsKey(q.getVideo().getId())) bestTimes.put(q.getVideo().getId(), tot);
                             if (bestTimes.containsKey(q.getVideo().getId()) && bestTimes.get(q.getVideo().getId()) < tot)
                                 bestTimes.put(q.getVideo().getId(), tot);
-                            //temp += q.getNumberOfRequests() * (e.getDataCenterLatency() - c.getLatency());
                         }
                     }
                 }
@@ -104,11 +101,12 @@ public class Controller
         {
             temp += bestTimes.get(key);
         }
-        //        System.out.println(temp2);
-        //        System.out.println(temp);
-        score = (double) temp / temp2;
 
-        return score * 1000;
+        /*System.out.println(temp2);
+        System.out.println(temp);*/
+        score = (double)((temp / temp2)*1000);
+
+        return score;
     }
 
     public void generateOutput (String path)
