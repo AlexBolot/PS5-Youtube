@@ -23,7 +23,6 @@ public class Parser {
     private DataBundle data;
 
     private int numberOfCacheServers;
-    private int cacheServersCapacity;
 
     /**
      * Read a .in file and parse the information
@@ -38,7 +37,7 @@ public class Parser {
         int numberOfEndpoints = Integer.parseInt(firstLine[1]);
         int numberOfRequestDescriptions = Integer.parseInt(firstLine[2]);
         numberOfCacheServers = Integer.parseInt(firstLine[3]);
-        cacheServersCapacity = Integer.parseInt(firstLine[4]);
+        int cacheServersCapacity = Integer.parseInt(firstLine[4]);
         String[] secondLine = in.readLine().split(" ");
 
         // Runs through the second line to get all video sizes

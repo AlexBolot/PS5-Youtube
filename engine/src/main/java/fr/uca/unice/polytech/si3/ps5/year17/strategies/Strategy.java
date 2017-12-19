@@ -33,7 +33,7 @@ public abstract class Strategy
     }
 
     /**
-     * Applies the strategy
+     * Apply the strategy
      */
     public abstract void apply ();
 

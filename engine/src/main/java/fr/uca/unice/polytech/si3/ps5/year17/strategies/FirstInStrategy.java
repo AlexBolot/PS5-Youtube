@@ -12,7 +12,9 @@ public class FirstInStrategy extends Strategy
     private ArrayList8<Video> videos;
     private ArrayList8<Video> videoToRemove;
 
-    public FirstInStrategy (ArrayList8<Connexion> connexions, ArrayList8<Cache> caches, ArrayList8<EndPoint> endPoints,
+    public FirstInStrategy (ArrayList8<Connexion> connexions,
+                            ArrayList8<Cache> caches,
+                            ArrayList8<EndPoint> endPoints,
                             ArrayList8<Video> videos)
     {
         super(connexions, caches, endPoints);
