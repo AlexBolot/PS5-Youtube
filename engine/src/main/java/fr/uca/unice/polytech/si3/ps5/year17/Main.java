@@ -113,9 +113,35 @@ public class Main {
 
         c2.generateOutput(args[0], "");*/
 
+        /*Controller c3 = new Controller(parser.getConnexions(),
+                parser.getCaches(),
+                parser.getEndpoints(),
+                parser.getVideos(),
+                parser.getDataCenter());
 
-        Controller controller = new Controller(parser.getData());
-        controller.generateOutput(args[0]);
+        Strategy strategy3 = new RandomStrategy(c3.getConnexions(), c3.getCaches(), c3.getEndPoints(), c3.getVideos());
+
+        System.out.println("Strategy Four : Random algorithm");
+        strategy3.apply();
+
+        c3.generateOutput(args[0]);
+
+        System.out.println(c3.scoring());*/
+
+        /*Controller c4 = new Controller(parser.getConnexions(),
+                parser.getCaches(),
+                parser.getEndpoints(),
+                parser.getVideos(),
+                parser.getDataCenter());
+
+        Strategy strategy4 = new RandomStrategy(c4.getConnexions(), c4.getCaches(), c4.getEndPoints(), c4.getVideos());
+
+        System.out.println("Strategy Five : Lightest algorithm");
+        strategy4.apply();
+
+        c4.generateOutput(args[0]);
+
+        System.out.println(c4.scoring());*/
+
     }
-
 }
