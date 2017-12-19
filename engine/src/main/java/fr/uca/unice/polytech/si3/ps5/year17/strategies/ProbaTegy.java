@@ -34,12 +34,10 @@ import static java.util.stream.Collectors.toMap;
 @SuppressWarnings ("unchecked")
 public class ProbaTegy extends Strategy
 {
-    private ArrayList8<Video>     videos;
-    private ArrayList8<Cache>     caches;
-    private Map<Integer, Integer> sortedCachesSizes;
+    private ArrayList8<Video> videos;
+    private Map<Integer,Integer>  sortedCachesSizes;
 
-    public ProbaTegy (ArrayList8<Connexion> connexions, ArrayList8<Cache> caches, ArrayList8<EndPoint> endPoints, ArrayList8<Video> videos)
-    {
+    public ProbaTegy(ArrayList8<Connexion> connexions, ArrayList8<Cache> caches, ArrayList8<EndPoint> endPoints, ArrayList8<Video> videos) {
         super(connexions, caches, endPoints);
         this.videos = videos;
         this.caches = caches;
