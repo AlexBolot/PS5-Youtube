@@ -14,7 +14,15 @@ public class DataBundle {
 
     private DataCenter dataCenter;
 
-
+    /**
+     * TODO doc
+     *
+     * @param connexions
+     * @param caches
+     * @param videos
+     * @param endPoints
+     * @param dataCenter
+     */
     public DataBundle(ArrayList8<Connexion> connexions, ArrayList8<Cache> caches, ArrayList8<Video> videos, ArrayList8<EndPoint> endPoints, DataCenter dataCenter) {
         this.connexions = connexions;
         this.caches = caches;

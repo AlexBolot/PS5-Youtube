@@ -40,6 +40,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         /*
         final Controller controller = new Controller(parser.getConnexions(),
                 parser.getCaches(),
@@ -113,35 +114,15 @@ public class Main {
 
         c2.generateOutput(args[0], "");*/
 
-        /*Controller c3 = new Controller(parser.getConnexions(),
-                parser.getCaches(),
-                parser.getEndpoints(),
-                parser.getVideos(),
-                parser.getDataCenter());
 
-        Strategy strategy3 = new RandomStrategy(c3.getConnexions(), c3.getCaches(), c3.getEndPoints(), c3.getVideos());
+        Controller controller = new Controller();
 
-        System.out.println("Strategy Four : Random algorithm");
-        strategy3.apply();
+        controller.addStrategy(new AllInDataCenterStrategy(parser.getData()));
+        controller.addStrategy(new CacheIfQueryStrategy(parser.getData()));
+        controller.addStrategy(new FirstInStrategy(parser.getData()));
+        controller.addStrategy(new ProbaTegy(parser.getData()));
 
-        c3.generateOutput(args[0]);
-
-        System.out.println(c3.scoring());*/
-
-        /*Controller c4 = new Controller(parser.getConnexions(),
-                parser.getCaches(),
-                parser.getEndpoints(),
-                parser.getVideos(),
-                parser.getDataCenter());
-
-        Strategy strategy4 = new RandomStrategy(c4.getConnexions(), c4.getCaches(), c4.getEndPoints(), c4.getVideos());
-
-        System.out.println("Strategy Five : Lightest algorithm");
-        strategy4.apply();
-
-        c4.generateOutput(args[0]);
-
-        System.out.println(c4.scoring());*/
-
+        controller.generateOutput(args[0]);
     }
+
 }

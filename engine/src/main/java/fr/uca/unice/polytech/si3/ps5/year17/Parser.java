@@ -20,8 +20,6 @@ public class Parser {
 
     private DataCenter dataCenter = new DataCenter();
 
-    private DataBundle data;
-
     private int numberOfCacheServers;
 
     /**
@@ -99,6 +97,7 @@ public class Parser {
     }
 
     public DataBundle getData() {
-        return data;
+        return new DataBundle(new ArrayList8<>(this.connexions), new ArrayList8<>(this.caches),
+                new ArrayList8<>(this.videos),  new ArrayList8<>(this.endpoints), new DataCenter(this.dataCenter));
     }
 }

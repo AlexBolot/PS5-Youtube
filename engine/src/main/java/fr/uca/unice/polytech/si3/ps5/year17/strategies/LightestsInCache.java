@@ -1,9 +1,6 @@
 package fr.uca.unice.polytech.si3.ps5.year17.strategies;
 
-import fr.uca.unice.polytech.si3.ps5.year17.Cache;
-import fr.uca.unice.polytech.si3.ps5.year17.Connexion;
-import fr.uca.unice.polytech.si3.ps5.year17.EndPoint;
-import fr.uca.unice.polytech.si3.ps5.year17.Video;
+import fr.uca.unice.polytech.si3.ps5.year17.*;
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
 import java.util.Arrays;
@@ -19,18 +16,9 @@ public class LightestsInCache extends Strategy {
 
     /**
      * Constructor for a strategy
-     *
-     * @param connexions
-     * @param caches
-     * @param endPoints
      */
-    public LightestsInCache(ArrayList8<Connexion> connexions,
-                            ArrayList8<Cache> caches,
-                            ArrayList8<EndPoint> endPoints,
-                            ArrayList8<Video> videos) {
-        super(connexions, caches, endPoints);
-        this.videos = videos;
-        this.caches = caches;
+    public LightestsInCache(DataBundle data) {
+        super(data);
         // Sort the videos list by size (ascending order)
         videos.sort(Comparator.comparing(Video::getSize));
     }
@@ -38,7 +26,7 @@ public class LightestsInCache extends Strategy {
     @Override
     public void apply() {
         ArrayList8<Video> cpy = new ArrayList8<>(videos);
-        for (Cache cache : this.caches) {
+        for (Cache cache : this.data.getCaches()) {
             for (Video video : cpy) {
                 if (cache.getSize() >= video.getSize() && !cache.getVideos().contains(video)) {
                     cache.addVideo(video);

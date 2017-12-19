@@ -1,91 +1,45 @@
 package fr.uca.unice.polytech.si3.ps5.year17;
 
+import fr.uca.unice.polytech.si3.ps5.year17.strategies.Strategy;
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
+import javax.xml.bind.DataBindingException;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 public class Controller {
-    private ArrayList8<Connexion> connexions;
-    private ArrayList8<Cache> caches;
-    private ArrayList8<EndPoint> endPoints;
-    private ArrayList8<Video> videos;
-    private DataCenter dataCenter;
 
-    public Controller(ArrayList8<Connexion> connexions, ArrayList8<Cache> caches, ArrayList8<EndPoint> endPoints, ArrayList8<Video> videos,
-                      DataCenter dataCenter) {
-        this.connexions = connexions;
-        this.caches = caches;
-        this.endPoints = endPoints;
-        this.videos = videos;
-        this.dataCenter = dataCenter;
+    private ArrayList8<Strategy> strategies;
+
+    public Controller() {
+        this.strategies = new ArrayList8<>();
     }
 
-    public Controller(DataBundle dataBundle) {
-
+    public Controller(ArrayList8<Strategy> strategies) {
+        this.strategies = strategies;
     }
 
-    public Controller(Controller controller) {
-        this.connexions = controller.getConnexions().subList(cache -> true);
-        this.caches = controller.getCaches().subList(cache -> true);
-        this.endPoints = controller.getEndPoints().subList(cache -> true);
-        this.videos = controller.getVideos().subList(cache -> true);
-        this.dataCenter = new DataCenter(controller.getDataCenter());
+    public boolean addStrategy(Strategy strategy) {
+        return this.strategies.add(strategy);
     }
 
-    public ArrayList8<Connexion> getConnexions() {
-        return connexions;
+    public boolean removeStrategy(Strategy strategy) {
+        return this.strategies.remove(strategy);
     }
 
-    public void setConnexions(ArrayList8<Connexion> connexions) {
-        this.connexions = connexions;
-    }
-
-    public ArrayList8<Cache> getCaches() {
-        return caches;
-    }
-
-    public void setCaches(ArrayList8<Cache> caches) {
-        this.caches = caches;
-    }
-
-    public ArrayList8<EndPoint> getEndPoints() {
-        return endPoints;
-    }
-
-    public void setEndPoints(ArrayList8<EndPoint> endPoints) {
-        this.endPoints = endPoints;
-    }
-
-    public ArrayList8<Video> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(ArrayList8<Video> videos) {
-        this.videos = videos;
-    }
-
-    public DataCenter getDataCenter() {
-        return dataCenter;
-    }
-
-    public void setDataCenter(DataCenter dataCenter) {
-        this.dataCenter = dataCenter;
-    }
-
-    public double scoring() {
+    public double scoring(Strategy strategy) {
         int temp = 0;
         int temp2 = 0;
         double score;
         HashMap<Integer, Integer> bestTimes = new HashMap<>();
 
-        for (EndPoint endPoint : endPoints) {
-            for (Connexion connexion : connexions) {
+        for (EndPoint endPoint : strategy.getData().getEndPoints()) {
+            for (Connexion connexion : strategy.getData().getConnexions()) {
                 for (Query query : endPoint.getQueries()) {
                     if (endPoint.getId() == connexion.getIdEndPoint()) {
-                        if (caches.get(connexion.getIdCache()).getVideos().contains(query.getVideo())) {
+                        if (strategy.getData().getCaches().get(connexion.getIdCache()).getVideos().contains(query.getVideo())) {
                             int videoID = query.getVideo().getId();
                             int nbRequest = query.getNumberOfRequests();
                             int dataCenterLatency = endPoint.getDataCenterLatency();
@@ -111,6 +65,33 @@ public class Controller {
     }
 
     public void generateOutput(String path) {
+
+        StringBuilder dataString = new StringBuilder();
+        StringBuilder scoreString = new StringBuilder();
+
+        for (Strategy strategy : strategies) {
+
+            strategy.apply();
+
+            String result = strategy.toString();
+            String score = scoring(strategy) + "";
+
+            System.out.println("Strategy : " + strategy.getClass().getSimpleName() + "\n");
+            System.out.println("Data Output : \n\n" + result + "\n");
+            System.out.println("Score : " + score + "\n");
+
+            dataString.append(result).append('\n');
+            scoreString.append(score).append(' ');
+        }
+
+        try (PrintWriter dataOut = new PrintWriter(path + "/data.out", "UTF-8");
+             PrintWriter scoreOut = new PrintWriter(path + "/score.out", "UTF-8")) {
+            dataOut.write(dataString.toString());
+            scoreOut.write(scoreString.toString());
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
 //        System.out.println("Number of EndPoints : " + endPoints.size());
 //
 //        endPoints.forEach(ep -> System.out.printf("EndPoint %d have %d queries%n", ep.getId(), ep.getQueries().size()));
