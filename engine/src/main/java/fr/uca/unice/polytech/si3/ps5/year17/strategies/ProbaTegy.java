@@ -62,7 +62,7 @@ public class ProbaTegy extends Strategy{
     public void apply() {
         for (Integer cacheId : sortedCachesSizes.keySet()) {
             for (Video video : this.videos) {
-                if (caches.get(cacheId).getSize() > video.getSize() && !caches.get(cacheId).getVideos().contains(video)) {
+                if (caches.get(cacheId).getSize() >= video.getSize() && !caches.get(cacheId).getVideos().contains(video)) {
                     caches.get(cacheId).addVideo(video);
                     videoToRemove.add(video);
                 }
