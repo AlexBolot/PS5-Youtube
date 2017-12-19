@@ -12,6 +12,7 @@ public class RandomStrategy extends Strategy {
 
     public RandomStrategy(DataBundle data) {
         super(data);
+        videos = data.getVideos();
 
     }
 
