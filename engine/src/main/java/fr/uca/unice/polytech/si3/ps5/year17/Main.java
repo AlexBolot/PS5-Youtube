@@ -65,7 +65,7 @@ public class Main {
         ArrayList8<EndPoint> endPoints = new ArrayList8<>();
         endPoints.add(endPoint0);
 
-        Controller controller = new Controller(connexions,caches,endPoints);
+        Controller controller = new Controller(connexions,caches,endPoints, null, null);
 
         System.out.println(controller.scoring());
 
@@ -77,18 +77,20 @@ public class Main {
             e.printStackTrace();
         }
 
-        Controller c = new Controller(parser.getConnexions(), parser.getCaches(), parser.getEndpoints());
+        Controller c = new Controller(parser.getConnexions(), parser.getCaches(), parser.getEndpoints(), parser.getVideos(), parser.getDataCenter());
 
         Strategy strategy = new AllInDataCenterStrategy(c.getConnexions(), c.getCaches(), c.getEndPoints());
 
+        System.out.println("Strategy One : All in DataCenter");
         strategy.apply();
 
         c.generateOutput(args[0]);
 
-        c = new Controller(parser.getConnexions(), parser.getCaches(), parser.getEndpoints());
+        c = new Controller(parser.getConnexions(), parser.getCaches(), parser.getEndpoints(), parser.getVideos(), parser.getDataCenter());
 
-        strategy = new FirstInStrategy(c.getConnexions(), c.getCaches(), c.getEndPoints());
+        strategy = new FirstInStrategy(c.getConnexions(), c.getCaches(), c.getEndPoints(), c.getVideos());
 
+        System.out.println("Strategy Two : Greedy algorithm");
         strategy.apply();
 
         c.generateOutput(args[0]);

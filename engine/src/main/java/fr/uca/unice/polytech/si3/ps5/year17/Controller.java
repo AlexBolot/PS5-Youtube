@@ -17,11 +17,15 @@ public class Controller {
     private List<Connexion> connexions;
     private List<Cache> caches;
     private List<EndPoint> endPoints;
+    private List<Video> videos;
+    private DataCenter dataCenter;
 
-    public Controller(List<Connexion> connexions, List<Cache> caches, List<EndPoint> endPoints) {
+    public Controller(List<Connexion> connexions, List<Cache> caches, List<EndPoint> endPoints, List<Video> videos, DataCenter dataCenter) {
         this.connexions = connexions;
         this.caches = caches;
         this.endPoints = endPoints;
+        this.videos = videos;
+        this.dataCenter = dataCenter;
     }
 
     public List<Connexion> getConnexions() {
@@ -48,6 +52,14 @@ public class Controller {
         this.endPoints = endPoints;
     }
 
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
+
     public double scoring() {
         int temp = 0;
         int temp2 = 0;
@@ -60,8 +72,8 @@ public class Controller {
                     if (e.getId() == c.getIdEndPoint()) {
                         if (caches.get(c.getIdCache()).getVideos().contains(q.getVideo())) {
                             int tot = q.getNumberOfRequests() * (e.getDataCenterLatency() - c.getLatency());
-                            System.out.println(q.getVideo().getId());
-                            System.out.println(q.getNumberOfRequests() + " * (" + e.getDataCenterLatency() + " - " + c.getLatency() + ")");
+//                            System.out.println(q.getVideo().getId());
+//                            System.out.println(q.getNumberOfRequests() + " * (" + e.getDataCenterLatency() + " - " + c.getLatency() + ")");
                             if (!bestTimes.containsKey(q.getVideo().getId()))
                                 bestTimes.put(q.getVideo().getId(), tot);
                             if (bestTimes.containsKey(q.getVideo().getId()) && bestTimes.get(q.getVideo().getId()) < tot)
@@ -79,18 +91,33 @@ public class Controller {
         for (Integer key : bestTimes.keySet()){
             temp += bestTimes.get(key);
         }
-        System.out.println(temp2);
-        System.out.println(temp);
+//        System.out.println(temp2);
+//        System.out.println(temp);
         score = (double)temp / temp2;
 
         return score * 1000;
     }
 
     public void generateOutput(String path) {
+
+        System.out.println("Number of EndPoints : " + this.endPoints.size());
+        for (EndPoint ep : this.endPoints) {
+            System.out.println("EndPoint " + ep.getId() + " have " + ep.getQueries().size() + " queries");
+        }
+        System.out.println("Number of Video : " + this.videos.size());
+        for (Video video : this.videos) {
+            System.out.println("Video " + video.getId() + " of " + video.getSize() + " size");
+        }
+        System.out.println("Number of Cache : " + this.caches.size());
+        for (Cache cache : this.caches) {
+            System.out.println("Cache " + cache.getId() + " of " + cache.getSize() + " capacity and " + cache.getVideos().size() + " video");
+        }
+        System.out.println("DataCenter with " + dataCenter.getVideos().size() + " video");
+
         StringBuilder sb = new StringBuilder();
         int cacheUsed = 0;
         for (Cache c : this.caches) {
-            if (c.getVideos().isEmpty()) cacheUsed++;
+            if (!c.getVideos().isEmpty()) cacheUsed++;
         }
         sb.append(cacheUsed).append('\n');
         for (int i = 0; i < cacheUsed; i++) {
@@ -105,7 +132,8 @@ public class Controller {
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        System.out.println(sb.toString());
+        System.out.println("Output of the score.out file : \n" + sb.toString() + "\nAnd the score for this strategy : " + this.scoring() + "\n\n");
     }
 
 }
+

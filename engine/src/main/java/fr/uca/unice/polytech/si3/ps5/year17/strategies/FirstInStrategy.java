@@ -7,17 +7,18 @@ import java.util.List;
 
 public class FirstInStrategy extends Strategy {
 
-    public FirstInStrategy(List<Connexion> connexions, List<Cache> caches, List<EndPoint> endPoints) {
+    private List<Video> videos;
+
+    public FirstInStrategy(List<Connexion> connexions, List<Cache> caches, List<EndPoint> endPoints, List<Video> videos) {
         super(connexions, caches, endPoints);
+        this.videos = videos;
     }
 
     @Override
     public void apply() {
-        for (Cache cache : this.caches) {
-            for (EndPoint endPoint : endPoints) {
-                for (Query query : endPoint.getQueries()) {
-                    if (cache.getSize() > query.getVideo().getSize() && !cache.getVideos().contains(query.getVideo())) cache.addVideo(query.getVideo());
-                }
+        for (Video video : videos) {
+            for (Cache cache : this.caches) {
+                if (cache.getSize() > video.getSize() && !cache.getVideos().contains(video)) cache.addVideo(video);
             }
         }
     }

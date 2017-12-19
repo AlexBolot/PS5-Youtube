@@ -21,6 +21,8 @@ public class Parser {
 
     private List<Cache> caches = new ArrayList<>();
 
+    private DataCenter dataCenter = new DataCenter();
+
     private int numberOfCacheServers;
     private int cacheServersCapacity;
 
@@ -70,18 +72,7 @@ public class Parser {
             endPoint.addQuery(new Query(numberOfRequests, videos.stream().filter(video -> video.getId() == idVideo).findFirst().get()));
         }
 
-        System.out.println("Number of EndPoints : " + endpoints.size());
-        for (EndPoint ep : endpoints) {
-            System.out.println("EndPoint " + ep.getId() + " have " + ep.getQueries().size() + " queries");
-        }
-        System.out.println("Number of Video : " + numberOfVideos);
-        for (Video video : videos) {
-            System.out.println("Video " + video.getId() + " of " + video.getSize() + " size");
-        }
-        System.out.println("Number of Cache : " + numberOfCacheServers);
-        for (Cache cache : caches) {
-            System.out.println("Cache " + cache.getId() + " of " + cache.getSize() + " capacity");
-        }
+        dataCenter.setVideos(videos);
     }
 
     public List<Cache> getCaches() {
@@ -98,5 +89,9 @@ public class Parser {
 
     public List<Video> getVideos() {
         return videos;
+    }
+
+    public DataCenter getDataCenter() {
+        return dataCenter;
     }
 }
