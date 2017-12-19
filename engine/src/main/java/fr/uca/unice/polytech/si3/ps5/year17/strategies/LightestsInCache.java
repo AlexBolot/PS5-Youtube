@@ -9,6 +9,9 @@ import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * Put the lightests videos in cache servers
+ */
 public class LightestsInCache extends Strategy {
 
     private ArrayList8<Video> videos;
