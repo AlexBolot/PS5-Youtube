@@ -2,123 +2,146 @@ package fr.uca.unice.polytech.si3.ps5.year17;
 
 import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
-public class Cache {
+public class Cache
+{
 
     private int id;
     private ArrayList8<Video> videos = new ArrayList8<>();
     private int size;
 
     /**
-     * Cache Constructor
-     *
-     * @param id   The ID of the Cache
-     * @param size The size of the Cache
+     Cache Constructor
+
+     @param id   The ID of the Cache
+     @param size The size of the Cache
      */
-    public Cache(int id, int size) {
+    public Cache (int id, int size)
+    {
         this.id = id;
         this.size = size;
     }
 
     /**
-     * Getter for the Cache ID
-     *
-     * @return The Cache ID
-     */
-    public int getId() {
-        return id;
-    }
+     Cache Constructor
 
-    /**
-     * Setter for the Cache ID
-     *
-     * @param id The Cache ID
+     @param id     The ID of the Cache
+     @param size   The size of the Cache
+     @param videos The videos stored in the Cache
      */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Getter for the video store on that Cache
-     *
-     * @return The video store on that Cache
-     */
-    public ArrayList<Video> getVideos() {
-        return videos;
-    }
-
-    /**
-     * Setter for the video store in that Cache
-     *
-     * @param videos The videos
-     */
-    public void setVideos(ArrayList8<Video> videos) {
+    public Cache (int id, int size, ArrayList8<Video> videos)
+    {
+        this(id, size);
         this.videos = videos;
     }
 
     /**
-     * Getter for the size of the Cache
-     *
-     * @return The size of the Cache
+     Getter for the Cache ID
+
+     @return The Cache ID
      */
-    public int getSize() {
+    public int getId ()
+    {
+        return id;
+    }
+
+    /**
+     Setter for the Cache ID
+
+     @param id The Cache ID
+     */
+    public void setId (int id)
+    {
+        this.id = id;
+    }
+
+    /**
+     Getter for the video store on that Cache
+
+     @return The video store on that Cache
+     */
+    public ArrayList8<Video> getVideos ()
+    {
+        return videos;
+    }
+
+    /**
+     Setter for the video store in that Cache
+
+     @param videos The videos
+     */
+    public void setVideos (ArrayList8<Video> videos)
+    {
+        this.videos = videos;
+    }
+
+    /**
+     Getter for the size of the Cache
+
+     @return The size of the Cache
+     */
+    public int getSize ()
+    {
         return size;
     }
 
     /**
-     * Setter for the size of the Cache
-     *
-     * @param size The size of the Cache
+     Setter for the size of the Cache
+
+     @param size The size of the Cache
      */
-    public void setSize(int size) {
+    public void setSize (int size)
+    {
         this.size = size;
     }
 
     /**
-     * Add a Video to the Cache server
-     *
-     * @param video The Video to add to the Cache server
-     * @return If the Video has been correctly added
+     Add a Video to the Cache server
+
+     @param video The Video to add to the Cache server
+     @return If the Video has been correctly added
      */
-    public boolean addVideo(Video video) {
+    public boolean addVideo (Video video)
+    {
         if (video.getSize() > this.size) return false;
         this.size -= video.getSize();
         return this.videos.add(video);
     }
 
     /**
-     * Equals method
-     *
-     * @param o The object to compare the attributes from
-     * @return If the attribute of the parameter object are equals to the current object
+     Equals method
+
+     @param o The object to compare the attributes from
+     @return If the attribute of the parameter object are equals to the current object
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals (Object o)
+    {
         if (this == o) return true;
         if (!(o instanceof Cache)) return false;
         Cache cache = (Cache) o;
-        return id == cache.id &&
-                size == cache.size &&
-                Objects.equals(videos, cache.videos);
+        return id == cache.id && size == cache.size && Objects.equals(videos, cache.videos);
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode ()
+    {
 
         return Objects.hash(id, videos, size);
     }
 
     /**
-     * ToString method
-     *
-     * @return A String representation of the current Object and it's attributes
+     ToString method
+
+     @return A String representation of the current Object and it's attributes
      */
     @Override
-    public String toString() {
+    public String toString ()
+    {
         String txt = "Cache " + "id = " + id + ", taille = " + size + ", videos :\n";
-        for (Video i : videos) {
+        for (Video i : videos)
+        {
             txt = txt + "- " + i.getId() + "\n";
         }
         return txt;

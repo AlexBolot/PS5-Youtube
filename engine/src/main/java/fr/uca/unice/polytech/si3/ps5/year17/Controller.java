@@ -70,83 +70,79 @@ public class Controller
     {
         int temp = 0;
         int temp2 = 0;
-        double score = 0;
+        double score;
         HashMap<Integer, Integer> bestTimes = new HashMap<>();
 
-        for (EndPoint e : endPoints)
+        for (EndPoint endPoint : endPoints)
         {
-            for (Connexion c : connexions)
+            for (Connexion connexion : connexions)
             {
-                for (Query q : e.getQueries())
+                for (Query query : endPoint.getQueries())
                 {
-                    if (e.getId() == c.getIdEndPoint())
+                    if (endPoint.getId() == connexion.getIdEndPoint())
                     {
-                        if (caches.get(c.getIdCache()).getVideos().contains(q.getVideo()))
+                        if (caches.get(connexion.getIdCache()).getVideos().contains(query.getVideo()))
                         {
-                            int tot = q.getNumberOfRequests() * (e.getDataCenterLatency() - c.getLatency());
-                            if (!bestTimes.containsKey(q.getVideo().getId())) bestTimes.put(q.getVideo().getId(), tot);
-                            if (bestTimes.containsKey(q.getVideo().getId()) && bestTimes.get(q.getVideo().getId()) < tot)
-                                bestTimes.put(q.getVideo().getId(), tot);
+                            int videoID = query.getVideo().getId();
+                            int nbRequest = query.getNumberOfRequests();
+                            int dataCenterLatency = endPoint.getDataCenterLatency();
+                            int connexionLatency = connexion.getLatency();
+
+                            int totalGain = nbRequest * (dataCenterLatency - connexionLatency);
+
+                            if (!bestTimes.containsKey(videoID)) bestTimes.put(videoID, totalGain);
+                            else if (bestTimes.get(videoID) < totalGain) bestTimes.put(videoID, totalGain);
                         }
                     }
                 }
             }
-            for (Query q : e.getQueries())
-            {
-                temp2 += q.getNumberOfRequests();
-            }
+
+            temp2 += endPoint.getQueries().stream().mapToInt(Query::getNumberOfRequests).sum();
         }
 
-        for (Integer key : bestTimes.keySet())
-        {
-            temp += bestTimes.get(key);
-        }
+        temp = bestTimes.keySet().stream().mapToInt(bestTimes::get).sum();
 
-        /*System.out.println(temp2);
-        System.out.println(temp);*/
-        score = (double)((temp / temp2)*1000);
+        score = (double) temp / temp2;
 
-        return score;
+        return Math.floor(score * 1000);
     }
 
-    public void generateOutput (String path)
+    public void generateOutput (String path, String strategyName)
     {
+        System.out.println("Number of EndPoints : " + endPoints.size());
 
-        System.out.println("Number of EndPoints : " + this.endPoints.size());
-        for (EndPoint ep : this.endPoints)
-        {
-            System.out.println("EndPoint " + ep.getId() + " have " + ep.getQueries().size() + " queries");
-        }
-        System.out.println("Number of Video : " + this.videos.size());
-        for (Video video : this.videos)
-        {
-            System.out.println("Video " + video.getId() + " of " + video.getSize() + " size");
-        }
-        System.out.println("Number of Cache : " + this.caches.size());
-        for (Cache cache : this.caches)
-        {
-            System.out.println("Cache " + cache.getId() + " of " + cache.getSize() + " capacity and " + cache.getVideos()
-                                                                                                             .size() + " video");
-        }
-        System.out.println("DataCenter with " + dataCenter.getVideos().size() + " video");
+        endPoints.forEach(ep -> System.out.printf("EndPoint %d have %d queries%n", ep.getId(), ep.getQueries().size()));
+
+        System.out.println("Number of Video : " + videos.size());
+
+        videos.forEach(video -> System.out.printf("Video %d of %d size%n", video.getId(), video.getSize()));
+
+        System.out.println("Number of Cache : " + caches.size());
+
+        caches.forEach(cache -> System.out.printf("Cache %d of %d capacity and %d video%n",
+                                                  cache.getId(),
+                                                  cache.getSize(),
+                                                  cache.getVideos().size()));
+
+        System.out.printf("DataCenter with %d video%n", dataCenter.getVideos().size());
 
         StringBuilder sb = new StringBuilder();
-        int cacheUsed = 0;
-        for (Cache c : this.caches)
-        {
-            if (!c.getVideos().isEmpty()) cacheUsed++;
-        }
+        int cacheUsed = (int) caches.stream().filter(c -> !c.getVideos().isEmpty()).count();
+
         sb.append(cacheUsed).append('\n');
+
         for (int i = 0; i < cacheUsed; i++)
         {
-            if (!this.caches.get(i).getVideos().isEmpty()) sb.append(i);
-            for (Video v : this.caches.get(i).getVideos())
-            {
-                sb.append(' ').append(v.getId());
-            }
-            if (!this.caches.get(i).getVideos().isEmpty()) sb.append('\n');
+            ArrayList8<Video> videos = caches.get(i).getVideos();
+
+            if (!videos.isEmpty()) sb.append(i);
+
+            videos.forEach(v -> sb.append(' ').append(v.getId()));
+
+            if (!videos.isEmpty()) sb.append('\n');
         }
-        try (PrintWriter writer = new PrintWriter(path + "/score.out", "UTF-8"))
+
+        try (PrintWriter writer = new PrintWriter(path + "/data.out", "UTF-8"))
         {
             writer.write(sb.toString());
         }
@@ -154,7 +150,8 @@ public class Controller
         {
             e.printStackTrace();
         }
-        System.out.println("Output of the score.out file : \n" + sb.toString() + "\nAnd the score for this strategy : " + this.scoring() + "\n\n");
+
+        System.out.printf("Output of the score.out file : \n%s\nAnd the score for this strategy : %s\n\n%n", sb.toString(), this.scoring());
     }
 
 }
