@@ -17,8 +17,8 @@ class ParserTest {
     void parseTest1() {
         Parser parser = new Parser();
         String path = Main.class.getResource("/me_at_the_zoo.in").getPath();
-        parser.parse("C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/me_at_the_zoo.in");
-        //parser.parse(path);
+        //parser.parse("C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/me_at_the_zoo.in");
+        parser.parse(path);
         DataBundle dataBundle = new DataBundle(parser.getData());
         ArrayList8<Connection> connections = dataBundle.getConnections();
         ArrayList8<Video> videos = dataBundle.getVideos();
@@ -72,9 +72,9 @@ class ParserTest {
     @Test
     void parseTest2() {
         Parser parser = new Parser();
-        String path = Main.class.getResource("/kittens.in.txt").getPath();
-        parser.parse("C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/kittens.in.txt");
-        //parser.parse(path);
+        String path = this.getClass().getResource("/kittens.in.txt").getPath();
+        //parser.parse("C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/kittens.in.txt");
+        parser.parse(path);
         DataBundle dataBundle = new DataBundle(parser.getData());
         ArrayList8<Connection> connections = dataBundle.getConnections();
         ArrayList8<Video> videos = dataBundle.getVideos();
@@ -122,5 +122,28 @@ class ParserTest {
         assertEquals(2, endpoints.get(2).getId());
         assertEquals(4, endpoints.get(4).getId());
         assertEquals(9, endpoints.get(9).getId());
+    }
+
+    /**
+     * Checks for the extension of files
+     */
+    @Test
+    void parseTest3(){
+        Parser parser = new Parser();
+        String path = this.getClass().getResource("/wrongFileForTests.ini.txt.wmv").getPath();
+        assertThrows(IllegalArgumentException.class, () -> {
+            parser.parse(path);
+        });
+
+
+        String path_2 = this.getClass().getResource("/wrongFileForTests.mp3").getPath();
+        assertThrows(IllegalArgumentException.class, () -> {
+            parser.parse(path_2);
+        });
+
+        String path_3 = this.getClass().getResource("/me_at_the_zoo.in").getPath();
+        parser.parse(path_3);
+        assertTrue(!parser.getData().isEmpty());
+
     }
 }

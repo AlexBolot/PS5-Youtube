@@ -62,4 +62,8 @@ public class DataBundle {
     public DataCenter getDataCenter() {
         return dataCenter;
     }
+
+    public boolean isEmpty() {
+        return this.caches.isEmpty() && this.connections.isEmpty() && this.endPoints.isEmpty() && this.videos.isEmpty();
+    }
 }
