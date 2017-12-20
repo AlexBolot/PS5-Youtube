@@ -34,21 +34,20 @@ import java.io.UnsupportedEncodingException;
 public class Main {
 
     public static void main(String args[]) {
+
+        if (args.length != 4) {
+            System.err.println("Wrong number of argument, expected : <strat_id> <path_to_input_file> <path_to_data.out> <path_to_score.out>");
+            System.exit(1);
+        }
+
         Parser parser = new Parser();
 
-        String inputFileName = "/me_at_the_zoo.in";
-
-        String path = Main.class.getResource(inputFileName).getPath();
+        String path = args[1];
         parser.parse(path);
-
 
         Strategy strategy;
 
-        if (args.length < 2) {
-            System.err.println("Wrong number of argument");
-        }
-
-        switch (Integer.parseInt(args[1])) {
+        switch (Integer.parseInt(args[0])) {
             case 0:
                 strategy = new AllInDataCenterStrategy(parser.getData());
                 break;
@@ -74,7 +73,7 @@ public class Main {
 
         Controller controller = new Controller(strategy);
 
-        controller.generateOutput(args[0], inputFileName);
+        controller.generateOutput(args[2], args[3]);
     }
 
 }

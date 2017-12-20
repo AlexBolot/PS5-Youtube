@@ -11,6 +11,9 @@ public class MyBenchmark {
     @BenchmarkMode(Mode.SampleTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void init(){
-        Main.main(new String[] {".", "5"});
+        Main.main(new String[] {"5",
+                "/home/doom/Documents/Git/Polytech/Collet_wa/engine/src/main/resources/me_at_the_zoo.in",
+                "/home/doom/Desktop/data.out",
+                "/home/doom/Desktop/score.out"});
     }
 }

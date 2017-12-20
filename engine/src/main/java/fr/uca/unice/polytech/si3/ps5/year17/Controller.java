@@ -16,17 +16,17 @@ public class Controller {
         this.strategy = strategy;
     }
 
-    public double scoring() {
+    public double scoring(DataBundle data) {
         long temp = 0;
         long temp2 = 0;
         double score = 0;
         HashMap<Integer, Long> bestTimes = new HashMap<>();
 
-        for (EndPoint endPoint : strategy.getData().getEndPoints()) {
-            for (Connection connection : strategy.getData().getConnections()) {
+        for (EndPoint endPoint : data.getEndPoints()) {
+            for (Connection connection : data.getConnections()) {
                 for (Query query : endPoint.getQueries()) {
                     if (endPoint.getId() == connection.getIdEndPoint()) {
-                        if (strategy.getData().getCaches().get(connection.getIdCache()).getVideos().contains(query.getVideo())) {
+                        if (data.getCaches().get(connection.getIdCache()).getVideos().contains(query.getVideo())) {
                             int videoID = query.getVideo().getId();
                             long nbRequest = query.getNumberOfRequests();
                             long dataCenterLatency = endPoint.getDataCenterLatency();
@@ -51,23 +51,19 @@ public class Controller {
         return Math.floor(score * 1000);
     }
 
-    public void generateOutput(String path, String inputFileName) {
+    public void generateOutput(String dataPath, String scorePath) {
 
         strategy.apply();
 
         String result = strategy.toString();
-        String score = scoring() + "";
+        String score = scoring(strategy.getData()) + "";
 
         System.out.println("Strategy : " + strategy.getClass().getSimpleName() + "\n");
         System.out.println("Data Output : \n\n" + result + "\n");
         System.out.println("Score : " + score + "\n");
 
-        String outputDir = path + inputFileName;
-
-        new File(outputDir).mkdirs();
-
-        try (PrintWriter dataOut    = new PrintWriter(outputDir + "/data.out", "UTF-8");
-             PrintWriter scoreOut   = new PrintWriter(outputDir + "/score.out", "UTF-8")) {
+        try (PrintWriter dataOut    = new PrintWriter(dataPath, "UTF-8");
+             PrintWriter scoreOut   = new PrintWriter(scorePath, "UTF-8")) {
             dataOut.write(result);
             scoreOut.write(score);
         } catch (FileNotFoundException | UnsupportedEncodingException e) {

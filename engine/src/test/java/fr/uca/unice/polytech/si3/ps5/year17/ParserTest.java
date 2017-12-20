@@ -11,13 +11,7 @@ class ParserTest {
     void parseTest() {
         Parser parser = new Parser();
         String path = Main.class.getResource("/me_at_the_zoo.in").getPath();
-        try {
-            parser.parse(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        parser.parse(path);
     }
 
 }
