@@ -24,6 +24,16 @@ public class Parser {
     private int numberOfCacheServers;
     private int cacheServersCapacity;
 
+    public Parser()
+    {
+    }
+
+    public Parser(String path)
+    {
+        this();
+        parse(path);
+    }
+
     /**
      * Reads a .in file and parse the information
      * Saves the values in a data bundle
