@@ -18,25 +18,31 @@ public class Parser {
 
     private DataCenter dataCenter = new DataCenter();
 
+    private int numberOfVideos;
+    private int numberOfEndpoints;
+    private int numberOfRequestDescriptions;
     private int numberOfCacheServers;
+    private int cacheServersCapacity;
 
     /**
-     * Read a .in file and parse the information
+     * Reads a .in file and parse the information
+     * Saves the values in a data bundle
      *
      * @param path to the file
      * @throws IOException
      */
     public void parse(String path) {
 
-        // TODO Prendre en compte les cas d'erreur doù les fichier ne sont pas au bon format
+        // TODO Prendre en compte les cas d'erreur où les fichier ne sont pas au bon format
+        // OK chef
 
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             String[] firstLine = in.readLine().split(" ");
-            int numberOfVideos = Integer.parseInt(firstLine[0]);
-            int numberOfEndpoints = Integer.parseInt(firstLine[1]);
-            int numberOfRequestDescriptions = Integer.parseInt(firstLine[2]);
+            numberOfVideos = Integer.parseInt(firstLine[0]);
+            numberOfEndpoints = Integer.parseInt(firstLine[1]);
+            numberOfRequestDescriptions = Integer.parseInt(firstLine[2]);
             numberOfCacheServers = Integer.parseInt(firstLine[3]);
-            int cacheServersCapacity = Integer.parseInt(firstLine[4]);
+            cacheServersCapacity = Integer.parseInt(firstLine[4]);
             String[] secondLine = in.readLine().split(" ");
 
             // Runs through the second line to get all video sizes
@@ -76,23 +82,19 @@ public class Parser {
         }
     }
 
-    public ArrayList8<Cache> getCaches ()
-    {
+    public ArrayList8<Cache> getCaches() {
         return caches;
     }
 
-    public ArrayList8<Connection> getConnections()
-    {
+    public ArrayList8<Connection> getConnections() {
         return connections;
     }
 
-    public ArrayList8<EndPoint> getEndpoints ()
-    {
+    public ArrayList8<EndPoint> getEndpoints() {
         return endpoints;
     }
 
-    public ArrayList8<Video> getVideos ()
-    {
+    public ArrayList8<Video> getVideos() {
         return videos;
     }
 
@@ -102,6 +104,22 @@ public class Parser {
 
     public DataBundle getData() {
         return new DataBundle(new ArrayList8<>(this.connections), new ArrayList8<>(this.caches),
-                new ArrayList8<>(this.videos),  new ArrayList8<>(this.endpoints), new DataCenter(this.dataCenter));
+                new ArrayList8<>(this.videos), new ArrayList8<>(this.endpoints), new DataCenter(this.dataCenter));
+    }
+
+    public int getNumberOfVideos() {
+        return numberOfVideos;
+    }
+
+    public int getNumberOfEndpoints() {
+        return numberOfEndpoints;
+    }
+
+    public int getNumberOfRequestDescriptions() {
+        return numberOfRequestDescriptions;
+    }
+
+    public int getNumberOfCacheServers() {
+        return numberOfCacheServers;
     }
 }

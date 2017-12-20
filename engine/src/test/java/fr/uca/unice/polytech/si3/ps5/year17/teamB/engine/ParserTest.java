@@ -1,13 +1,126 @@
 package fr.uca.unice.polytech.si3.ps5.year17.teamB.engine;
 
+
+import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.util.Comparator;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 class ParserTest {
+    /**
+     * Tests for file me_at_the_zoo.in
+     */
     @Test
-    void parseTest() {
+    void parseTest1() {
         Parser parser = new Parser();
         String path = Main.class.getResource("/me_at_the_zoo.in").getPath();
-        parser.parse(path);
+        parser.parse("C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/me_at_the_zoo.in");
+        //parser.parse(path);
+        DataBundle dataBundle = new DataBundle(parser.getData());
+        ArrayList8<Connection> connections = dataBundle.getConnections();
+        ArrayList8<Video> videos = dataBundle.getVideos();
+        ArrayList8<EndPoint> endpoints = dataBundle.getEndPoints();
+        ArrayList8<Cache> caches = dataBundle.getCaches();
+        DataCenter dataCenter = dataBundle.getDataCenter();
+
+        assertEquals(videos.size(), parser.getNumberOfVideos());
+        assertEquals(videos.size(), dataCenter.getVideos().size());
+        assertEquals(endpoints.size(), parser.getNumberOfEndpoints());
+        assertEquals(caches.size(), parser.getNumberOfCacheServers());
+
+        assertEquals(1013, endpoints.get(0).getDataCenterLatency());
+        assertEquals(365, endpoints.get(endpoints.size()-1).getDataCenterLatency());
+
+        assertEquals(5, endpoints.get(4).getNumberOfConnection());
+
+        caches.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        assertEquals(0, caches.get(0).getId());
+        assertEquals(1, caches.get(1).getId());
+        assertEquals(2, caches.get(2).getId());
+        assertEquals(3, caches.get(3).getId());
+        assertEquals(4, caches.get(4).getId());
+        assertEquals(5, caches.get(5).getId());
+        assertEquals(6, caches.get(6).getId());
+        assertEquals(7, caches.get(7).getId());
+        assertEquals(8, caches.get(8).getId());
+        assertEquals(9, caches.get(9).getId());
+
+        assertEquals(170, connections.get(0).getLatency());
+        assertEquals(22, connections.get(1).getLatency());
+        assertEquals(224, connections.get(2).getLatency());
+        assertEquals(202, connections.get(5).getLatency());
+
+        videos.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        assertEquals(0, videos.get(0).getId());
+        assertEquals(16, videos.get(16).getId());
+        assertEquals(34, videos.get(34).getId());
+        assertEquals(99, videos.get(99).getId());
+
+        endpoints.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        assertEquals(0, endpoints.get(0).getId());
+        assertEquals(2, endpoints.get(2).getId());
+        assertEquals(4, endpoints.get(4).getId());
+        assertEquals(9, endpoints.get(9).getId());
     }
 
+    /**
+     * kittens.in.txt
+     */
+    @Test
+    void parseTest2() {
+        Parser parser = new Parser();
+        String path = Main.class.getResource("/kittens.in.txt").getPath();
+        parser.parse("C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/kittens.in.txt");
+        //parser.parse(path);
+        DataBundle dataBundle = new DataBundle(parser.getData());
+        ArrayList8<Connection> connections = dataBundle.getConnections();
+        ArrayList8<Video> videos = dataBundle.getVideos();
+        ArrayList8<EndPoint> endpoints = dataBundle.getEndPoints();
+        ArrayList8<Cache> caches = dataBundle.getCaches();
+        DataCenter dataCenter = dataBundle.getDataCenter();
+
+        assertEquals(videos.size(), parser.getNumberOfVideos());
+        assertEquals(videos.size(), dataCenter.getVideos().size());
+        assertEquals(endpoints.size(), parser.getNumberOfEndpoints());
+        assertEquals(caches.size(), parser.getNumberOfCacheServers());
+
+        assertEquals(1645, endpoints.get(0).getDataCenterLatency());
+        assertEquals(2157, endpoints.get(endpoints.size()-1).getDataCenterLatency());
+
+        assertEquals(295, endpoints.get(4).getNumberOfConnection());
+
+        caches.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        assertEquals(0, caches.get(0).getId());
+        assertEquals(1, caches.get(1).getId());
+        assertEquals(2, caches.get(2).getId());
+        assertEquals(3, caches.get(3).getId());
+        assertEquals(4, caches.get(4).getId());
+        assertEquals(5, caches.get(5).getId());
+        assertEquals(6, caches.get(6).getId());
+        assertEquals(7, caches.get(7).getId());
+        assertEquals(8, caches.get(8).getId());
+        assertEquals(9, caches.get(9).getId());
+
+        assertEquals(41, connections.get(0).getLatency());
+        assertEquals(497, connections.get(1).getLatency());
+        assertEquals(337, connections.get(2).getLatency());
+        assertEquals(61, connections.get(5).getLatency());
+        assertEquals(85, connections.get(391).getLatency());
+        assertEquals(122, connections.get(887).getLatency());
+
+        videos.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        assertEquals(0, videos.get(0).getId());
+        assertEquals(16, videos.get(16).getId());
+        assertEquals(34, videos.get(34).getId());
+        assertEquals(99, videos.get(99).getId());
+
+        endpoints.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        assertEquals(0, endpoints.get(0).getId());
+        assertEquals(2, endpoints.get(2).getId());
+        assertEquals(4, endpoints.get(4).getId());
+        assertEquals(9, endpoints.get(9).getId());
+    }
 }

@@ -20,6 +20,7 @@ public class LightestsInCache extends Strategy {
      */
     public LightestsInCache(DataBundle data) {
         super(data);
+        videos = data.getVideos();
         // Sort the videos list by size (ascending order)
         videos.sort(Comparator.comparing(Video::getSize));
         this.videoToRemove = new ArrayList8<>();

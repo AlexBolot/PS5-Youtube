@@ -9,8 +9,8 @@ public class Connection {
     /**
      * Connection Constructor
      *
-     * @param idCache       The ID where the video are stocked
-     * @param idEndPoint    The ID where the video will be sent
+     * @param idCache       The ID where the videos are stocked
+     * @param idEndPoint    The ID where the videos will be sent
      * @param latency       The speed to get the video to the EndPoint
      */
     public Connection(int idCache, int idEndPoint, int latency) {

@@ -15,7 +15,7 @@ public class DataBundle {
     private DataCenter dataCenter;
 
     /**
-     * TODO doc
+     * Creates a bundle of data from the objects passed in parameter and saves their values
      *
      * @param connections
      * @param caches
@@ -29,6 +29,18 @@ public class DataBundle {
         this.videos = videos;
         this.endPoints = endPoints;
         this.dataCenter = dataCenter;
+    }
+
+    /**
+     * Creates a bundle of data from the DataBundle object passed in parameter and saves their values
+     * @param data
+     */
+    public DataBundle(DataBundle data) {
+        this.connections = data.getConnections();
+        this.caches = data.getCaches();
+        this.videos = data.getVideos();
+        this.endPoints = data.getEndPoints();
+        this.dataCenter = data.getDataCenter();
     }
 
     public ArrayList8<Connection> getConnections() {
