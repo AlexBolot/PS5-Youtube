@@ -43,7 +43,7 @@ public class Controller {
                             int videoID = query.getVideo().getId();
                             long nbRequest = query.getNumberOfRequests();
                             long dataCenterLatency = endPoint.getDataCenterLatency();
-                            long connexionLatency = connexion.getLatency();
+                            long connexionLatency = connection.getLatency();
 
                             long totalGain = (nbRequest * (dataCenterLatency - connexionLatency));
 

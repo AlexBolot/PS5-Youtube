@@ -38,27 +38,5 @@ public class LightestsInCache extends Strategy {
         }
     }
 
-    /**
-     * Returns true if the specified video is needed by the endpoints linked to the specified cache
-     *
-     * @param video
-     * @param cache
-     * @return true if the video is indeed needed by the endpoint
-     */
-    private boolean isRequestedByEndPoint(Video video, Cache cache) {
-        ArrayList8<EndPoint> linkedEndpoints = new ArrayList8<>();
-        for (EndPoint endpoint : data.getEndPoints()) {
-            for (Connection connection : data.getConnections()) {
-                if (connection.getIdCache() == cache.getId() && connection.getIdEndPoint() == endpoint.getId()) {
-                    linkedEndpoints.add(endpoint);
-                }
-            }
-        }
-        for (EndPoint endpoint : linkedEndpoints) {
-            for (Query query : endpoint.getQueries()) {
-                if (video.getId() == query.getVideo().getId()) return true;
-            }
-        }
-        return false;
-    }
+
 }
