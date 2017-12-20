@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Parser {
-    private HashMap<String, Object> datas;
 
     private ArrayList8<Video> videos = new ArrayList8<>();
 
@@ -28,48 +27,54 @@ public class Parser {
      * @param path to the file
      * @throws IOException
      */
-    void parse(String path) throws IOException {
-        BufferedReader in = new BufferedReader(new FileReader(path));
-        String[] firstLine = in.readLine().split(" ");
-        int numberOfVideos = Integer.parseInt(firstLine[0]);
-        int numberOfEndpoints = Integer.parseInt(firstLine[1]);
-        int numberOfRequestDescriptions = Integer.parseInt(firstLine[2]);
-        numberOfCacheServers = Integer.parseInt(firstLine[3]);
-        int cacheServersCapacity = Integer.parseInt(firstLine[4]);
-        String[] secondLine = in.readLine().split(" ");
+    void parse(String path) {
 
-        // Runs through the second line to get all video sizes
-        for(int i = 0; i < numberOfVideos; i++){
-            String strSize = secondLine[i];
-            videos.add(new Video(i, Integer.parseInt(strSize)));
-        }
-        // Runs through the endpoints information
-        for(int endpointId = 0; endpointId < numberOfEndpoints; endpointId++){
-            String[] endpointsInformation = in.readLine().split(" ");
-            int dataCenterLatency = Integer.parseInt(endpointsInformation[0]);
-            int endpointNumberOfConnections = Integer.parseInt(endpointsInformation[1]);
-            endpoints.add(new EndPoint(endpointId, new ArrayList8<>(), dataCenterLatency, endpointNumberOfConnections));
-            // Runs through cache server information
-            for (int j = 0; j < endpointNumberOfConnections; j++) {
-                String[] cacheInformation = in.readLine().split(" ");
-                int cacheServerId = Integer.parseInt(cacheInformation[0]);
-                int latencyCacheEndpoint = Integer.parseInt(cacheInformation[1]);
-                connections.add(new Connection(cacheServerId, endpointId, latencyCacheEndpoint));
-                Cache newCache = new Cache(cacheServerId, cacheServersCapacity);
-                if (!caches.contains(newCache)) caches.add(newCache);
+        // TODO Prendre en compte les cas d'erreur doù les fichier ne sont pas au bon format
+
+        try (BufferedReader in = new BufferedReader(new FileReader(path))) {
+            String[] firstLine = in.readLine().split(" ");
+            int numberOfVideos = Integer.parseInt(firstLine[0]);
+            int numberOfEndpoints = Integer.parseInt(firstLine[1]);
+            int numberOfRequestDescriptions = Integer.parseInt(firstLine[2]);
+            numberOfCacheServers = Integer.parseInt(firstLine[3]);
+            int cacheServersCapacity = Integer.parseInt(firstLine[4]);
+            String[] secondLine = in.readLine().split(" ");
+
+            // Runs through the second line to get all video sizes
+            for (int i = 0; i < numberOfVideos; i++) {
+                String strSize = secondLine[i];
+                videos.add(new Video(i, Integer.parseInt(strSize)));
             }
-        }
-        // Runs through the requests information
-        for (int i = 0; i < numberOfRequestDescriptions; i++) {
-            String[] requestInformation = in.readLine().split(" ");
-            int idVideo = Integer.parseInt(requestInformation[0]);
-            int endpointId = Integer.parseInt(requestInformation[1]);
-            int numberOfRequests = Integer.parseInt(requestInformation[2]);
-            EndPoint endPoint = endpoints.stream().filter(ep -> ep.getId() == endpointId).findFirst().get();
-            endPoint.addQuery(new Query(numberOfRequests, videos.stream().filter(video -> video.getId() == idVideo).findFirst().get()));
-        }
+            // Runs through the endpoints information
+            for (int endpointId = 0; endpointId < numberOfEndpoints; endpointId++) {
+                String[] endpointsInformation = in.readLine().split(" ");
+                int dataCenterLatency = Integer.parseInt(endpointsInformation[0]);
+                int endpointNumberOfConnections = Integer.parseInt(endpointsInformation[1]);
+                endpoints.add(new EndPoint(endpointId, new ArrayList8<>(), dataCenterLatency, endpointNumberOfConnections));
+                // Runs through cache server information
+                for (int j = 0; j < endpointNumberOfConnections; j++) {
+                    String[] cacheInformation = in.readLine().split(" ");
+                    int cacheServerId = Integer.parseInt(cacheInformation[0]);
+                    int latencyCacheEndpoint = Integer.parseInt(cacheInformation[1]);
+                    connections.add(new Connection(cacheServerId, endpointId, latencyCacheEndpoint));
+                    Cache newCache = new Cache(cacheServerId, cacheServersCapacity);
+                    if (!caches.contains(newCache)) caches.add(newCache);
+                }
+            }
+            // Runs through the requests information
+            for (int i = 0; i < numberOfRequestDescriptions; i++) {
+                String[] requestInformation = in.readLine().split(" ");
+                int idVideo = Integer.parseInt(requestInformation[0]);
+                int endpointId = Integer.parseInt(requestInformation[1]);
+                int numberOfRequests = Integer.parseInt(requestInformation[2]);
+                EndPoint endPoint = endpoints.stream().filter(ep -> ep.getId() == endpointId).findFirst().get();
+                endPoint.addQuery(new Query(numberOfRequests, videos.stream().filter(video -> video.getId() == idVideo).findFirst().get()));
+            }
 
-        dataCenter.setVideos(videos);
+            dataCenter.setVideos(videos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList8<Cache> getCaches ()

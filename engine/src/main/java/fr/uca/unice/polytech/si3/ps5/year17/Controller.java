@@ -1,7 +1,6 @@
 package fr.uca.unice.polytech.si3.ps5.year17;
 
 import fr.uca.unice.polytech.si3.ps5.year17.strategies.Strategy;
-import fr.uca.unice.polytech.si3.ps5.year17.utils.ArrayList8;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,25 +10,13 @@ import java.util.HashMap;
 
 public class Controller {
 
-    private ArrayList8<Strategy> strategies;
+    private Strategy strategy;
 
-    public Controller() {
-        this.strategies = new ArrayList8<>();
+    public Controller(Strategy strategy) {
+        this.strategy = strategy;
     }
 
-    public Controller(ArrayList8<Strategy> strategies) {
-        this.strategies = strategies;
-    }
-
-    public boolean addStrategy(Strategy strategy) {
-        return this.strategies.add(strategy);
-    }
-
-    public boolean removeStrategy(Strategy strategy) {
-        return this.strategies.remove(strategy);
-    }
-
-    public double scoring(Strategy strategy) {
+    public double scoring() {
         long temp = 0;
         long temp2 = 0;
         double score = 0;
@@ -59,8 +46,6 @@ public class Controller {
 
         temp = bestTimes.keySet().stream().mapToLong(bestTimes::get).sum();
 
-        System.out.println(temp + " / " + temp2);
-
         score = (double) temp / temp2;
 
         return Math.floor(score * 1000);
@@ -68,23 +53,14 @@ public class Controller {
 
     public void generateOutput(String path, String inputFileName) {
 
-        StringBuilder dataString = new StringBuilder();
-        StringBuilder scoreString = new StringBuilder();
+        strategy.apply();
 
-        for (Strategy strategy : strategies) {
+        String result = strategy.toString();
+        String score = scoring() + "";
 
-            strategy.apply();
-
-            String result = strategy.toString();
-            String score = scoring(strategy) + "";
-
-            System.out.println("Strategy : " + strategy.getClass().getSimpleName() + "\n");
-            System.out.println("Data Output : \n\n" + result + "\n");
-            System.out.println("Score : " + score + "\n");
-
-            dataString.append(result).append('\n');
-            scoreString.append(score).append(' ');
-        }
+        System.out.println("Strategy : " + strategy.getClass().getSimpleName() + "\n");
+        System.out.println("Data Output : \n\n" + result + "\n");
+        System.out.println("Score : " + score + "\n");
 
         String outputDir = path + inputFileName;
 
@@ -92,8 +68,8 @@ public class Controller {
 
         try (PrintWriter dataOut    = new PrintWriter(outputDir + "/data.out", "UTF-8");
              PrintWriter scoreOut   = new PrintWriter(outputDir + "/score.out", "UTF-8")) {
-            dataOut.write(dataString.toString());
-            scoreOut.write(scoreString.toString());
+            dataOut.write(result);
+            scoreOut.write(score);
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }

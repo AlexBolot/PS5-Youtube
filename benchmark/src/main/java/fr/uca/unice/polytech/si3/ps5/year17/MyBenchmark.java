@@ -11,6 +11,6 @@ public class MyBenchmark {
     @BenchmarkMode(Mode.SampleTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void init(){
-        Main.main(null);
+        Main.main(new String[] {".", "5"});
     }
 }

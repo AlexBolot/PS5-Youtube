@@ -32,25 +32,47 @@ import java.io.UnsupportedEncodingException;
  * @version 1.0
  */
 public class Main {
+
     public static void main(String args[]) {
         Parser parser = new Parser();
 
         String inputFileName = "/me_at_the_zoo.in";
 
-        try {
-            String path = Main.class.getResource(inputFileName).getPath();
-            parser.parse(path);
-        } catch (IOException e) {
-            e.printStackTrace();
+        String path = Main.class.getResource(inputFileName).getPath();
+        parser.parse(path);
+
+
+        Strategy strategy;
+
+        if (args.length < 2) {
+            System.err.println("Wrong number of argument");
         }
 
-        Controller controller = new Controller();
+        switch (Integer.parseInt(args[1])) {
+            case 0:
+                strategy = new AllInDataCenterStrategy(parser.getData());
+                break;
+            case 1:
+                strategy = new ProbaTegy(parser.getData());
+                break;
+            case 2:
+                strategy = new RandomStrategy(parser.getData());
+                break;
+            case 3:
+                strategy = new FirstInStrategy(parser.getData());
+                break;
+            case 4:
+                strategy = new LightestsInCache(parser.getData());
+                break;
+            case 5:
+                strategy = new CacheIfQueryStrategy(parser.getData());
+                break;
+            default:
+                strategy = new CacheIfQueryStrategy(parser.getData());
+                break;
+        }
 
-        controller.addStrategy(new AllInDataCenterStrategy(parser.getData()));
-        controller.addStrategy(new CacheIfQueryStrategy(parser.getData()));
-        controller.addStrategy(new FirstInStrategy(parser.getData()));
-        controller.addStrategy(new ProbaTegy(parser.getData()));
-        controller.addStrategy(new RandomStrategy(parser.getData()));
+        Controller controller = new Controller(strategy);
 
         controller.generateOutput(args[0], inputFileName);
     }
