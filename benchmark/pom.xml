@@ -71,7 +71,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>fr.uca.unice.polytech.si3.ps5.year17.BenchmarkRunner</mainClass>
+                    <mainClass>fr.uca.unice.polytech.si3.ps5.year17.teamB.benchmark.BenchmarkRunner</mainClass>
                     <cleanupDaemonThreads>false</cleanupDaemonThreads>
                 </configuration>
             </plugin>
@@ -82,7 +82,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>fr.uca.unice.polytech.si3.ps5.year17.BenchmarkRunner</mainClass>
+                            <mainClass>fr.uca.unice.polytech.si3.ps5.year17.teamB.benchmark.BenchmarkRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
