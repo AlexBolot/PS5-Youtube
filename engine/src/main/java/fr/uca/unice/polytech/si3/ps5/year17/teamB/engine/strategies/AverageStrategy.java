@@ -10,6 +10,9 @@ import java.util.*;
 
 import static java.util.stream.Collectors.toMap;
 
+/**
+ * Average lantency of a cache and put in it the videos requested by the connected endpoints
+ */
 public class AverageStrategy extends Strategy {
 
     private ArrayList8<Video> videos  = new ArrayList8<>();

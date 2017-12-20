@@ -16,10 +16,10 @@ public class Controller {
     }
 
     public double scoring(DataBundle data) {
-        long temp = 0;
-        long temp2 = 0;
+        double temp = 0;
+        double temp2 = 0;
         double score = 0;
-        HashMap<Integer, Long> bestTimes = new HashMap<>();
+        HashMap<Integer, Double> bestTimes = new HashMap<>();
 
         for (EndPoint endPoint : data.getEndPoints()) {
             for (Connection connection : data.getConnections()) {
@@ -27,11 +27,11 @@ public class Controller {
                     if (endPoint.getId() == connection.getIdEndPoint()) {
                         if (data.getCaches().get(connection.getIdCache()).getVideos().contains(query.getVideo())) {
                             int videoID = query.getVideo().getId();
-                            long nbRequest = query.getNumberOfRequests();
-                            long dataCenterLatency = endPoint.getDataCenterLatency();
-                            long connexionLatency = connection.getLatency();
+                            double nbRequest = query.getNumberOfRequests();
+                            double dataCenterLatency = endPoint.getDataCenterLatency();
+                            double connexionLatency = connection.getLatency();
 
-                            long totalGain = (nbRequest * (dataCenterLatency - connexionLatency));
+                            double totalGain = (nbRequest * (dataCenterLatency - connexionLatency));
 
                             if (!bestTimes.containsKey(videoID)) bestTimes.put(videoID, totalGain);
                             else if (bestTimes.get(videoID) < totalGain) bestTimes.put(videoID, totalGain);
@@ -43,9 +43,9 @@ public class Controller {
             temp2 += endPoint.getQueries().stream().mapToInt(Query::getNumberOfRequests).sum();
         }
 
-        temp = bestTimes.keySet().stream().mapToLong(bestTimes::get).sum();
+        temp = bestTimes.keySet().stream().mapToDouble(bestTimes::get).sum();
 
-        score = (double) temp / temp2;
+        score = temp / temp2;
 
         return Math.floor(score * 1000);
     }

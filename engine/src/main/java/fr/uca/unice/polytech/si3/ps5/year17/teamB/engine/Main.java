@@ -51,12 +51,15 @@ public class Main {
                 strategy = new RandomStrategy(parser.getData());
                 break;
             case 3:
-                strategy = new FirstInStrategy(parser.getData());
+                strategy = new AverageStrategy(parser.getData());
                 break;
             case 4:
-                strategy = new LightestsInCache(parser.getData());
+                strategy = new FirstInStrategy(parser.getData());
                 break;
             case 5:
+                strategy = new LightestsInCache(parser.getData());
+                break;
+            case 6:
                 strategy = new CacheIfQueryStrategy(parser.getData());
                 break;
             default:
