@@ -46,7 +46,7 @@ public class Parser {
         // TODO Prendre en compte les cas d'erreur où les fichier ne sont pas au bon format
         // OK chef
 
-        if (!path.matches("^(.+)\\.in[\\.txt]?$")) throw new IllegalArgumentException("Only .in or .in.txt files can be read.");
+        if (!path.matches("^.*\\.(in|in\\.txt)$")) throw new IllegalArgumentException("Only .in or .in.txt files can be read.");
 
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             String[] firstLine = in.readLine().split(" ");

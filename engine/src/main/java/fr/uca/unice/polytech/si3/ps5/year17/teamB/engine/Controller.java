@@ -57,9 +57,9 @@ public class Controller {
         String result = strategy.toString();
         String score = scoring(strategy.getData()) + "";
 
-//        System.out.println("Strategy : " + strategy.getClass().getSimpleName() + "\n");
-//        System.out.println("Data Output : \n\n" + result + "\n");
-//        System.out.println("Score : " + score + "\n");
+        System.out.println("Strategy : " + strategy.getClass().getSimpleName() + "\n");
+        System.out.println("Data Output : \n\n" + result + "\n");
+        System.out.println("Score : " + score + "\n");
 
         try (PrintWriter dataOut    = new PrintWriter(dataPath, "UTF-8");
              PrintWriter scoreOut   = new PrintWriter(scorePath, "UTF-8")) {

@@ -8,32 +8,30 @@ import java.util.concurrent.TimeUnit;
 
 public class MyBenchmark {
 
+    @Setup
+    public void setup() {
+
+    }
+
     @Benchmark
-    @Fork(value = 10, warmups = 2)
-    @BenchmarkMode(Mode.SampleTime)
-    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    @Fork(value = 2, warmups = 1)
+    @BenchmarkMode(Mode.Throughput)
+    @OutputTimeUnit(TimeUnit.SECONDS)
+    @Threads(4)
     public void init() {
-        Main.main(new String[]{"5",
+        Main.main(new String[]{"6",
                 "/home/doom/Documents/Git/Polytech/Collet_wa/engine/src/main/resources/me_at_the_zoo.in",
                 "/home/doom/Desktop/data.out",
                 "/home/doom/Desktop/score.out"});
     }
 
+
     @Benchmark
     @Fork(value = 10, warmups = 2)
-    @BenchmarkMode(Mode.SampleTime)
-    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public void parsing() {
-
-    }
-
-    @Benchmark
-    public void measureparsing() {
+    @BenchmarkMode(Mode.Throughput)
+    @OutputTimeUnit(TimeUnit.SECONDS)
+    public void measureParsingKittens() {
         Parser parser = new Parser();
-
         parser.parse("/home/doom/Documents/Git/Polytech/Collet_wa/engine/src/main/resources/kittens.in.txt");
-        parser.parse("/home/doom/Documents/Git/Polytech/Collet_wa/engine/src/main/resources/me_at_the_zoo.in");
-        parser.parse("/home/doom/Documents/Git/Polytech/Collet_wa/engine/src/main/resources/trending_today.in");
-        parser.parse("/home/doom/Documents/Git/Polytech/Collet_wa/engine/src/main/resources/videos_worth_spreading.in");
     }
 }
