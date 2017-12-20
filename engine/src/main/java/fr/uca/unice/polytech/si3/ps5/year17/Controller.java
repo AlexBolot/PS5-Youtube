@@ -30,10 +30,10 @@ public class Controller {
     }
 
     public double scoring(Strategy strategy) {
-        int temp = 0;
-        int temp2 = 0;
-        double score;
-        HashMap<Integer, Integer> bestTimes = new HashMap<>();
+        long temp = 0;
+        long temp2 = 0;
+        double score = 0;
+        HashMap<Integer, Long> bestTimes = new HashMap<>();
 
         for (EndPoint endPoint : strategy.getData().getEndPoints()) {
             for (Connection connection : strategy.getData().getConnections()) {
@@ -41,11 +41,11 @@ public class Controller {
                     if (endPoint.getId() == connection.getIdEndPoint()) {
                         if (strategy.getData().getCaches().get(connection.getIdCache()).getVideos().contains(query.getVideo())) {
                             int videoID = query.getVideo().getId();
-                            int nbRequest = query.getNumberOfRequests();
-                            int dataCenterLatency = endPoint.getDataCenterLatency();
-                            int connexionLatency = connection.getLatency();
+                            long nbRequest = query.getNumberOfRequests();
+                            long dataCenterLatency = endPoint.getDataCenterLatency();
+                            long connexionLatency = connexion.getLatency();
 
-                            int totalGain = nbRequest * (dataCenterLatency - connexionLatency);
+                            long totalGain = (nbRequest * (dataCenterLatency - connexionLatency));
 
                             if (!bestTimes.containsKey(videoID)) bestTimes.put(videoID, totalGain);
                             else if (bestTimes.get(videoID) < totalGain) bestTimes.put(videoID, totalGain);
@@ -57,7 +57,9 @@ public class Controller {
             temp2 += endPoint.getQueries().stream().mapToInt(Query::getNumberOfRequests).sum();
         }
 
-        temp = bestTimes.keySet().stream().mapToInt(bestTimes::get).sum();
+        temp = bestTimes.keySet().stream().mapToLong(bestTimes::get).sum();
+
+        System.out.println(temp + " / " + temp2);
 
         score = (double) temp / temp2;
 
