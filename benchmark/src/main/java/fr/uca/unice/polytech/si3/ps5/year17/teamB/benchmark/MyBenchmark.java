@@ -25,7 +25,7 @@ public class MyBenchmark {
     private Strategy cacheIfQuery;
 
 
-    @Setup
+    @Setup(Level.Trial)
     public void setup() {
         this.args = new String[]{"6",
                 "/home/doom/Documents/Git/Polytech/Collet_wa/engine/src/main/resources/me_at_the_zoo.in",
@@ -45,6 +45,8 @@ public class MyBenchmark {
     @Fork(value = 2, warmups = 1)
     @BenchmarkMode(Mode.Throughput)
     @OutputTimeUnit(TimeUnit.SECONDS)
+    @Warmup(iterations = 1)
+    @Measurement(iterations = 1)
     @Threads(4)
     public void init() {
         Main.main(args);
@@ -54,6 +56,8 @@ public class MyBenchmark {
     @Threads(4)
     @Fork(value = 10, warmups = 2)
     @OutputTimeUnit(TimeUnit.SECONDS)
+    @Warmup(iterations = 5)
+    @Measurement(iterations = 5)
     @BenchmarkMode(Mode.Throughput)
     public void measureScoring() {
         controller.scoring(data);
@@ -63,6 +67,8 @@ public class MyBenchmark {
     @Threads(4)
     @BenchmarkMode(Mode.Throughput)
     @Fork(value = 10, warmups = 2)
+    @Warmup(iterations = 5)
+    @Measurement(iterations = 5)
     @OutputTimeUnit(TimeUnit.SECONDS)
     public void measureRandomStrategy() {
         random.apply();
@@ -73,6 +79,8 @@ public class MyBenchmark {
     @Threads(4)
     @BenchmarkMode(Mode.Throughput)
     @Fork(value = 10, warmups = 2)
+    @Warmup(iterations = 5)
+    @Measurement(iterations = 5)
     @OutputTimeUnit(TimeUnit.SECONDS)
     public void measureFirstInStrategy() {
         firstIn.apply();
@@ -83,6 +91,8 @@ public class MyBenchmark {
     @Threads(4)
     @BenchmarkMode(Mode.Throughput)
     @Fork(value = 10, warmups = 2)
+    @Warmup(iterations = 5)
+    @Measurement(iterations = 5)
     @OutputTimeUnit(TimeUnit.SECONDS)
     public void measureCacheIfQueryStrategy() {
         cacheIfQuery.apply();
@@ -90,8 +100,10 @@ public class MyBenchmark {
     }
 
     @Benchmark
-    @Fork(value = 10, warmups = 2)
+    @Fork(value = 5, warmups = 1)
     @BenchmarkMode(Mode.Throughput)
+    @Warmup(iterations = 2)
+    @Measurement(iterations = 2)
     @OutputTimeUnit(TimeUnit.SECONDS)
     public void measureParsingKittens() {
         parser.parse(kittensFile);

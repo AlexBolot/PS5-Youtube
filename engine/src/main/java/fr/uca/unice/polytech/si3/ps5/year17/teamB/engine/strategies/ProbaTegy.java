@@ -37,7 +37,7 @@ import static java.util.stream.Collectors.toMap;
 public class ProbaTegy extends Strategy {
 
     public ProbaTegy(DataBundle data) {
-        super(data);
+        super(data, 1);
     }
 
     @Override

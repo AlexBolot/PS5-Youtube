@@ -13,7 +13,7 @@ public class RandomStrategy extends Strategy {
     private ArrayList8<Video> videoToRemove = new ArrayList8<>();
 
     public RandomStrategy(DataBundle data) {
-        super(data);
+        super(data, 2);
         videos = data.getVideos();
 
     }

@@ -8,7 +8,7 @@ import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.DataBundle;
 public class AllInDataCenterStrategy extends Strategy {
 
     public AllInDataCenterStrategy(DataBundle data) {
-        super(data);
+        super(data, 0);
     }
 
     public void apply() {

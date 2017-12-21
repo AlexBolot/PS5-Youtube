@@ -20,7 +20,7 @@ public class LightestsInCache extends Strategy {
      * @param data
      */
     public LightestsInCache(DataBundle data) {
-        super(data);
+        super(data, 5);
         videos = data.getVideos();
         // Sort the videos list by size (ascending order)
         videos.sort(Comparator.comparing(Video::getSize));

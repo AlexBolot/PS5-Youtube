@@ -13,7 +13,7 @@ public class FirstInStrategy extends Strategy {
     private ArrayList8<Video> videoToRemove;
 
     public FirstInStrategy(DataBundle data) {
-        super(data);
+        super(data, 4);
         this.videoToRemove = new ArrayList8<>();
     }
 

@@ -19,7 +19,7 @@ public class AverageStrategy extends Strategy {
     private ArrayList8<Video> videoToRemove = new ArrayList8<>();
 
     public AverageStrategy(DataBundle data) {
-        super(data);
+        super(data, 3);
         videos = data.getVideos();
     }
 

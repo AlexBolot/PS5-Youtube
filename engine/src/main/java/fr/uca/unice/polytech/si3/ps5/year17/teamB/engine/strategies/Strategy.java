@@ -5,13 +5,16 @@ import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 
 @SuppressWarnings("unchecked")
 public abstract class Strategy {
+
     protected DataBundle data;
+    protected int stratID;
 
     /**
      * Constructor for a strategy
      */
-    public Strategy(DataBundle data) {
+    public Strategy(DataBundle data, int stratID) {
         this.data = data;
+        this.stratID = stratID;
     }
 
     /**
@@ -19,11 +22,11 @@ public abstract class Strategy {
      */
     public abstract void apply();
 
-    public DataBundle getData() {
-        return data;
-    }
-
-
+    /**
+     * ToString method
+     *
+     * @return A representation of the Object in a String form
+     */
     @Override
     public String toString() {
         long usedCache = data.getCaches().stream().filter(cache -> !cache.getVideos().isEmpty()).count();
@@ -60,6 +63,24 @@ public abstract class Strategy {
             }
         }
         return false;
+    }
+
+    /**
+     * Getter for the Strategy Id
+     *
+     * @return The Strategy Id
+     */
+    public int getStratID() {
+        return stratID;
+    }
+
+    /**
+     * Getter for the DataBundle
+     *
+     * @return The DataBundle of the Strategy
+     */
+    public DataBundle getData() {
+        return data;
     }
 
 }

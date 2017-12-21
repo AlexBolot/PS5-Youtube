@@ -10,7 +10,7 @@ import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.*;
 public class CacheIfQueryStrategy extends Strategy {
 
     public CacheIfQueryStrategy(DataBundle data) {
-        super(data);
+        super(data, 6);
     }
 
     public void apply() {
