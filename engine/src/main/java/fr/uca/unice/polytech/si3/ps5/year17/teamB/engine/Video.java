@@ -61,4 +61,18 @@ public class Video {
     public String toString() {
         return "Video " + "id = " + id + ", size = " + size;
     }
+
+    /**
+     * Equals method
+     * @param object
+     * @return true if the video is the same as the video in parameter, false otherwise,
+     * and false if the object is null or not a video
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Video) || object.equals(null)) return false;
+        Video video = (Video) object;
+        if (video.id == this.id) return true;
+        return false;
+    }
 }

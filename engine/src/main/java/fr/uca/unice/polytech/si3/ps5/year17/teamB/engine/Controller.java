@@ -26,7 +26,6 @@ public class Controller {
             for (Connection connection : data.getConnections()) {
                 if (endPoint.getId() == connection.getIdEndPoint()) {
                     for (Query query : endPoint.getQueries()) {
-
                         if (data.getCaches().get(connection.getIdCache()).getVideos().contains(query.getVideo())) {
                             int videoID = query.getVideo().getId();
                             double nbRequest = query.getNumberOfRequests();
