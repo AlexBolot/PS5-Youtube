@@ -36,35 +36,33 @@ import static java.util.stream.Collectors.toMap;
 @SuppressWarnings("unchecked")
 public class ProbaTegy extends Strategy {
 
-    private Map<Integer, Integer> sortedCachesSizes;
-
     public ProbaTegy(DataBundle data) {
         super(data);
+    }
 
-        HashMap<Integer, Integer> cachesConnexions = new HashMap<>();
+    @Override
+    public void apply() {
+
+        HashMap<Integer, Integer> cachesConnections = new HashMap<>();
+        ArrayList8<Video> cpy = new ArrayList8<>();
+        cpy.addAll(data.getVideos());
+        ArrayList8<Video> videoToRemove = new ArrayList8<>();
+        Map<Integer, Integer> sortedCachesConnections;
 
         for (Cache c : data.getCaches()) {
             int nbConnexions = 0;
             nbConnexions += data.getConnections().stream().filter(co -> co.getIdCache() == c.getId()).count();
-            cachesConnexions.put(c.getId(), nbConnexions);
+            cachesConnections.put(c.getId(), nbConnexions);
         }
 
-        sortedCachesSizes = cachesConnexions.entrySet()
+        sortedCachesConnections = cachesConnections.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
         data.getVideos().sort(Comparator.comparing(Video::getSize).reversed());
-    }
 
-    @Override
-    public void apply() {
-        ArrayList8<Video> cpy = new ArrayList8<>();
-        cpy.addAll(data.getVideos());
-
-        ArrayList8<Video> videoToRemove = new ArrayList8<>();
-
-        for (Integer cacheId : sortedCachesSizes.keySet()) {
+        for (Integer cacheId : sortedCachesConnections.keySet()) {
             for (Video video : cpy) {
                 if (data.getCaches().get(cacheId).getSize() >= video.getSize() && !data.getCaches().get(cacheId).getVideos().contains(video)) {
                     data.getCaches().get(cacheId).addVideo(video);

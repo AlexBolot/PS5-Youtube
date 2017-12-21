@@ -23,14 +23,12 @@ public class RandomStrategy extends Strategy {
 
         ArrayList8<Video> cpy = new ArrayList8<>();
         cpy.addAll(videos);
-        int randNum;
         for (Cache cache : this.data.getCaches()) {
             for (int i = 0; i < cpy.size(); ++i) {
-                Random rand = new Random();
-                randNum = rand.nextInt(cpy.size() - 1);
-                if (cache.getSize() >= cpy.get(randNum).getSize() && !cache.getVideos().contains(cpy.get(randNum))) {
-                    cache.addVideo(cpy.get(randNum));
-                    videoToRemove.add(cpy.get(randNum));
+                Video randVid = cpy.getRandom();
+                if (cache.getSize() >= randVid.getSize() && !cache.getVideos().contains(randVid)) {
+                    cache.addVideo(randVid);
+                    videoToRemove.add(randVid);
                 }
             }
             cpy.removeAll(videoToRemove);
