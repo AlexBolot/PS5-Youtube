@@ -8,10 +8,6 @@ import java.util.concurrent.TimeUnit;
 
 public class MyBenchmark {
 
-    @Setup
-    public void setup() {
-
-    }
 
     @Benchmark
     @Fork(value = 2, warmups = 1)

@@ -14,9 +14,9 @@ class ParserTest {
      * Tests for file me_at_the_zoo.in
      */
     @Test
-    void parseTest1() {
+    void testParsingMeAtTheZoo() {
         Parser parser = new Parser();
-        String path = Main.class.getResource("/me_at_the_zoo.in").getPath();
+        String path = this.getClass().getResource("/me_at_the_zoo.in").getPath();
         //parser.parse("C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/me_at_the_zoo.in");
         parser.parse(path);
         DataBundle dataBundle = new DataBundle(parser.getData());
@@ -36,7 +36,7 @@ class ParserTest {
 
         assertEquals(5, endpoints.get(4).getNumberOfConnection());
 
-        caches.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        caches.sort(Comparator.comparingInt(Cache::getId));
         assertEquals(0, caches.get(0).getId());
         assertEquals(1, caches.get(1).getId());
         assertEquals(2, caches.get(2).getId());
@@ -53,13 +53,13 @@ class ParserTest {
         assertEquals(224, connections.get(2).getLatency());
         assertEquals(202, connections.get(5).getLatency());
 
-        videos.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        videos.sort(Comparator.comparingInt(Video::getId));
         assertEquals(0, videos.get(0).getId());
         assertEquals(16, videos.get(16).getId());
         assertEquals(34, videos.get(34).getId());
         assertEquals(99, videos.get(99).getId());
 
-        endpoints.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        endpoints.sort(Comparator.comparingInt(EndPoint::getId));
         assertEquals(0, endpoints.get(0).getId());
         assertEquals(2, endpoints.get(2).getId());
         assertEquals(4, endpoints.get(4).getId());
@@ -70,7 +70,7 @@ class ParserTest {
      * kittens.in.txt
      */
     @Test
-    void parseTest2() {
+    void testParsingKittens() {
         Parser parser = new Parser();
         String path = this.getClass().getResource("/kittens.in.txt").getPath();
         //parser.parse("C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/kittens.in.txt");
@@ -92,7 +92,7 @@ class ParserTest {
 
         assertEquals(295, endpoints.get(4).getNumberOfConnection());
 
-        caches.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        caches.sort(Comparator.comparingInt(Cache::getId));
         assertEquals(0, caches.get(0).getId());
         assertEquals(1, caches.get(1).getId());
         assertEquals(2, caches.get(2).getId());
@@ -111,13 +111,13 @@ class ParserTest {
         assertEquals(85, connections.get(391).getLatency());
         assertEquals(122, connections.get(887).getLatency());
 
-        videos.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        videos.sort(Comparator.comparingInt(Video::getId));
         assertEquals(0, videos.get(0).getId());
         assertEquals(16, videos.get(16).getId());
         assertEquals(34, videos.get(34).getId());
         assertEquals(99, videos.get(99).getId());
 
-        endpoints.sort((o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        endpoints.sort(Comparator.comparingInt(EndPoint::getId));
         assertEquals(0, endpoints.get(0).getId());
         assertEquals(2, endpoints.get(2).getId());
         assertEquals(4, endpoints.get(4).getId());
@@ -128,7 +128,7 @@ class ParserTest {
      * Checks for the extension of files
      */
     @Test
-    void parseTest3(){
+    void testParsingException(){
         Parser parser = new Parser();
         String path = this.getClass().getResource("/wrongFileForTests.ini.txt.wmv").getPath();
         assertThrows(IllegalArgumentException.class, () -> {
@@ -143,7 +143,7 @@ class ParserTest {
 
         String path_3 = this.getClass().getResource("/me_at_the_zoo.in").getPath();
         parser.parse(path_3);
-        assertTrue(!parser.getData().isEmpty());
+        assertFalse(parser.getData().isEmpty());
 
     }
 }
