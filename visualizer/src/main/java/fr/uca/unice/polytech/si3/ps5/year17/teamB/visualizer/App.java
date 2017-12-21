@@ -8,7 +8,6 @@ import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -20,21 +19,17 @@ public class App
 {
     public static void main (String[] args) throws IOException
     {
-        List<String> strings = Arrays.asList(args[0].split(" "));
+        DataBundle dataBundle = new Parser(args[0]).getData();
 
-        strings.replaceAll(String::trim);
+        String[] dataPaths = args[1].split(";");
+        String[] scorePaths = args[2].split(";");
 
-        DataBundle dataBundle = new Parser(strings.get(0)).getData();
-
-        String[] dataPaths = strings.get(1).split(";");
-        String[] scorePaths = strings.get(2).split(";");
-
-        ArrayList8<ArrayList8<Cache>> listOfListOfCaches = new ArrayList8<>();
+        ArrayList8<ArrayList8<Cache>> listOfCaches = new ArrayList8<>();
         ArrayList8<Float> listOfScores = new ArrayList8<>();
 
         for (String dataPath : dataPaths)
         {
-            listOfListOfCaches.addAll(parseData(dataPath));
+            listOfCaches.add(parseData(dataPath));
         }
 
         for (String scorePath : scorePaths)
@@ -46,101 +41,73 @@ public class App
 
         for (int i = 0; i < listOfScores.size(); i++)
         {
-            Float score = listOfScores.get(i);
-            ArrayList8<Cache> caches = listOfListOfCaches.get(i);
-
-            float percent = getPercentOfCovering(dataBundle, caches);
-
-            values.append(score).append(", ");
-            //values.append(percent).append(", ");
+            values.append(listOfScores.get(i)).append(", ");
         }
 
         values.deleteCharAt(values.length() - 1);
         values.deleteCharAt(values.length() - 1);
 
-        Float maxScore = listOfScores.max(Float::compare).get();
-        Float minScore = listOfScores.min((o1, o2) -> (o1 == 0 || o2 == 0) ? -Float.compare(o1, o2) : Float.compare(o1, o2)).get();
+        StringBuilder str = new StringBuilder().append("myVals <- c(")
+                                               .append(values.toString())
+                                               .append(")\n")
+                                               .append("barplot(myVals,")
+                                               .append("main = \"Scoring by strategy\",\n")
+                                               .append("xlab = \"Strategies\",\n")
+                                               .append("ylab = \"Scoring\",\n")
+                                               .append("names.arg = c(")
+                                               .append("\"Average\",")
+                                               .append("\"CacheIfQuery\",")
+                                               .append("\"FirstIn\",")
+                                               .append("\"LightestsInCache\",")
+                                               .append("\"ProbaTegy\",")
+                                               .append("\"Random\"")
+                                               .append("),\n")
+                                               .append("col = \"darkred\",\n")
+                                               .append("horiz = FALSE,\n")
+                                               .append("cex.names = 0.75,\n")
+                                               .append("ylim = c(0,250000))");
 
-        StringBuilder str = new StringBuilder();
-
-        str.append("myVals = c(").append(values.toString()).append(")\n");
-
-        str.append(
-                "mydata <- matrix(myVals ,ncol = 1, byrow = TRUE, dimnames = list(c(\"Strat1\", \"Strat2\", \"Strat3\", \"Strat4\", \"Strat5\"), \"Reading/Writing\"))\n");
-
-        str.append("colors <- c(\"darkblue\", \"red\")\n");
-
-        str.append("barplot(t(mydata), beside = TRUE, col = colors, ylim = c(").append(minScore * .85).append(", ").append(maxScore).append(
-                "), axes = FALSE, xlab = \"Strategies\", main = \"Scores and percent of coverage\")\n");
-
-        str.append("axis(2, at =").append(minScore * .85).append(":").append(maxScore).append(")\n");
-
-        str.append("legend(\"topright\", colnames(mydata), fill = colors, bty = \"n\")\n");
-
-
-        File file = new File(strings.get(strings.size() - 1) + "/graphN.r");
+        File file = new File(args[args.length - 1] + "/graphN.r");
         if (!file.exists()) file.createNewFile();
 
         PrintStream printStream = new PrintStream(file.getPath());
         printStream.print(str);
-
-
-/*
-
-"full/path/to/source/file/data.in full/path/to/result/file1/data.out;full/path/to/result/file2/data.out full/path/to/result/file1/score.out;full/path/to/result/file2/score.out full/path/to/benchmark/file1/result.json;full/path/to/benchmark/file2/result.json /Users/alexandre/Desktop/results"
-
-/Users/alexandre/Desktop/me_at_the_zoo.in/data.out /Users/alexandre/Desktop/me_at_the_zoo.in/score.out /Users/alexandre/Desktop/results/
-
-*/
     }
 
-    private static ArrayList8<ArrayList8<Cache>> parseData (String path)
+    private static ArrayList8<Cache> parseData (String path)
     {
-        ArrayList8<ArrayList8<Cache>> listOfListOfCache = new ArrayList8<>();
+        ArrayList8<Cache> caches = new ArrayList8<>();
 
         try (BufferedReader in = new BufferedReader(new FileReader(path)))
         {
-            String line;
+            String line = in.readLine();
 
-            while ((line = in.readLine()) != null)
+            int cacheAmount = tryParseInt(line);
+
+            for (int i = 0; i < cacheAmount; i++)
             {
-                if (line.split(" ").length == 1)
+                String[] strings = in.readLine().split(" ");
+
+                ArrayList8<Video> videos = new ArrayList8<>();
+
+                for (int j = 1; j < strings.length - 1; j++)
                 {
-                    int cacheAmount = tryParseInt(line);
-
-                    if (cacheAmount == 0) continue;
-
-                    ArrayList8<Cache> caches = new ArrayList8<>();
-
-                    for (int i = 0; i < cacheAmount; i++)
-                    {
-                        String[] strings = in.readLine().split(" ");
-
-                        ArrayList8<Video> videos = new ArrayList8<>();
-
-                        for (int j = 1; j < strings.length - 1; j++)
-                        {
-                            int videoID = tryParseInt(strings[j]);
-                            videos.add(new Video(videoID, 0));
-                        }
-
-                        int cacheID = tryParseInt(strings[0]);
-                        caches.add(new Cache(cacheID, Integer.MAX_VALUE, videos));
-                    }
-
-                    //throw away blank line
-                    //spearating 2 sets of data
-                    in.readLine();
-
-                    listOfListOfCache.add(caches);
+                    int videoID = tryParseInt(strings[j]);
+                    videos.add(new Video(videoID, 0));
                 }
+
+                int cacheID = tryParseInt(strings[0]);
+                caches.add(new Cache(cacheID, Integer.MAX_VALUE, videos));
             }
+
+            return caches;
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
-        return listOfListOfCache;
+
+        return caches;
     }
 
     private static ArrayList8<Float> parseScore (String path)

@@ -66,4 +66,21 @@ public class DataBundle {
     public boolean isEmpty() {
         return this.caches.isEmpty() && this.connections.isEmpty() && this.endPoints.isEmpty() && this.videos.isEmpty();
     }
+
+    @Override
+    public boolean equals (Object o)
+    {
+        if (this == o) return true;
+        if (!(o instanceof DataBundle)) return false;
+
+        DataBundle that = (DataBundle) o;
+
+        if (connections != null ? !connections.equals(that.connections) : that.connections != null) return false;
+        if (caches != null ? !caches.equals(that.caches) : that.caches != null) return false;
+        if (videos != null ? !videos.equals(that.videos) : that.videos != null) return false;
+        if (endPoints != null ? !endPoints.equals(that.endPoints) : that.endPoints != null) return false;
+        //return dataCenter != null ? dataCenter.equals(that.dataCenter) : that.dataCenter == null;
+
+        return true;
+    }
 }

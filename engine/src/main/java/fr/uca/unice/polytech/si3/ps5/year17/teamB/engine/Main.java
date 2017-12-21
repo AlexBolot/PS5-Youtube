@@ -2,7 +2,6 @@ package fr.uca.unice.polytech.si3.ps5.year17.teamB.engine;
 
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.strategies.*;
 
-
 /**
  * <pre>
  * ______
