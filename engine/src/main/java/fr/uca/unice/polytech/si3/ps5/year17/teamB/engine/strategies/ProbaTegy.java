@@ -41,13 +41,11 @@ public class ProbaTegy extends Strategy {
     public ProbaTegy(DataBundle data) {
         super(data);
 
-        int nbConnexions = 0;
-
         HashMap<Integer, Integer> cachesConnexions = new HashMap<>();
 
         for (Cache c : data.getCaches()) {
+            int nbConnexions = 0;
             nbConnexions += data.getConnections().stream().filter(co -> co.getIdCache() == c.getId()).count();
-
             cachesConnexions.put(c.getId(), nbConnexions);
         }
 
