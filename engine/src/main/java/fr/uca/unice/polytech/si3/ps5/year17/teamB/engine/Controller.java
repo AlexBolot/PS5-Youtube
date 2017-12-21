@@ -20,9 +20,9 @@ public class Controller {
         double temp = 0;
         double temp2 = 0;
         double score = 0;
-        HashMap<Integer, Double> bestTimes = new HashMap<>();
 
         for (EndPoint endPoint : data.getEndPoints()) {
+            HashMap<Integer, Double> bestTimes = new HashMap<>();
             for (Connection connection : data.getConnections()) {
                 if (endPoint.getId() == connection.getIdEndPoint()) {
                     for (Query query : endPoint.getQueries()) {
@@ -42,9 +42,8 @@ public class Controller {
             }
 
             temp2 += endPoint.getQueries().stream().mapToInt(Query::getNumberOfRequests).sum();
+            temp += bestTimes.keySet().stream().mapToDouble(bestTimes::get).sum();
         }
-
-        temp = bestTimes.keySet().stream().mapToDouble(bestTimes::get).sum();
 
         score = temp / temp2;
 
