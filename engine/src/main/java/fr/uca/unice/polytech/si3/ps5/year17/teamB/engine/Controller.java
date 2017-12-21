@@ -15,6 +15,7 @@ public class Controller {
         this.strategy = strategy;
     }
 
+
     public double scoring(DataBundle data) {
         double temp = 0;
         double temp2 = 0;
@@ -23,8 +24,9 @@ public class Controller {
 
         for (EndPoint endPoint : data.getEndPoints()) {
             for (Connection connection : data.getConnections()) {
-                for (Query query : endPoint.getQueries()) {
-                    if (endPoint.getId() == connection.getIdEndPoint()) {
+                if (endPoint.getId() == connection.getIdEndPoint()) {
+                    for (Query query : endPoint.getQueries()) {
+
                         if (data.getCaches().get(connection.getIdCache()).getVideos().contains(query.getVideo())) {
                             int videoID = query.getVideo().getId();
                             double nbRequest = query.getNumberOfRequests();
@@ -61,8 +63,8 @@ public class Controller {
 //        System.out.println("Data Output : \n\n" + result + "\n");
 //        System.out.println("Score : " + score + "\n");
 
-        try (PrintWriter dataOut    = new PrintWriter(dataPath, "UTF-8");
-             PrintWriter scoreOut   = new PrintWriter(scorePath, "UTF-8")) {
+        try (PrintWriter dataOut = new PrintWriter(dataPath, "UTF-8");
+             PrintWriter scoreOut = new PrintWriter(scorePath, "UTF-8")) {
             dataOut.write(result);
             scoreOut.write(score);
         } catch (FileNotFoundException | UnsupportedEncodingException e) {

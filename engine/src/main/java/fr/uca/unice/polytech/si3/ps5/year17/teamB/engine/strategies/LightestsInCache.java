@@ -16,7 +16,8 @@ public class LightestsInCache extends Strategy {
     private ArrayList8<Video> videoToRemove;
 
     /**
-     * Constructor for a strategy
+     * Constructor for the strategy
+     * @param data
      */
     public LightestsInCache(DataBundle data) {
         super(data);

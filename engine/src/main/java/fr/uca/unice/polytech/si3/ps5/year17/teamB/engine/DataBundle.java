@@ -13,6 +13,8 @@ public class DataBundle {
     private ArrayList8<EndPoint> endPoints;
 
     private DataCenter dataCenter;
+    
+    private int totalNumberOfQueries;
 
     /**
      * Creates a bundle of data from the objects passed in parameter and saves their values
