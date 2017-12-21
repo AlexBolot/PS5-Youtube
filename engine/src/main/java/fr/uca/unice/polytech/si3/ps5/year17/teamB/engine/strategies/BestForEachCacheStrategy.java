@@ -15,7 +15,7 @@ public class BestForEachCacheStrategy extends Strategy
      */
     public BestForEachCacheStrategy (DataBundle data)
     {
-        super(data);
+        super(data, 7);
     }
 
     @Override

@@ -13,7 +13,7 @@ public class DynamicStrategy extends Strategy {
 
 
     public DynamicStrategy(DataBundle data) {
-        super(data);
+        super(data, 8);
     }
 
     @Override
