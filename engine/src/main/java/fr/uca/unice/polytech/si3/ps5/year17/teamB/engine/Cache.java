@@ -113,11 +113,6 @@ public class Cache {
         return id == cache.id;
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, videos, size);
-    }
 
     /**
      * ToString method

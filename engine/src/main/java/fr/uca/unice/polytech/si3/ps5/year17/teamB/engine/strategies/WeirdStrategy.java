@@ -6,13 +6,12 @@ import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DynamicStrategy extends Strategy {
+public class WeirdStrategy extends Strategy {
 
-
+    private ArrayList<Video> listVideosInCache = new ArrayList<>();
     private HashMap<Cache, ArrayList<Video>> videosToCache = new HashMap();
 
-
-    public DynamicStrategy(DataBundle data) {
+    public WeirdStrategy(DataBundle data) {
         super(data, 8);
     }
 
@@ -24,14 +23,23 @@ public class DynamicStrategy extends Strategy {
             connectVideoToBestCache(video, data.getEndPoints(), data.getConnections(), data.getCaches());
         }
 
-        for (Cache cache : data.getCaches()) {
-            //cache.addVideo(videosToCache.get(cache));
+        for (int i = 0; i < data.getCaches().size() - 1; i++) {
+            for (int j = 0; j < listVideosInCache.size() - 1; j++) {
+                data.getCaches().get(i).addVideo(videosToCache.get(data.getCaches().get(i)).get(j));
+            }
         }
-
     }
 
+    /**
+     * For a given video, associates it with a cache in videosToCache HashMap.
+     * The video is added to a list.
+     *
+     * @param video
+     * @param endpoints
+     * @param connections
+     * @param caches
+     */
     private void connectVideoToBestCache(Video video, ArrayList<EndPoint> endpoints, ArrayList<Connection> connections, ArrayList<Cache> caches) {
-        ArrayList<Video> listVideosInCache = new ArrayList<>();
         for (EndPoint endpoint : endpoints) {
             for (Query query : endpoint.getQueries()) {
                 if (query.getVideo().equals(video)) {
@@ -47,7 +55,6 @@ public class DynamicStrategy extends Strategy {
             }
         }
     }
-
 
     public double estimateScore(DataBundle data) {
         double score;

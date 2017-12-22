@@ -75,7 +75,8 @@ public class Main {
 
         List<Strategy> strategies = new ArrayList8<>();
 
-        String path = Main.class.getResource("strategies/").getPath();
+        //String path = Main.class.getResource("strategies/").getPath();
+        String path = "C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/fr/uca/unice/polytech/si3/ps5/year17/teamB/engine/strategies";
 
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
