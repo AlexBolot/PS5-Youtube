@@ -7,6 +7,9 @@ import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.Video;
 
 import java.util.Random;
 
+/**
+ * Put il all the cache random videos
+ */
 public class RandomStrategy extends Strategy {
 
     private ArrayList8<Video> videos  = new ArrayList8<>();

@@ -81,17 +81,12 @@ class ControllerTest {
 
         controller = new Controller(null);
 
-        System.out.println(controller.scoring(dB));
-
-
     }
 
     @Test
     void scoring() {
 
         assertEquals(462500, controller.scoring(dB));
-        DynamicStrategy dynas = new DynamicStrategy(dB);
-        //assertEquals(462500, dynas.estimateScore(dB));
 
     }
 

@@ -16,6 +16,10 @@ public class Controller {
     }
 
 
+    /**
+     * @param data all the data, connections, endpoints, caches, videos and data center
+     * @return the calculate score (number of request * (latency with the data center - latency with the cache))
+     */
     public double scoring(DataBundle data) {
         double temp = 0;
         double temp2 = 0;
