@@ -129,11 +129,10 @@ class ParserTest {
     @Test
     void testParsingException(){
         Parser parser = new Parser();
-        String path = this.getClass().getResource("/wrongFileForTests.ini.txt.wmv").getPath();
+        InputStream stream = this.getClass().getResourceAsStream("/wrongFileForTests.ini.txt.wmv");
         assertThrows(IllegalArgumentException.class, () -> {
-            parser.parse(path);
+            parser.parse(stream);
         });
-
 
         String path_2 = this.getClass().getResource("/wrongFileForTests.mp3").getPath();
         assertThrows(IllegalArgumentException.class, () -> {
