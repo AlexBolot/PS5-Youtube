@@ -36,8 +36,6 @@ public class App
 {
     public static void main (String[] args) throws IOException
     {
-        DataBundle dataBundle = new Parser(args[0]).getData();
-
         String[] dataPaths = args[1].split(";");
         String[] scorePaths = args[2].split(";");
 
@@ -96,10 +94,14 @@ public class App
 
         ArrayList8<Float> floatList = new ArrayList8<>();
 
-        for (ArrayList8<Cache> cas : listOfCaches) {
-            floatList.add(getPercentOfCovering(dataBundle,cas ));
+        for (ArrayList8<Cache> cas : listOfCaches)
+        {
+            DataBundle dataBundle = new Parser(args[0]).getData();
+
+            floatList.add(getPercentOfCovering(dataBundle, cas));
         }
-        for (Float listOfScore :floatList ) {
+        for (Float listOfScore : floatList)
+        {
             values2.append(listOfScore).append(", ");
         }
 
@@ -107,24 +109,24 @@ public class App
         values2.deleteCharAt(values2.length() - 1);
 
         StringBuilder str2 = new StringBuilder().append("myVals <- c(")
-                .append(values2.toString())
-                .append(")\n")
-                .append("barplot(myVals,")
-                .append("main = \"Coverage by strategy\",\n")
-                .append("xlab = \"Strategies\",\n")
-                .append("ylab = \"Coverage\",\n")
-                .append("names.arg = c(")
-                .append("\"Average\",")
-                .append("\"CacheIfQuery\",")
-                .append("\"FirstIn\",")
-                .append("\"LightestsInCache\",")
-                .append("\"ProbaTegy\",")
-                .append("\"Random\"")
-                .append("),\n")
-                .append("col = \"deeppink\",\n")
-                .append("horiz = FALSE,\n")
-                .append("cex.names = 0.75,\n")
-                .append("ylim = c(0,250000))");
+                                                .append(values2.toString())
+                                                .append(")\n")
+                                                .append("barplot(myVals,")
+                                                .append("main = \"Coverage by strategy\",\n")
+                                                .append("xlab = \"Strategies\",\n")
+                                                .append("ylab = \"Coverage\",\n")
+                                                .append("names.arg = c(")
+                                                .append("\"Average\",")
+                                                .append("\"CacheIfQuery\",")
+                                                .append("\"FirstIn\",")
+                                                .append("\"LightestsInCache\",")
+                                                .append("\"ProbaTegy\",")
+                                                .append("\"Random\"")
+                                                .append("),\n")
+                                                .append("col = \"deeppink\",\n")
+                                                .append("horiz = FALSE,\n")
+                                                .append("cex.names = 0.75,\n")
+                                                .append("ylim = c(0,250000))");
 
         File file2 = new File(args[args.length - 1] + "/graphCoverage.r");
         if (!file2.exists()) file2.createNewFile();
@@ -145,17 +147,20 @@ public class App
 
                 double initialSize = realCache.getSize();
 
-                for (Video simuVideo : simuCache.getVideos()) {
+                for (Video simuVideo : simuCache.getVideos())
+                {
                     Video video = dataBundle.getVideos().subList(video1 -> video1.getId() == simuVideo.getId()).get(0);
                     realCache.addVideo(video);
                 }
 
                 double finalSize = realCache.getSize();
 
-                totalPercent += (initialSize - finalSize) * 100 / finalSize;
+                totalPercent += (initialSize - finalSize) * 100 / initialSize;
             }
         }
 
-        return (float) (totalPercent / dataBundle.getCaches().size());
+        int size = dataBundle.getCaches().size();
+
+        return (float) (totalPercent / size);
     }
 }
