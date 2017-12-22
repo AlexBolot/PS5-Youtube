@@ -40,10 +40,13 @@ public class Parser {
      * Saves the values in a data bundle
      * @param inputStream
      * @throws IllegalArgumentException if the extension or if the data of the file is wrong
+     * /!\ Empty files are not treated
      */
     private void parse(InputStreamReader inputStream) throws IllegalArgumentException {
 
         try (BufferedReader in = new BufferedReader(inputStream)) {
+
+
             String[] firstLine = in.readLine().split(" ");
 
             if(firstLine.length != 5

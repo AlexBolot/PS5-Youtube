@@ -143,5 +143,20 @@ class ParserTest {
         parser.parse(stream3);
         assertFalse(parser.getData().isEmpty());
 
+        InputStream stream4 = this.getClass().getResourceAsStream("/wrongFileForTests.in");
+        assertThrows(IllegalArgumentException.class, () -> {
+            parser.parse(stream4);
+        });
+
+        InputStream stream5 = this.getClass().getResourceAsStream("/wrongFileForTests.ini");
+        assertThrows(IllegalArgumentException.class, () -> {
+            parser.parse(stream5);
+        });
+
+        InputStream stream6 = this.getClass().getResourceAsStream("/wrongFileForTestsin.txt");
+        assertThrows(IllegalArgumentException.class, () -> {
+            parser.parse(stream6);
+        });
+
     }
 }
