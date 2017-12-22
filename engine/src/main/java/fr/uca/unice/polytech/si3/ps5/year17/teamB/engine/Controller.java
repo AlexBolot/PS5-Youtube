@@ -24,9 +24,9 @@ public class Controller {
      * @return the calculate score (number of request * (latency with the data center - latency with the cache))
      */
     public double scoring(DataBundle data) {
-        double temp = 0;
-        double temp2 = 0;
-        double score = 0;
+        double allScore = 0;
+        double nbAllRequests = 0;
+        double finalScore = 0;
 
         for (EndPoint endPoint : data.getEndPoints()) {
             HashMap<Integer, Double> bestTimes = new HashMap<>();
@@ -48,13 +48,13 @@ public class Controller {
                 }
             }
 
-            temp2 += endPoint.getQueries().stream().mapToInt(Query::getNumberOfRequests).sum();
-            temp += bestTimes.keySet().stream().mapToDouble(bestTimes::get).sum();
+            nbAllRequests += endPoint.getQueries().stream().mapToInt(Query::getNumberOfRequests).sum();
+            allScore += bestTimes.keySet().stream().mapToDouble(bestTimes::get).sum();
         }
 
-        score = temp / temp2;
+        finalScore = allScore / nbAllRequests;
 
-        return Math.floor(score * 1000);
+        return Math.floor(finalScore * 1000);
     }
 
     public void generateOutput(String dataPath, String scorePath) {
