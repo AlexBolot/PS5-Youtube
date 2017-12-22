@@ -1,5 +1,6 @@
 package fr.uca.unice.polytech.si3.ps5.year17.teamB.engine;
 
+import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.strategies.AllInDataCenterStrategy;
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -92,6 +93,8 @@ class ControllerTest {
 
     @Test
     void generateOutput() {
+
+        controller = new Controller(new AllInDataCenterStrategy(dB));
 
         String dataPath = "C:\\Users\\user\\Desktop\\Result\\dataTest.out";
         String scorePath = "C:\\Users\\user\\Desktop\\Result\\dataTest.out";
