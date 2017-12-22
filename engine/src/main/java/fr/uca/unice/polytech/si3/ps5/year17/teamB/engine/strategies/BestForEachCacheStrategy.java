@@ -9,29 +9,63 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- *
+ <hr>
+ <h2>This is the Average Strategy :</h2>
+ <h3>For each Cache, finds the most wanted video by its EndPoints</h3>
+ <hr>
  */
 public class BestForEachCacheStrategy extends Strategy
 {
     /**
-     Constructor for a strategy
+     <hr>
+     <h2>Default Constructor of this Strategy<br>
+     <br>
+     See {@link Strategy#Strategy(DataBundle, int)}
+     </h2>
+     <hr>
+
+     @param data The DataBundle to apply this Strategy on.
      */
     public BestForEachCacheStrategy (DataBundle data)
     {
         super(data, 7);
     }
 
+    /**
+     <hr>
+     <h2>Implementation of the apply method</h2>
+     <h3>For each Cache, finds the most wanted video by its EndPoints</h3>
+     <hr>
+     */
     @Override
     public void apply ()
     {
         data.getCaches().subList(this::hasConnexions).forEach(cache -> mostWantedVideoForCache(cache).forEach(cache::addVideo));
     }
 
+    /**
+     <hr>
+     <h2>Tells wether the [cache] param is connected to at least one EndPoint</h2>
+     <hr>
+
+     @param cache Cache to be looked for in the connections list
+     @return True if the Cache is connected to at least one EndPoint.<br>False otherwise
+     */
     private boolean hasConnexions (Cache cache)
     {
         return data.getConnections().stream().anyMatch(connection -> connection.getIdCache() == cache.getId());
     }
 
+    /**
+     <hr>
+     <h2>Returns the list of videos wanted by the EndPoints connected to the [cache] param,
+     sorted by the number of request</h2>
+     <hr>
+
+     @param cache Cache to be looked to find the EndPoints and the Videos
+     @return The list of videos wanted by the EndPoints connected to the [cache] param,
+     sorted by the number of request
+     */
     private ArrayList<Video> mostWantedVideoForCache (Cache cache)
     {
         HashMap<Video, Integer> wantedVideos = new HashMap<>();

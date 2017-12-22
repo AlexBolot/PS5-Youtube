@@ -3,14 +3,12 @@ package fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.strategies;
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.*;
 
 /**
- If there is more than 500 queries for a video, they are assigned to the cache that is
- the nearest to the endpoint.
- (A cache is nearer when there is less latency between it and the endpoint)
-
  <hr>
- <h2>This is the Average Strategy :</h2>
- <h3>If there is more than 500 queries for a video, they are assigned to the cache that is
- the nearest to the endpoint.</h3>
+ <h2>Cache if Query Strategy :</h2>
+ <h3>
+ 1 - Find the average amount of request per video per endpoint<br>
+ 2 - Put the videos in the caches if they are requested more than the average by a endpoint.
+ </h3>
  <hr>
  */
 public class CacheIfQueryStrategy extends Strategy
@@ -31,6 +29,15 @@ public class CacheIfQueryStrategy extends Strategy
         super(data, 6);
     }
 
+    /**
+     <hr>
+     <h2>Implementation of the apply method</h2>
+     <h3>
+     1 - Find the average amount of request per video per endpoint<br>
+     2 - Put the videos in the caches if they are requested more than the average by a endpoint.
+     </h3>
+     <hr>
+     */
     public void apply ()
     {
         for (EndPoint endPoint : data.getEndPoints())
@@ -51,7 +58,14 @@ public class CacheIfQueryStrategy extends Strategy
         }
     }
 
-    public int getAverageRequestAmount ()
+    /**
+     <hr>
+     <h2>Finds the average amount of request per video per endpoint</h2>
+     <hr>
+
+     @return The average amount of request per video per endpoint
+     */
+    private int getAverageRequestAmount ()
     {
         int globalSum = 0;
 

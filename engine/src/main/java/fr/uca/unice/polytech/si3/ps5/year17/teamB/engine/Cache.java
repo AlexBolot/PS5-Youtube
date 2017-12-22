@@ -2,8 +2,6 @@ package fr.uca.unice.polytech.si3.ps5.year17.teamB.engine;
 
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 
-import java.util.Objects;
-
 public class Cache {
 
     private int id;
@@ -112,7 +110,6 @@ public class Cache {
         Cache cache = (Cache) o;
         return id == cache.id;
     }
-
 
     /**
      * ToString method
