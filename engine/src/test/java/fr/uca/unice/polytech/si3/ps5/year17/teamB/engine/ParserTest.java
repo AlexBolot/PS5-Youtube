@@ -139,8 +139,8 @@ class ParserTest {
             parser.parse(path_2);
         });
 
-        String path_3 = this.getClass().getResource("/me_at_the_zoo.in").getPath();
-        parser.parse(path_3);
+        InputStream stream3 = this.getClass().getResourceAsStream("/me_at_the_zoo.in");
+        parser.parse(stream3);
         assertFalse(parser.getData().isEmpty());
 
     }

@@ -45,12 +45,13 @@ public class Parser {
 
         try (BufferedReader in = new BufferedReader(inputStream)) {
             String[] firstLine = in.readLine().split(" ");
+
             if(firstLine.length != 5
-                    || !firstLine[0].matches("[0-9]")
-                    || !firstLine[1].matches("[0-9]")
-                    || !firstLine[2].matches("[0-9]")
-                    || !firstLine[3].matches("[0-9]")
-                    || !firstLine[4].matches("[0-9]")) throw new IllegalArgumentException("First line must contain 5 numbers");
+                    || !firstLine[0].matches("[ *[0-9]]*")
+                    || !firstLine[1].matches("[ *[0-9]]*")
+                    || !firstLine[2].matches("[ *[0-9]]*")
+                    || !firstLine[3].matches("[ *[0-9]]*")
+                    || !firstLine[4].matches("[ *[0-9]]*")) throw new IllegalArgumentException("First line must contain 5 numbers");
             numberOfVideos = Integer.parseInt(firstLine[0]);
             numberOfEndpoints = Integer.parseInt(firstLine[1]);
             numberOfRequestDescriptions = Integer.parseInt(firstLine[2]);
@@ -60,21 +61,21 @@ public class Parser {
 
             // Runs through the second line to get all video sizes
             for (int i = 0; i < numberOfVideos; i++) {
-                if(!secondLine[i].matches("[0-9]")) throw new IllegalArgumentException("Second line must only contain numbers");
+                if(!secondLine[i].matches("[ *[0-9]]*")) throw new IllegalArgumentException("Second line must only contain numbers");
                 String strSize = secondLine[i];
                 videos.add(new Video(i, Integer.parseInt(strSize)));
             }
             // Runs through the endpoints information
             for (int endpointId = 0; endpointId < numberOfEndpoints; endpointId++) {
                 String[] endpointsInformation = in.readLine().split(" ");
-                if (endpointsInformation.length != 2 || !endpointsInformation[endpointId].matches("[0-9]")) throw new IllegalArgumentException("File must only contain numbers");
+                if (endpointsInformation.length != 2 || !endpointsInformation[0].matches("[ *[0-9]]*") || !endpointsInformation[1].matches("[ *[0-9]]*")) throw new IllegalArgumentException("File must only contain numbers");
                 int dataCenterLatency = Integer.parseInt(endpointsInformation[0]);
                 int endpointNumberOfConnections = Integer.parseInt(endpointsInformation[1]);
                 endpoints.add(new EndPoint(endpointId, new ArrayList8<>(), dataCenterLatency, endpointNumberOfConnections));
                 // Runs through cache server information
                 for (int j = 0; j < endpointNumberOfConnections; j++) {
                     String[] cacheInformation = in.readLine().split(" ");
-                    if(cacheInformation.length != 2 || !cacheInformation[j].matches("[0-9]")) throw new IllegalArgumentException("File must only contain numbers");
+                    if(cacheInformation.length != 2 || !cacheInformation[0].matches("[ *[0-9]]*") || !cacheInformation[1].matches("[ *[0-9]]*")) throw new IllegalArgumentException("File must only contain numbers");
                     int cacheServerId = Integer.parseInt(cacheInformation[0]);
                     int latencyCacheEndpoint = Integer.parseInt(cacheInformation[1]);
                     connections.add(new Connection(cacheServerId, endpointId, latencyCacheEndpoint));
@@ -85,7 +86,7 @@ public class Parser {
             // Runs through the requests information
             for (int i = 0; i < numberOfRequestDescriptions; i++) {
                 String[] requestInformation = in.readLine().split(" ");
-                if(requestInformation.length != 3 || !requestInformation[i].matches("[0-9]")) throw new IllegalArgumentException("Requests description must contain 3 numbers");
+                if(requestInformation.length != 3 || !requestInformation[0].matches("[ *[0-9]]*") || !requestInformation[1].matches("[ *[0-9]]*") || !requestInformation[2].matches("[ *[0-9]]*")) throw new IllegalArgumentException("Requests description must contain 3 numbers");
                 int idVideo = Integer.parseInt(requestInformation[0]);
                 int endpointId = Integer.parseInt(requestInformation[1]);
                 int numberOfRequests = Integer.parseInt(requestInformation[2]);
