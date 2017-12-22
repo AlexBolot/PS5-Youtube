@@ -19,9 +19,7 @@ class ProbaTegyTest {
 
         Controller controller = new Controller(strategy);
 
-        System.out.println(controller.scoring(strategy.getData()));
-
-        assertEquals(controller.scoring(strategy.getData()), 144826.0, 1*10^-1);
+        assertEquals(controller.scoring(strategy.getData()), 144826.0, 0.1);
 
 
     }

@@ -21,6 +21,6 @@ public class AllInDataCenterStrategyTest
 
         Controller controller = new Controller(strategy);
 
-        assertEquals(controller.scoring(strategy.getData()), 0.0,1*10^-1);
+        assertEquals(controller.scoring(strategy.getData()), 0.0,0.1);
     }
 }
