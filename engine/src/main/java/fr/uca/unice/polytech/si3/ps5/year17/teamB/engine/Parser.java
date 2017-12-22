@@ -2,21 +2,19 @@ package fr.uca.unice.polytech.si3.ps5.year17.teamB.engine;
 
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class Parser {
 
-    private ArrayList8<Video> videos = new ArrayList8<>();
+    private ArrayList8<Video> videos;
 
-    private ArrayList8<EndPoint> endpoints = new ArrayList8<>();
+    private ArrayList8<EndPoint> endpoints;
 
-    private ArrayList8<Connection> connections = new ArrayList8<>();
+    private ArrayList8<Connection> connections;
 
-    private ArrayList8<Cache> caches = new ArrayList8<>();
+    private ArrayList8<Cache> caches;
 
-    private DataCenter dataCenter = new DataCenter();
+    private DataCenter dataCenter;
 
     private int numberOfVideos;
     private int numberOfEndpoints;
@@ -24,12 +22,15 @@ public class Parser {
     private int numberOfCacheServers;
     private int cacheServersCapacity;
 
-    public Parser()
-    {
+    public Parser() {
+        dataCenter = new DataCenter();
+        caches = new ArrayList8<>();
+        connections = new ArrayList8<>();
+        endpoints = new ArrayList8<>();
+        videos = new ArrayList8<>();
     }
 
-    public Parser(String path)
-    {
+    public Parser(String path) {
         this();
         parse(path);
     }
@@ -37,18 +38,10 @@ public class Parser {
     /**
      * Reads a .in file and parse the information
      * Saves the values in a data bundle
-     *
-     * @param path to the file
-     * @throws IOException
      */
-    public void parse(String path) throws IllegalArgumentException {
+    private void parse(InputStreamReader inputStream) {
 
-        // TODO Prendre en compte les cas d'erreur où les fichier ne sont pas au bon format
-        // OK chef
-
-        if (!path.matches("^.*\\.(in|in\\.txt)$")) throw new IllegalArgumentException("Only .in or .in.txt files can be read.");
-
-        try (BufferedReader in = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader in = new BufferedReader(inputStream)) {
             String[] firstLine = in.readLine().split(" ");
             numberOfVideos = Integer.parseInt(firstLine[0]);
             numberOfEndpoints = Integer.parseInt(firstLine[1]);
@@ -92,6 +85,21 @@ public class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void parse(String path) {
+        if (!path.matches("^.*\\.(in|in\\.txt)$"))
+            throw new IllegalArgumentException("Only .in or .in.txt files can be read.");
+
+        try {
+            parse(new FileReader(path));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void parse(InputStream inputStream) {
+        parse(new InputStreamReader(inputStream));
     }
 
     public ArrayList8<Cache> getCaches() {

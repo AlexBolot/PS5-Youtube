@@ -5,6 +5,7 @@ import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,9 +17,8 @@ class ParserTest {
     @Test
     void testParsingMeAtTheZoo() {
         Parser parser = new Parser();
-        String path = this.getClass().getResource("/me_at_the_zoo.in").getPath();
-        //parser.parse("C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/me_at_the_zoo.in");
-        parser.parse(path);
+        InputStream in = this.getClass().getResourceAsStream("/me_at_the_zoo.in");
+        parser.parse(in);
         DataBundle dataBundle = new DataBundle(parser.getData());
         ArrayList8<Connection> connections = dataBundle.getConnections();
         ArrayList8<Video> videos = dataBundle.getVideos();
@@ -72,9 +72,8 @@ class ParserTest {
     @Test
     void testParsingKittens() {
         Parser parser = new Parser();
-        String path = this.getClass().getResource("/kittens.in.txt").getPath();
-        //parser.parse("C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/kittens.in.txt");
-        parser.parse(path);
+        InputStream in = this.getClass().getResourceAsStream("/kittens.in.txt");
+        parser.parse(in);
         DataBundle dataBundle = new DataBundle(parser.getData());
         ArrayList8<Connection> connections = dataBundle.getConnections();
         ArrayList8<Video> videos = dataBundle.getVideos();

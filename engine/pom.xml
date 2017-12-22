@@ -23,4 +23,12 @@
         </resources>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.11</version>
+        </dependency>
+    </dependencies>
+
 </project>

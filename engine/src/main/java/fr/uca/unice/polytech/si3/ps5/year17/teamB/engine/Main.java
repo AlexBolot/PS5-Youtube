@@ -2,12 +2,13 @@ package fr.uca.unice.polytech.si3.ps5.year17.teamB.engine;
 
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.strategies.*;
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
+import org.reflections.Reflections;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * <pre>
@@ -75,48 +76,20 @@ public class Main {
 
         List<Strategy> strategies = new ArrayList8<>();
 
-        //String path = Main.class.getResource("strategies/").getPath();
-        String path = "C:/Users/lyes/Documents/1TRAVAIL/Polytech 2017-2018/Projets/FinalProject/engine/target/classes/fr/uca/unice/polytech/si3/ps5/year17/teamB/engine/strategies";
+        Reflections reflections = new Reflections("fr.uca.unice.polytech.si3.ps5.year17.teamB.engine");
 
-        File folder = new File(path);
-        File[] listOfFiles = folder.listFiles();
+        Set<Class<? extends Strategy>> strategySubType = reflections.getSubTypesOf(Strategy.class);
 
-        String[] possibleStrategies = new String[listOfFiles.length - 1];
-        int n = 0;
-        for (File file : listOfFiles) {
-            String fileName = file.getName();
-            if (fileName.equals("Strategy.class")) continue;
-            possibleStrategies[n++] = fileName.split(".class")[0];
-        }
-
-        Class[] strategiesClass = new Class[possibleStrategies.length];
-
-        for (int i = 0; i < possibleStrategies.length; i++) {
-            try {
-                strategiesClass[i] = Class.forName("fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.strategies." + possibleStrategies[i]);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        for (Class cl : strategiesClass) {
-            if (!cl.getSuperclass().getSimpleName().equals("Strategy")) continue;
-
+        for (Class<? extends Strategy> cl : strategySubType) {
             Class[] types = new Class[]{DataBundle.class};
 
-            Constructor ct = null;
-            Strategy o2 = null;
+            Constructor ct;
+            Strategy o2;
             try {
                 ct = cl.getConstructor(types);
                 o2 = (Strategy) ct.newInstance(dataBundle);
                 strategies.add(o2);
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         }

@@ -2,10 +2,13 @@ package fr.uca.unice.polytech.si3.ps5.year17.teamB.engine;
 
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.strategies.Strategy;
 
+import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Controller {
 
@@ -61,9 +64,9 @@ public class Controller {
         String result = strategy.toString();
         String score = scoring(strategy.getData()) + "";
 
-        System.out.println("Strategy : " + strategy.getClass().getSimpleName() + "\n");
-        System.out.println("Data Output : \n\n" + result + "\n");
-        System.out.println("Score : " + score + "\n");
+//        System.out.println("Strategy : " + strategy.getClass().getSimpleName() + "\n");
+//        System.out.println("Data Output : \n\n" + result + "\n");
+//        System.out.println("Score : " + score + "\n");
 
         try (PrintWriter dataOut = new PrintWriter(dataPath, "UTF-8");
              PrintWriter scoreOut = new PrintWriter(scorePath, "UTF-8")) {
