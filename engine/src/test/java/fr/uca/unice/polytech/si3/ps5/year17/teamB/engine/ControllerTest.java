@@ -4,6 +4,7 @@ import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -91,6 +92,16 @@ class ControllerTest {
 
     @Test
     void generateOutput() {
+
+        String dataPath = "C:\\Users\\user\\Desktop\\Result\\dataTest.out";
+        String scorePath = "C:\\Users\\user\\Desktop\\Result\\dataTest.out";
+        controller.generateOutput(dataPath, scorePath);
+
+        File f = new File(dataPath);
+        assertEquals(true, f.exists());
+        File f2 = new File(scorePath);
+        assertEquals(true, f2.exists());
+
     }
 
 }
