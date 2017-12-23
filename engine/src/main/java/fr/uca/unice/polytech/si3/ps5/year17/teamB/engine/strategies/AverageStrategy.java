@@ -90,7 +90,6 @@ public class AverageStrategy extends Strategy
             for (int j = 0; j < cpy.size(); ++j)
             {
                 Video video = data.getVideos().get(j);
-
                 if (!cache.getVideos().contains(video) && isRequestedByEndPoint(video, cache) && cache.addVideo(video))
                 {
                     videoToRemove.add(video);

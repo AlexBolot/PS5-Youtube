@@ -3,7 +3,11 @@ package fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.strategies;
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.*;
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  <pre>

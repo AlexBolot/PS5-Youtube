@@ -8,7 +8,7 @@ import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.utils.ArrayList8;
 /**
  <hr>
  <h2>ProbaTegy :</h2>
- <h3>Puts random videos in random caches</h3>
+ <h3>Puts random videos in caches</h3>
  <hr>
  */
 public class RandomStrategy extends Strategy
@@ -36,7 +36,7 @@ public class RandomStrategy extends Strategy
     /**
      <hr>
      <h2>Implementation of the apply method</h2>
-     <h3>Puts random videos in random caches</h3>
+     <h3>Puts random videos in caches</h3>
      <hr>
      */
     @Override

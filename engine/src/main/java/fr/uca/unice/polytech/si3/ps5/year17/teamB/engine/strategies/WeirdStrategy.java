@@ -42,10 +42,8 @@ public class WeirdStrategy extends Strategy {
      */
     private void connectVideoToBestCache(Video video, ArrayList<EndPoint> endpoints, ArrayList<Connection> connections, ArrayList<Cache> caches) {
 
-    //region Hmm yes the for here is made out of for
-
+    //region
         /*
-
               __...-=--=-=--=---=---=-..__
  .,--~                            ~~--.._
 '                .,;;!!!!!!!;;,,,.       `--._
@@ -63,7 +61,7 @@ public class WeirdStrategy extends Strategy {
      ;;!'.$$$$$$$$$$$$$$$$$$$$$$hcc:hh$$$$$$$$$$                     \
     '!!! $$$$$$$$$$$$$$F"????????"""""?$$$$$$$$$L                     \
      !! 4$$$$$$$$$$$$L,c  .,,,,,,,,,,. ?$$$$$$$$$                      `.
-     !>.$$$$$$$$$$$$$$$$L   `````````  J$$$$$$$$$.                       \
+     !>.$$$$$$$$$$$$$$$$L   `````````  J$$$$$$$$$. Hmm, yes the for here is made out of for
      !>`$$$$$$$$$$$$$$$$$$ `  ```````  J$$$$$$$$$'                       ;
     '!! $$$$$$$$$$$$$$$$$$$$$$$$$ccccc??$$$$$$$$$                     . z$
     <!! $$$$$$$$$$$$$$$$$$$$$$$cccccccc$$$$$$$$$$                   d$F.$$
@@ -99,9 +97,6 @@ MMMmn,..,xmnmdMMMMMMMMMMMMMnx."4MMMMMMMMMMMMMMMMMMMMn.`"4MMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMb,."4MMMMMMMMMMMMMMMMMMMMMx."4MMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMbx."44MMMMMMMMMMMMMMMMMMMMx "4MMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMn.""4MMMMMMMMMMMMMMMMMMbx "4MMMMMMMM
-
-
-
         */
 
     //endregion

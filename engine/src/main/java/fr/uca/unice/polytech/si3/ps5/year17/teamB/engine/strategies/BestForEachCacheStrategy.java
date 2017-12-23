@@ -45,7 +45,7 @@ public class BestForEachCacheStrategy extends Strategy
 
     /**
      <hr>
-     <h2>Tells wether the [cache] param is connected to at least one EndPoint</h2>
+     <h2>Tells weather the [cache] param is connected to at least one EndPoint</h2>
      <hr>
 
      @param cache Cache to be looked for in the connections list
@@ -62,7 +62,7 @@ public class BestForEachCacheStrategy extends Strategy
      sorted by the number of request</h2>
      <hr>
 
-     @param cache Cache to be looked to find the EndPoints and the Videos
+     @param cache to be looked to find the EndPoints and the Videos
      @return The list of videos wanted by the EndPoints connected to the [cache] param,
      sorted by the number of request
      */
