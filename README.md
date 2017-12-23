@@ -1,4 +1,4 @@
-#Google HashCode Project, TeamB
+# Google HashCode Project, TeamB
 
 ## Summary
 1. About the project
