@@ -56,6 +56,14 @@ mvn exec:java \
     full/path/to/benchmark/file/result.json\
     full/path/to/result/folder"
 ```
+
+You will need those packages :
+* shiny
+* shinydashboard
+* ggplot2
+
+To execute visu.r, run this on the R console :
+`shiny::runApp()`
 ##  3 - Coming soon
 Nothing, this project was a one week challenge and the client will not ask for maintenance nor for more features.
 ##  4 - Libraries used

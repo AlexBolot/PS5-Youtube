@@ -45,22 +45,19 @@ public class Parser {
     private void parse(InputStreamReader inputStream) throws IllegalArgumentException {
 
         try (BufferedReader in = new BufferedReader(inputStream)) {
-
-
-            String[] firstLine = in.readLine().split(" ");
-
-            if(firstLine.length != 5
-                    || !firstLine[0].matches("[ *[0-9]]*")
-                    || !firstLine[1].matches("[ *[0-9]]*")
-                    || !firstLine[2].matches("[ *[0-9]]*")
-                    || !firstLine[3].matches("[ *[0-9]]*")
-                    || !firstLine[4].matches("[ *[0-9]]*")) throw new IllegalArgumentException("First line must contain 5 numbers");
+            String line = in.readLine();
+            if (!line.matches("[ *[0-9]]*")) throw new IllegalArgumentException("First line must contain only number");
+            String[] firstLine = line.split(" ");
+            if(firstLine.length != 5) throw new IllegalArgumentException("First line must contain 5 numbers");
             numberOfVideos = Integer.parseInt(firstLine[0]);
             numberOfEndpoints = Integer.parseInt(firstLine[1]);
             numberOfRequestDescriptions = Integer.parseInt(firstLine[2]);
             numberOfCacheServers = Integer.parseInt(firstLine[3]);
             cacheServersCapacity = Integer.parseInt(firstLine[4]);
-            String[] secondLine = in.readLine().split(" ");
+
+            String second = in.readLine();
+            if(!second.matches("[ *[0-9]]*")) throw new IllegalArgumentException("Second line must only contain numbers");
+            String[] secondLine = second.split(" ");
 
             // Runs through the second line to get all video sizes
             for (int i = 0; i < numberOfVideos; i++) {

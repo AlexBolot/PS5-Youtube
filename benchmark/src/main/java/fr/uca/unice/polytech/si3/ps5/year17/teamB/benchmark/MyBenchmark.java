@@ -2,7 +2,6 @@ package fr.uca.unice.polytech.si3.ps5.year17.teamB.benchmark;
 
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.Controller;
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.DataBundle;
-import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.Main;
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.Parser;
 import fr.uca.unice.polytech.si3.ps5.year17.teamB.engine.strategies.*;
 import org.openjdk.jmh.annotations.*;
@@ -20,7 +19,7 @@ public class MyBenchmark {
     private Strategy random;
     private Strategy firstIn;
     private Strategy cacheIfQuery;
-    private Strategy dynamic;
+    private Strategy weird;
     private Strategy bestForEachCache;
     private Strategy average;
     private Strategy probategy;
@@ -39,7 +38,7 @@ public class MyBenchmark {
         this.cacheIfQuery = new CacheIfQueryStrategy(data);
         this.average = new AverageStrategy(data);
         this.lighestInCache = new LightestsInCache(data);
-        this.dynamic = new DynamicStrategy(data);
+        this.weird = new WeirdStrategy(data);
         this.probategy = new ProbaTegy(data);
         this.bestForEachCache = new BestForEachCacheStrategy(data);
     }
@@ -98,9 +97,9 @@ public class MyBenchmark {
     @Warmup(iterations = 2)
     @Measurement(iterations = 5)
     @OutputTimeUnit(TimeUnit.SECONDS)
-    public void measureDynamicStrategy() {
-        dynamic.apply();
-        dynamic = new DynamicStrategy(data);
+    public void measureWeirdStrategy() {
+        weird.apply();
+        weird = new WeirdStrategy(data);
     }
 
     @Benchmark
